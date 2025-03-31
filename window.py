@@ -64,7 +64,7 @@ class Ui_MainWindow(object):
         self.menuAlgorithms.addAction(self.menuDynamicProgramming.menuAction())
         self.menuAlgorithms.addAction(self.menuOther.menuAction())
         
-        # Create actions for algorithms (we'll connect these in main.py)
+        # Create actions for algorithms
         self.actionBubbleSort = QtWidgets.QAction(MainWindow)
         self.actionBubbleSort.setObjectName("actionBubbleSort")
         self.actionInsertionSort = QtWidgets.QAction(MainWindow)
