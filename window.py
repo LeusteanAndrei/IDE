@@ -16,10 +16,12 @@ class Ui_MainWindow(object):
         # MainWindow.resize(1105, 632)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, screenWidth - 100, screenHeight - 100))
         # self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, 1051, 571))
         self.plainTextEdit.setObjectName("plainTextEdit")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1105, 26))
@@ -28,7 +30,7 @@ class Ui_MainWindow(object):
         # Add Algorithm menu
         self.menuAlgorithms = QtWidgets.QMenu(self.menubar)
         self.menuAlgorithms.setObjectName("menuAlgorithms")
-        
+
         # Add sub-menus for each algorithm category
         self.menuSorting = QtWidgets.QMenu(self.menuAlgorithms)
         self.menuSorting.setObjectName("menuSorting")
@@ -122,15 +124,56 @@ class Ui_MainWindow(object):
         
         self.menuOther.addAction(self.actionPrimeCheck)
         self.menuOther.addAction(self.actionGCD)
+        
+        '''Files Menu Section'''
+        #Added Files menu
+        self.menuFiles = QtWidgets.QMenu(self.menubar)
+        self.menuFiles.setObjectName("menuFiles")
+        
+        # Sub-menus for Files menu
+        self.menuNewFile = QtWidgets.QMenu(self.menuFiles)
+        self.menuNewFile.setObjectName("menuNewFile")
+
+        self.menuOpenFile = QtWidgets.QMenu(self.menuFiles)
+        self.menuOpenFile.setObjectName("menuOpenFile")
+
+        self.menuSaveFile = QtWidgets.QMenu(self.menuFiles)
+        self.menuSaveFile.setObjectName("menuSaveFile")
+
+        self.menuSaveFileAs = QtWidgets.QMenu(self.menuFiles)
+        self.menuSaveFileAs.setObjectName("menuSaveFileAs")
+
+        # Add the Files menu to the menu bar
+        self.menubar.addAction(self.menuFiles.menuAction())
+        
+        # Create actions for File Methods
+        self.actionNewFile = QtWidgets.QAction(MainWindow)
+        self.actionNewFile.setObjectName("actionNewFile")
+
+        self.actionOpenFile = QtWidgets.QAction(MainWindow)
+        self.actionOpenFile.setObjectName("actionOpenFile")
+
+        self.actionSaveFile = QtWidgets.QAction(MainWindow)
+        self.actionSaveFile.setObjectName("actionSaveFile")
+
+        self.actionSaveFileAs = QtWidgets.QAction(MainWindow)
+        self.actionSaveFileAs.setObjectName("actionSaveFileAs")
+
+        # Add actions to the Files menu
+        self.menuFiles.addAction(self.actionNewFile)
+        self.menuFiles.addAction(self.actionOpenFile)
+        self.menuFiles.addAction(self.actionSaveFile)
+        self.menuFiles.addAction(self.actionSaveFileAs)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "C++ IDE"))
         
-        # Set menu titles
+        # Set menu titles (for algorithms)
         self.menuAlgorithms.setTitle(_translate("MainWindow", "Algorithms"))
         self.menuSorting.setTitle(_translate("MainWindow", "Sorting"))
         self.menuSearching.setTitle(_translate("MainWindow", "Searching"))
@@ -161,6 +204,12 @@ class Ui_MainWindow(object):
         self.actionPrimeCheck.setText(_translate("MainWindow", "Prime Check"))
         self.actionGCD.setText(_translate("MainWindow", "GCD"))
 
+        #Set menu titles (for files)
+        self.menuFiles.setTitle(_translate("MainWindow", "File"))
+        self.actionNewFile.setText(_translate("MainWindow", "New File"))
+        self.actionOpenFile.setText(_translate("MainWindow", "Open File"))
+        self.actionSaveFile.setText(_translate("MainWindow", "Save File"))
+        self.actionSaveFileAs.setText(_translate("MainWindow", "Save File As"))
 
 # if __name__ == "__main__":
 #     import sys

@@ -2,7 +2,8 @@ from window import *
 import sys
 from Highlighter.highlighter import cPlusPlusHighlighter
 from algorithms import ALGORITHMS
-
+from file_methods import *
+from shortcuts import ShortcutManager
 
 def insert_algorithm(editor, algorithm_code):
     """Insert algorithm code at the current cursor position in the editor"""
@@ -10,6 +11,9 @@ def insert_algorithm(editor, algorithm_code):
     cursor.insertText(algorithm_code)
     editor.setTextCursor(cursor)
 
+def get_current_editor(tab_widget):
+    """Get the current editor from the active tab"""
+    return tab_widget.currentWidget()
 
 if __name__ == "__main__":
     f = open("testingCode.cpp", "r")
@@ -30,6 +34,13 @@ if __name__ == "__main__":
     font.setPointSize(20)
     editor.setFont(font)    
     highlighter = cPlusPlusHighlighter(editor.document())
+    
+
+    # Initialize the ShortcutManager
+    shortcut_manager = ShortcutManager(MainWindow)
+    # Add shortcuts
+    shortcut_manager.add_shortcut("Ctrl+S", lambda: save_file(editor))
+    shortcut_manager.add_shortcut("Ctrl+N", lambda: new_file(editor))
     
     # Connect algorithm actions to their respective functions
     # Sorting algorithms
@@ -74,5 +85,21 @@ if __name__ == "__main__":
     ui.actionGCD.triggered.connect(
         lambda: insert_algorithm(editor, ALGORITHMS["Other"]["GCD"]))
     
+
+    # Connect Files actions to their respective functions
+    ui.actionNewFile.triggered.connect(
+        lambda: new_file(editor)
+    )
+    ui.actionOpenFile.triggered.connect(
+        lambda: open_file(editor)
+    )
+    ui.actionSaveFile.triggered.connect(
+        lambda: save_file(editor)
+    )
+    ui.actionSaveFileAs.triggered.connect(
+        lambda: save_as_file(editor)
+    )
+
+
     editor.show()
     sys.exit(app.exec_())
