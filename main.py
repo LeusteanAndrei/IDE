@@ -4,6 +4,7 @@ from Highlighter.highlighter import cPlusPlusHighlighter
 from algorithms import ALGORITHMS
 from file_methods import *
 from shortcuts import ShortcutManager
+from folder_open import initialize_sidebar_and_splitter, open_folder
 
 def insert_algorithm(editor, algorithm_code):
     """Insert algorithm code at the current cursor position in the editor"""
@@ -11,7 +12,7 @@ def insert_algorithm(editor, algorithm_code):
     cursor.insertText(algorithm_code)
     editor.setTextCursor(cursor)
 
-def get_current_editor(tab_widget):
+def get_current_editor(tab_widget): #asta e pt ca am incercat sa fac posibilitatea de a avea mai multe taburi deschise - momentan a fost cam fail
     """Get the current editor from the active tab"""
     return tab_widget.currentWidget()
 
@@ -35,8 +36,10 @@ if __name__ == "__main__":
     editor.setFont(font)    
     highlighter = cPlusPlusHighlighter(editor.document())
     
+    #Sidebar and splitter initialization for opening folders
+    splitter, tree_view, file_model = initialize_sidebar_and_splitter(MainWindow, editor)
 
-    # Initialize the ShortcutManager
+    # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     shortcut_manager = ShortcutManager(MainWindow)
     # Add shortcuts
     shortcut_manager.add_shortcut("Ctrl+S", lambda: save_file(editor))
@@ -99,7 +102,9 @@ if __name__ == "__main__":
     ui.actionSaveFileAs.triggered.connect(
         lambda: save_as_file(editor)
     )
-
+    ui.actionOpenFolder.triggered.connect(
+        lambda: open_folder(file_model, tree_view)
+    )
 
     editor.show()
     sys.exit(app.exec_())

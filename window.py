@@ -143,6 +143,9 @@ class Ui_MainWindow(object):
         self.menuSaveFileAs = QtWidgets.QMenu(self.menuFiles)
         self.menuSaveFileAs.setObjectName("menuSaveFileAs")
 
+        self.menuOpenFolder = QtWidgets.QMenu(self.menuFiles)
+        self.menuOpenFolder.setObjectName("menuOpenFolder")
+
         # Add the Files menu to the menu bar
         self.menubar.addAction(self.menuFiles.menuAction())
         
@@ -159,12 +162,16 @@ class Ui_MainWindow(object):
         self.actionSaveFileAs = QtWidgets.QAction(MainWindow)
         self.actionSaveFileAs.setObjectName("actionSaveFileAs")
 
+        self.actionOpenFolder = QtWidgets.QAction(MainWindow)
+        self.actionOpenFolder.setObjectName("actionOpenFolder")
+
         # Add actions to the Files menu
         self.menuFiles.addAction(self.actionNewFile)
         self.menuFiles.addAction(self.actionOpenFile)
         self.menuFiles.addAction(self.actionSaveFile)
         self.menuFiles.addAction(self.actionSaveFileAs)
-
+        self.menuFiles.addAction(self.actionOpenFolder)
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -210,7 +217,7 @@ class Ui_MainWindow(object):
         self.actionOpenFile.setText(_translate("MainWindow", "Open File"))
         self.actionSaveFile.setText(_translate("MainWindow", "Save File"))
         self.actionSaveFileAs.setText(_translate("MainWindow", "Save File As"))
-
+        self.actionOpenFolder.setText(_translate("MainWindow", "Open Folder"))
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)
