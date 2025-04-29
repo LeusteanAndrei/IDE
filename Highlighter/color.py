@@ -1,5 +1,7 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
 
+#astea o sa mai trbuiasca modificate ca sa se potrivrasca cu tema IDE-ului nostru
+
 class Colors:
     Red = QtGui.QColor(255, 0, 0)
     Green = QtGui.QColor(0, 255, 0)

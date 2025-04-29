@@ -4,7 +4,7 @@ from PyQt5.QtCore import QDir
 #In general am lasat si descrierile pe care mi le-a mai dat copilot la inceputul functiilor in order to better get the idea
 #sincer e putin cam messy codul pt ca am incercat sa pun cat mai mult din el in functii ca dupa sa fie mai usor de adaptat
 #o sa fie o durere imensa sa refacem designul F
-def initialize_sidebar_and_splitter(MainWindow, editor):
+def initialize_sidebar_and_splitter(editor):
     """
     Initialize the sidebar (file tree) and splitter layout.
     Args:
@@ -34,12 +34,9 @@ def initialize_sidebar_and_splitter(MainWindow, editor):
 
     editor.setMinimumSize(1000, 1000)  # setat manual pt ca din nush ce motiv editorul se face foarte mic din cauza functiei .addWidget(editor)
     # Initialize the splitter
-    splitter = QSplitter(MainWindow)
+    splitter = QSplitter()
     splitter.addWidget(tree_view)  # Add the sidebar
     splitter.addWidget(editor)  # Add the editor
-
-    # Set the splitter as the central widget of the main window
-    MainWindow.setCentralWidget(splitter)
 
     return splitter, tree_view, file_model
 
@@ -76,7 +73,7 @@ def open_file_from_sidebar(index, file_model, editor):
         try:
             with open(file_path, 'r') as file:
                 content = file.read()
-            editor.setPlainText(content)
+            editor.text_edit.setPlainText(content)
             print(f"Opened file: {file_path}")
         except Exception as e:
             QMessageBox.critical(None, "Error", f"Failed to open file: {e}")
