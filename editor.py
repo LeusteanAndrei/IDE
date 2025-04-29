@@ -24,6 +24,9 @@ class Editor(QWidget):
     def __init__(self):
         super().__init__()
 
+        self.current_file_name = None
+        self.current_file_path = None
+
         self.version = 0
         self.temp_file_path = None
         self.temp_file_uri = None
@@ -117,10 +120,10 @@ class Editor(QWidget):
                     self.handle_message(json.loads(json_in_string))
                 except UnicodeDecodeError as e:
                     Log.logger.error(f"Failed to decode response: {e}")
-                    raise e
+                    # raise e
                 except json.JSONDecodeError as e:
                     Log.logger.error(f"Failed to parse JSON response: {e}")
-                    raise e
+                    # raise e
 
     def handle_message(self, message):
         if 'method' in message:

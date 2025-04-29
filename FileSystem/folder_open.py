@@ -14,7 +14,9 @@ def initialize_sidebar_and_splitter(editor):
         splitter: The QSplitter containing the sidebar and editor.
         tree_view: The QTreeView for the file tree.
         file_model: The QFileSystemModel for the file system.
+    
     """
+    
     # Initialize the file system model
     file_model = QFileSystemModel()
     file_model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot | QDir.Files) #filtring in order to only show directories -
@@ -64,6 +66,8 @@ def open_file_from_sidebar(index, file_model, editor):
     """
     file_path = file_model.filePath(index)
     file_extension = file_path.split('.')[-1].lower() #obtain the extension (without .)
+
+
 
     # Supported file types
     supported_extensions = ['txt', 'cpp', 'py', 'md', 'h'] #extensions supported - mai adaugati daca va vin idei, in general am putea deschide orice e de tip text

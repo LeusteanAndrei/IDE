@@ -3,11 +3,12 @@ from PyQt5.QtCore import Qt, QProcess
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QSplitter
 from FileSystem.folder_open import initialize_sidebar_and_splitter
-import os
+import os, subprocess
 
 
 class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga terminalul:))
     def setupUi(self, MainWindow):
+
 
         screenSize = QtWidgets.QDesktopWidget().screenGeometry()
         screenWidth = screenSize.width()
@@ -18,8 +19,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.showMaximized()
-        MainWindow.showMinimized()
-        MainWindow.showMaximized()
+        # MainWindow.showMinimized()
+        # MainWindow.showMaximized()
         # MainWindow.resize(maximizedWidth, )
         # MainWindow.resize(1105, 632)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -45,6 +46,10 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             button.setObjectName(name)
             self.sections.append(button)
             self.sectionLayout.addWidget(button)
+        
+        #Adaugam functia care ruleaza cod pe butonul de Run
+        self.run_button = self.sections[section_names.index("Run")]
+        self.run_button.clicked.connect(lambda: self.run_code())
 
         #In sectiunea de Code am adaugat momentan dropdwon-urile pt algoritmi
         #Sectiuea de File - functiile pt sistemul de fisiere
@@ -209,6 +214,9 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.splitter.setSizes([1, 4])
         self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
 
+        #Output pentru run code:
+
+        
         #Terminal (Zona 5)
         self.terminal = QtWidgets.QPlainTextEdit()
         self.terminal.setReadOnly(False)
@@ -242,6 +250,36 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def run_code(self):
+        print("Run Code")
+        # opened_file = self.plainTextEdit.currentFile
+        from FileSystem.file_methods import current_file_path
+
+        # print(current_file_path)
+        # print(current_file_path.split('/')[-1])
+        file_directory = os.path.dirname(current_file_path)
+        executable_file_name = os.path.basename(current_file_path).split(".")[0] + ".exe"
+        command = ["LLVM/bin/clang++.exe", current_file_path, "-o", file_directory+"/" + executable_file_name]
+
+
+        result = subprocess.run(command,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                text=True,
+        )       
+        if result.returncode !=0 :
+            print("EROARE: ", result.stderr)
+            return
+        run_command = file_directory + "/" + executable_file_name
+        result = subprocess.run(run_command, 
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                text=True,
+        )
+        if result.returncode !=0 :
+            print("EROARE: ", result.stderr)
+            return
+        print("SUCCES: \n", result.stdout)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

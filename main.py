@@ -19,10 +19,10 @@ def get_current_editor(tab_widget): #asta e pt ca am incercat sa fac posibilitat
     return tab_widget.currentWidget()
 
 if __name__ == "__main__":
-    f = open("testingCode.cpp", "r")
-    testText = f.readlines()
-    test = "".join(testText)
-    f.close()
+    # f = open("testingCode.cpp", "r")
+    # testText = f.readlines()
+    # test = "".join(testText)
+    # f.close()
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
@@ -42,10 +42,11 @@ if __name__ == "__main__":
     ui.buttons[19].clicked.connect(lambda: toggle_terminal(ui.terminal, ui.terminal_splitter)) #terminal toggle button (ultimul din zona 2)
 
     editor = ui.plainTextEdit.text_edit
-    editor.setPlainText(test)
+    # editor.setPlainText(test)
     
 
     editor.setStyleSheet(style.EDITOR_STYLE)
+    # editor.setStyleSheet()
     font = editor.font()
     font.setPointSize(style.EDITOR_FONT_SIZE)
     editor.setFont(font)    

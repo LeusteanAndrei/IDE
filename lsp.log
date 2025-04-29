@@ -1,4 +1,4 @@
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp4gmh91fy.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp9ohsy4ew.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -144,25 +144,8 @@ Received response: {
     "jsonrpc": "2.0",
     "method": "textDocument/publishDiagnostics",
     "params": {
-        "diagnostics": [
-            {
-                "code": "-Wcomment",
-                "message": "'/*' within block comment",
-                "range": {
-                    "end": {
-                        "character": 38,
-                        "line": 5
-                    },
-                    "start": {
-                        "character": 38,
-                        "line": 5
-                    }
-                },
-                "severity": 2,
-                "source": "clang"
-            }
-        ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4gmh91fy.cpp",
+        "diagnostics": [],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp9ohsy4ew.cpp",
         "version": 0
     }
 }

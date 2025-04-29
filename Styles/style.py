@@ -3,7 +3,7 @@
 
 EDITOR_STYLE = """
 QPlainTextEdit {
-    background-color: #35374b;
+    background-color: white;
     color: #70947c;
     font-size: 22px;
     border: 1px solid #5c5f77;

@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QFileDialog, QInputDialog, QMessageBox
 
 current_file_path = None #with this one we verify what the current file path is)
 
+
 def save_as_file(editor):
     """Save the current of the editor into a new file"""
     global current_file_path
@@ -49,6 +50,8 @@ def open_file(editor):
     file_path, _ = QFileDialog.getOpenFileName(
         None, "Open File", "", "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", options=options
     )
+
+
     if file_path:
         with open(file_path, 'r') as file:
             content=file.read()
