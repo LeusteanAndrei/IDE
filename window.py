@@ -12,13 +12,15 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         screenSize = QtWidgets.QDesktopWidget().screenGeometry()
         screenWidth = screenSize.width()
         screenHeight = screenSize.height()
-
-        MainWindow.showMaximized()
+        maximizedWidth = screenWidth - 100
+        maximizedHeight = screenHeight - 100
 
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.showMaximized()
-        # MainWindow.resize(screenWidth, screenHeight)
+        MainWindow.showMinimized()
+        MainWindow.showMaximized()
+        # MainWindow.resize(maximizedWidth, )
         # MainWindow.resize(1105, 632)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

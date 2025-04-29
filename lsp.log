@@ -1,4 +1,4 @@
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp14vkwlei.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp4gmh91fy.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -162,7 +162,7 @@ Received response: {
                 "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp14vkwlei.cpp",
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4gmh91fy.cpp",
         "version": 0
     }
 }
