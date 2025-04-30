@@ -1,4 +1,4 @@
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Temporary file created: C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -145,130 +145,2230 @@ Received response: {
     "method": "textDocument/publishDiagnostics",
     "params": {
         "diagnostics": [],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
         "version": 0
     }
 }
 Diagnostics received from LSP.
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
 Request sent with method textDocument/didChange
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
-Request sent with method textDocument/didChange
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
-Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
 Handling response from LSP
 Received response: {
+    "id": 1,
     "jsonrpc": "2.0",
-    "method": "textDocument/publishDiagnostics",
-    "params": {
-        "diagnostics": [
+    "result": {
+        "isIncomplete": true,
+        "items": [
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 19,
-                        "line": 0
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 0
+                "filterText": "size_t",
+                "insertText": "size_t",
+                "insertTextFormat": 1,
+                "kind": 8,
+                "label": " size_t",
+                "score": 1.5456733703613281,
+                "sortText": "403a2760size_t",
+                "textEdit": {
+                    "newText": "size_t",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
                     }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                }
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
+                "filterText": "type_info",
+                "insertText": "type_info",
+                "insertTextFormat": 1,
+                "kind": 7,
+                "label": " type_info",
+                "score": 1.0411033630371094,
+                "sortText": "407abd20type_info",
+                "textEdit": {
+                    "newText": "type_info",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
                     }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            }
-        ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
-        "version": 2
-    }
-}
-Diagnostics received from LSP.
-Handling response from LSP
-Received response: {
-    "jsonrpc": "2.0",
-    "method": "textDocument/publishDiagnostics",
-    "params": {
-        "diagnostics": [
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 19,
-                        "line": 0
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 0
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                }
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
+                "filterText": "_Nonnull",
+                "insertText": "_Nonnull",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " _Nonnull",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7a_Nonnull",
+                "textEdit": {
+                    "newText": "_Nonnull",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
                     }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                }
+            },
+            {
+                "filterText": "_Null_unspecified",
+                "insertText": "_Null_unspecified",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " _Null_unspecified",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7a_Null_unspecified",
+                "textEdit": {
+                    "newText": "_Null_unspecified",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_Nullable",
+                "insertText": "_Nullable",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " _Nullable",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7a_Nullable",
+                "textEdit": {
+                    "newText": "_Nullable",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "alignas",
+                "insertText": "alignas",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " alignas(expression)",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aalignas",
+                "textEdit": {
+                    "newText": "alignas",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "asm",
+                "insertText": "asm",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " asm(string-literal)",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aasm",
+                "textEdit": {
+                    "newText": "asm",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "auto",
+                "insertText": "auto",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " auto",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aauto",
+                "textEdit": {
+                    "newText": "auto",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "bool",
+                "insertText": "bool",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " bool",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7abool",
+                "textEdit": {
+                    "newText": "bool",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "char",
+                "insertText": "char",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " char",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7achar",
+                "textEdit": {
+                    "newText": "char",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "char16_t",
+                "insertText": "char16_t",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " char16_t",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7achar16_t",
+                "textEdit": {
+                    "newText": "char16_t",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "char32_t",
+                "insertText": "char32_t",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " char32_t",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7achar32_t",
+                "textEdit": {
+                    "newText": "char32_t",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "class",
+                "insertText": "class",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " class",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aclass",
+                "textEdit": {
+                    "newText": "class",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "const",
+                "insertText": "const",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " const",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aconst",
+                "textEdit": {
+                    "newText": "const",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "constexpr",
+                "insertText": "constexpr",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " constexpr",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aconstexpr",
+                "textEdit": {
+                    "newText": "constexpr",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "decltype",
+                "insertText": "decltype",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " decltype(expression)",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7adecltype",
+                "textEdit": {
+                    "newText": "decltype",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "double",
+                "insertText": "double",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " double",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7adouble",
+                "textEdit": {
+                    "newText": "double",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "enum",
+                "insertText": "enum",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " enum",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aenum",
+                "textEdit": {
+                    "newText": "enum",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "extern",
+                "insertText": "extern",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " extern",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aextern",
+                "textEdit": {
+                    "newText": "extern",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "float",
+                "insertText": "float",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " float",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7afloat",
+                "textEdit": {
+                    "newText": "float",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "inline",
+                "insertText": "inline",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " inline",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7ainline",
+                "textEdit": {
+                    "newText": "inline",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "int",
+                "insertText": "int",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " int",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aint",
+                "textEdit": {
+                    "newText": "int",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "long",
+                "insertText": "long",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " long",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7along",
+                "textEdit": {
+                    "newText": "long",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "namespace",
+                "insertText": "namespace",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " namespace name = namespace;",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7anamespace",
+                "textEdit": {
+                    "newText": "namespace",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "operator",
+                "insertText": "operator",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " operator",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aoperator",
+                "textEdit": {
+                    "newText": "operator",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "short",
+                "insertText": "short",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " short",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7ashort",
+                "textEdit": {
+                    "newText": "short",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "signed",
+                "insertText": "signed",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " signed",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7asigned",
+                "textEdit": {
+                    "newText": "signed",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "static",
+                "insertText": "static",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " static",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7astatic",
+                "textEdit": {
+                    "newText": "static",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "static_assert",
+                "insertText": "static_assert",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " static_assert(expression, message);",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7astatic_assert",
+                "textEdit": {
+                    "newText": "static_assert",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "struct",
+                "insertText": "struct",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " struct",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7astruct",
+                "textEdit": {
+                    "newText": "struct",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "template",
+                "insertText": "template",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " template",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7atemplate",
+                "textEdit": {
+                    "newText": "template",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "template",
+                "insertText": "template",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " template",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7atemplate",
+                "textEdit": {
+                    "newText": "template",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "thread_local",
+                "insertText": "thread_local",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " thread_local",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7athread_local",
+                "textEdit": {
+                    "newText": "thread_local",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "typedef",
+                "insertText": "typedef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " typedef type name;",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7atypedef",
+                "textEdit": {
+                    "newText": "typedef",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "typename",
+                "insertText": "typename",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " typename name",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7atypename",
+                "textEdit": {
+                    "newText": "typename",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "union",
+                "insertText": "union",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " union",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aunion",
+                "textEdit": {
+                    "newText": "union",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "unsigned",
+                "insertText": "unsigned",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " unsigned",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7aunsigned",
+                "textEdit": {
+                    "newText": "unsigned",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "using",
+                "insertText": "using",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " using name = type;",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7ausing",
+                "textEdit": {
+                    "newText": "using",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "using",
+                "insertText": "using",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " using qualifier::name;",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7ausing",
+                "textEdit": {
+                    "newText": "using",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "using namespace",
+                "insertText": "using namespace",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " using namespace identifier;",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7ausing namespace",
+                "textEdit": {
+                    "newText": "using namespace",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "void",
+                "insertText": "void",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " void",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7avoid",
+                "textEdit": {
+                    "newText": "void",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "volatile",
+                "insertText": "volatile",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " volatile",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7avolatile",
+                "textEdit": {
+                    "newText": "volatile",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "wchar_t",
+                "insertText": "wchar_t",
+                "insertTextFormat": 1,
+                "kind": 14,
+                "label": " wchar_t",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7awchar_t",
+                "textEdit": {
+                    "newText": "wchar_t",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_CPPRTTI",
+                "insertText": "_CPPRTTI",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _CPPRTTI",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_CPPRTTI",
+                "textEdit": {
+                    "newText": "_CPPRTTI",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_CPPUNWIND",
+                "insertText": "_CPPUNWIND",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _CPPUNWIND",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_CPPUNWIND",
+                "textEdit": {
+                    "newText": "_CPPUNWIND",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_HAS_CHAR16_T_LANGUAGE_SUPPORT",
+                "insertText": "_HAS_CHAR16_T_LANGUAGE_SUPPORT",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _HAS_CHAR16_T_LANGUAGE_SUPPORT",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_HAS_CHAR16_T_LANGUAGE_SUPPORT",
+                "textEdit": {
+                    "newText": "_HAS_CHAR16_T_LANGUAGE_SUPPORT",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_INTEGRAL_MAX_BITS",
+                "insertText": "_INTEGRAL_MAX_BITS",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _INTEGRAL_MAX_BITS",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_INTEGRAL_MAX_BITS",
+                "textEdit": {
+                    "newText": "_INTEGRAL_MAX_BITS",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSC_BUILD",
+                "insertText": "_MSC_BUILD",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSC_BUILD",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSC_BUILD",
+                "textEdit": {
+                    "newText": "_MSC_BUILD",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSC_EXTENSIONS",
+                "insertText": "_MSC_EXTENSIONS",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSC_EXTENSIONS",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSC_EXTENSIONS",
+                "textEdit": {
+                    "newText": "_MSC_EXTENSIONS",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSC_FULL_VER",
+                "insertText": "_MSC_FULL_VER",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSC_FULL_VER",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSC_FULL_VER",
+                "textEdit": {
+                    "newText": "_MSC_FULL_VER",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSC_VER",
+                "insertText": "_MSC_VER",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSC_VER",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSC_VER",
+                "textEdit": {
+                    "newText": "_MSC_VER",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSVC_CONSTEXPR_ATTRIBUTE",
+                "insertText": "_MSVC_CONSTEXPR_ATTRIBUTE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSVC_CONSTEXPR_ATTRIBUTE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSVC_CONSTEXPR_ATTRIBUTE",
+                "textEdit": {
+                    "newText": "_MSVC_CONSTEXPR_ATTRIBUTE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSVC_EXECUTION_CHARACTER_SET",
+                "insertText": "_MSVC_EXECUTION_CHARACTER_SET",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSVC_EXECUTION_CHARACTER_SET",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSVC_EXECUTION_CHARACTER_SET",
+                "textEdit": {
+                    "newText": "_MSVC_EXECUTION_CHARACTER_SET",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_MSVC_LANG",
+                "insertText": "_MSVC_LANG",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _MSVC_LANG",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_MSVC_LANG",
+                "textEdit": {
+                    "newText": "_MSVC_LANG",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_M_AMD64",
+                "insertText": "_M_AMD64",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _M_AMD64",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_M_AMD64",
+                "textEdit": {
+                    "newText": "_M_AMD64",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_M_FP_CONTRACT",
+                "insertText": "_M_FP_CONTRACT",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _M_FP_CONTRACT",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_M_FP_CONTRACT",
+                "textEdit": {
+                    "newText": "_M_FP_CONTRACT",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_M_FP_PRECISE",
+                "insertText": "_M_FP_PRECISE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _M_FP_PRECISE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_M_FP_PRECISE",
+                "textEdit": {
+                    "newText": "_M_FP_PRECISE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_M_X64",
+                "insertText": "_M_X64",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _M_X64",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_M_X64",
+                "textEdit": {
+                    "newText": "_M_X64",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_NATIVE_NULLPTR_SUPPORTED",
+                "insertText": "_NATIVE_NULLPTR_SUPPORTED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _NATIVE_NULLPTR_SUPPORTED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_NATIVE_NULLPTR_SUPPORTED",
+                "textEdit": {
+                    "newText": "_NATIVE_NULLPTR_SUPPORTED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_NATIVE_WCHAR_T_DEFINED",
+                "insertText": "_NATIVE_WCHAR_T_DEFINED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _NATIVE_WCHAR_T_DEFINED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_NATIVE_WCHAR_T_DEFINED",
+                "textEdit": {
+                    "newText": "_NATIVE_WCHAR_T_DEFINED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_Pragma",
+                "insertText": "_Pragma",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _Pragma",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_Pragma",
+                "textEdit": {
+                    "newText": "_Pragma",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_RVALUE_REFERENCES_SUPPORTED",
+                "insertText": "_RVALUE_REFERENCES_SUPPORTED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _RVALUE_REFERENCES_SUPPORTED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_RVALUE_REFERENCES_SUPPORTED",
+                "textEdit": {
+                    "newText": "_RVALUE_REFERENCES_SUPPORTED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_RVALUE_REFERENCES_V2_SUPPORTED",
+                "insertText": "_RVALUE_REFERENCES_V2_SUPPORTED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _RVALUE_REFERENCES_V2_SUPPORTED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_RVALUE_REFERENCES_V2_SUPPORTED",
+                "textEdit": {
+                    "newText": "_RVALUE_REFERENCES_V2_SUPPORTED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_WCHAR_T_DEFINED",
+                "insertText": "_WCHAR_T_DEFINED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _WCHAR_T_DEFINED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_WCHAR_T_DEFINED",
+                "textEdit": {
+                    "newText": "_WCHAR_T_DEFINED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_WIN32",
+                "insertText": "_WIN32",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _WIN32",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_WIN32",
+                "textEdit": {
+                    "newText": "_WIN32",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "_WIN64",
+                "insertText": "_WIN64",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " _WIN64",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736_WIN64",
+                "textEdit": {
+                    "newText": "_WIN64",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_ACQUIRE",
+                "insertText": "__ATOMIC_ACQUIRE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_ACQUIRE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_ACQUIRE",
+                "textEdit": {
+                    "newText": "__ATOMIC_ACQUIRE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_ACQ_REL",
+                "insertText": "__ATOMIC_ACQ_REL",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_ACQ_REL",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_ACQ_REL",
+                "textEdit": {
+                    "newText": "__ATOMIC_ACQ_REL",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_CONSUME",
+                "insertText": "__ATOMIC_CONSUME",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_CONSUME",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_CONSUME",
+                "textEdit": {
+                    "newText": "__ATOMIC_CONSUME",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_RELAXED",
+                "insertText": "__ATOMIC_RELAXED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_RELAXED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_RELAXED",
+                "textEdit": {
+                    "newText": "__ATOMIC_RELAXED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_RELEASE",
+                "insertText": "__ATOMIC_RELEASE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_RELEASE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_RELEASE",
+                "textEdit": {
+                    "newText": "__ATOMIC_RELEASE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__ATOMIC_SEQ_CST",
+                "insertText": "__ATOMIC_SEQ_CST",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __ATOMIC_SEQ_CST",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__ATOMIC_SEQ_CST",
+                "textEdit": {
+                    "newText": "__ATOMIC_SEQ_CST",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BASE_FILE__",
+                "insertText": "__BASE_FILE__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BASE_FILE__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BASE_FILE__",
+                "textEdit": {
+                    "newText": "__BASE_FILE__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BIGGEST_ALIGNMENT__",
+                "insertText": "__BIGGEST_ALIGNMENT__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BIGGEST_ALIGNMENT__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BIGGEST_ALIGNMENT__",
+                "textEdit": {
+                    "newText": "__BIGGEST_ALIGNMENT__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BITINT_MAXWIDTH__",
+                "insertText": "__BITINT_MAXWIDTH__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BITINT_MAXWIDTH__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BITINT_MAXWIDTH__",
+                "textEdit": {
+                    "newText": "__BITINT_MAXWIDTH__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BOOL_DEFINED",
+                "insertText": "__BOOL_DEFINED",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BOOL_DEFINED",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BOOL_DEFINED",
+                "textEdit": {
+                    "newText": "__BOOL_DEFINED",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BOOL_WIDTH__",
+                "insertText": "__BOOL_WIDTH__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BOOL_WIDTH__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BOOL_WIDTH__",
+                "textEdit": {
+                    "newText": "__BOOL_WIDTH__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__BYTE_ORDER__",
+                "insertText": "__BYTE_ORDER__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __BYTE_ORDER__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__BYTE_ORDER__",
+                "textEdit": {
+                    "newText": "__BYTE_ORDER__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CHAR16_TYPE__",
+                "insertText": "__CHAR16_TYPE__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CHAR16_TYPE__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CHAR16_TYPE__",
+                "textEdit": {
+                    "newText": "__CHAR16_TYPE__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CHAR32_TYPE__",
+                "insertText": "__CHAR32_TYPE__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CHAR32_TYPE__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CHAR32_TYPE__",
+                "textEdit": {
+                    "newText": "__CHAR32_TYPE__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CHAR_BIT__",
+                "insertText": "__CHAR_BIT__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CHAR_BIT__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CHAR_BIT__",
+                "textEdit": {
+                    "newText": "__CHAR_BIT__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_BOOL_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_BOOL_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_BOOL_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_BOOL_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_BOOL_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_CHAR16_T_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_CHAR16_T_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_CHAR16_T_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_CHAR16_T_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_CHAR16_T_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_CHAR32_T_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_CHAR32_T_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_CHAR32_T_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_CHAR32_T_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_CHAR32_T_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_CHAR_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_CHAR_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_CHAR_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_CHAR_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_CHAR_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_INT_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_INT_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_INT_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_INT_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_INT_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_LLONG_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_LLONG_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_LLONG_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_LLONG_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_LLONG_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_LONG_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_LONG_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_LONG_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_LONG_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_LONG_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_POINTER_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_POINTER_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_POINTER_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_POINTER_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_POINTER_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_SHORT_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_SHORT_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_SHORT_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_SHORT_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_SHORT_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CLANG_ATOMIC_WCHAR_T_LOCK_FREE",
+                "insertText": "__CLANG_ATOMIC_WCHAR_T_LOCK_FREE",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CLANG_ATOMIC_WCHAR_T_LOCK_FREE",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CLANG_ATOMIC_WCHAR_T_LOCK_FREE",
+                "textEdit": {
+                    "newText": "__CLANG_ATOMIC_WCHAR_T_LOCK_FREE",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__CONSTANT_CFSTRINGS__",
+                "insertText": "__CONSTANT_CFSTRINGS__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __CONSTANT_CFSTRINGS__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__CONSTANT_CFSTRINGS__",
+                "textEdit": {
+                    "newText": "__CONSTANT_CFSTRINGS__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__COUNTER__",
+                "insertText": "__COUNTER__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __COUNTER__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__COUNTER__",
+                "textEdit": {
+                    "newText": "__COUNTER__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DATE__",
+                "insertText": "__DATE__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DATE__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DATE__",
+                "textEdit": {
+                    "newText": "__DATE__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_DECIMAL_DIG__",
+                "insertText": "__DBL_DECIMAL_DIG__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_DECIMAL_DIG__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_DECIMAL_DIG__",
+                "textEdit": {
+                    "newText": "__DBL_DECIMAL_DIG__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_DENORM_MIN__",
+                "insertText": "__DBL_DENORM_MIN__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_DENORM_MIN__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_DENORM_MIN__",
+                "textEdit": {
+                    "newText": "__DBL_DENORM_MIN__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_DIG__",
+                "insertText": "__DBL_DIG__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_DIG__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_DIG__",
+                "textEdit": {
+                    "newText": "__DBL_DIG__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_EPSILON__",
+                "insertText": "__DBL_EPSILON__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_EPSILON__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_EPSILON__",
+                "textEdit": {
+                    "newText": "__DBL_EPSILON__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_HAS_DENORM__",
+                "insertText": "__DBL_HAS_DENORM__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_HAS_DENORM__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_HAS_DENORM__",
+                "textEdit": {
+                    "newText": "__DBL_HAS_DENORM__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "__DBL_HAS_INFINITY__",
+                "insertText": "__DBL_HAS_INFINITY__",
+                "insertTextFormat": 1,
+                "kind": 1,
+                "label": " __DBL_HAS_INFINITY__",
+                "score": 0.2504332661628723,
+                "sortText": "417fc736__DBL_HAS_INFINITY__",
+                "textEdit": {
+                    "newText": "__DBL_HAS_INFINITY__",
+                    "range": {
+                        "end": {
+                            "character": 0,
+                            "line": 0
+                        },
+                        "start": {
+                            "character": 0,
+                            "line": 0
+                        }
+                    }
+                }
             }
-        ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
-        "version": 2
+        ]
     }
 }
-Diagnostics received from LSP.
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Received a completion response from LSP.
+Completions received: ['size_t', 'type_info', '_Nonnull', '_Null_unspecified', '_Nullable', 'alignas', 'asm', 'auto', 'bool', 'char', 'char16_t', 'char32_t', 'class', 'const', 'constexpr', 'decltype', 'double', 'enum', 'extern', 'float', 'inline', 'int', 'long', 'namespace', 'operator', 'short', 'signed', 'static', 'static_assert', 'struct', 'template', 'template', 'thread_local', 'typedef', 'typename', 'union', 'unsigned', 'using', 'using', 'using namespace', 'void', 'volatile', 'wchar_t', '_CPPRTTI', '_CPPUNWIND', '_HAS_CHAR16_T_LANGUAGE_SUPPORT', '_INTEGRAL_MAX_BITS', '_MSC_BUILD', '_MSC_EXTENSIONS', '_MSC_FULL_VER', '_MSC_VER', '_MSVC_CONSTEXPR_ATTRIBUTE', '_MSVC_EXECUTION_CHARACTER_SET', '_MSVC_LANG', '_M_AMD64', '_M_FP_CONTRACT', '_M_FP_PRECISE', '_M_X64', '_NATIVE_NULLPTR_SUPPORTED', '_NATIVE_WCHAR_T_DEFINED', '_Pragma', '_RVALUE_REFERENCES_SUPPORTED', '_RVALUE_REFERENCES_V2_SUPPORTED', '_WCHAR_T_DEFINED', '_WIN32', '_WIN64', '__ATOMIC_ACQUIRE', '__ATOMIC_ACQ_REL', '__ATOMIC_CONSUME', '__ATOMIC_RELAXED', '__ATOMIC_RELEASE', '__ATOMIC_SEQ_CST', '__BASE_FILE__', '__BIGGEST_ALIGNMENT__', '__BITINT_MAXWIDTH__', '__BOOL_DEFINED', '__BOOL_WIDTH__', '__BYTE_ORDER__', '__CHAR16_TYPE__', '__CHAR32_TYPE__', '__CHAR_BIT__', '__CLANG_ATOMIC_BOOL_LOCK_FREE', '__CLANG_ATOMIC_CHAR16_T_LOCK_FREE', '__CLANG_ATOMIC_CHAR32_T_LOCK_FREE', '__CLANG_ATOMIC_CHAR_LOCK_FREE', '__CLANG_ATOMIC_INT_LOCK_FREE', '__CLANG_ATOMIC_LLONG_LOCK_FREE', '__CLANG_ATOMIC_LONG_LOCK_FREE', '__CLANG_ATOMIC_POINTER_LOCK_FREE', '__CLANG_ATOMIC_SHORT_LOCK_FREE', '__CLANG_ATOMIC_WCHAR_T_LOCK_FREE', '__CONSTANT_CFSTRINGS__', '__COUNTER__', '__DATE__', '__DBL_DECIMAL_DIG__', '__DBL_DENORM_MIN__', '__DBL_DIG__', '__DBL_EPSILON__', '__DBL_HAS_DENORM__', '__DBL_HAS_INFINITY__']
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
 Request sent with method textDocument/didChange
 Request sent with method textDocument/completion
 Handling response from LSP
@@ -279,331 +2379,45 @@ Received response: {
         "isIncomplete": false,
         "items": [
             {
-                "filterText": "include",
-                "insertText": "include",
+                "filterText": "decltype",
+                "insertText": "decltype",
                 "insertTextFormat": 1,
                 "kind": 15,
-                "label": " include <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
+                "label": " decltype(expression)",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7adecltype",
                 "textEdit": {
-                    "newText": "include",
+                    "newText": "decltype",
                     "range": {
                         "end": {
                             "character": 1,
-                            "line": 2
+                            "line": 0
                         },
                         "start": {
-                            "character": 1,
-                            "line": 2
+                            "character": 0,
+                            "line": 0
                         }
                     }
                 }
             },
             {
-                "filterText": "include",
-                "insertText": "include",
+                "filterText": "double",
+                "insertText": "double",
                 "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
+                "kind": 14,
+                "label": " double",
+                "score": 0.7722705602645874,
+                "sortText": "40ba4c7adouble",
                 "textEdit": {
-                    "newText": "include",
+                    "newText": "double",
                     "range": {
                         "end": {
                             "character": 1,
-                            "line": 2
+                            "line": 0
                         },
                         "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "define",
-                "insertText": "define",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " define macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681define",
-                "textEdit": {
-                    "newText": "define",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "define",
-                "insertText": "define",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " define macro(args)",
-                "score": 0.787254273891449,
-                "sortText": "40b67681define",
-                "textEdit": {
-                    "newText": "define",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "error",
-                "insertText": "error",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " error message",
-                "score": 0.787254273891449,
-                "sortText": "40b67681error",
-                "textEdit": {
-                    "newText": "error",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "if",
-                "insertText": "if",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " if condition",
-                "score": 0.787254273891449,
-                "sortText": "40b67681if",
-                "textEdit": {
-                    "newText": "if",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "ifdef",
-                "insertText": "ifdef",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " ifdef macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681ifdef",
-                "textEdit": {
-                    "newText": "ifdef",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "ifndef",
-                "insertText": "ifndef",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " ifndef macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681ifndef",
-                "textEdit": {
-                    "newText": "ifndef",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "line",
-                "insertText": "line",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " line number \"filename\"",
-                "score": 0.787254273891449,
-                "sortText": "40b67681line",
-                "textEdit": {
-                    "newText": "line",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "line",
-                "insertText": "line",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " line number",
-                "score": 0.787254273891449,
-                "sortText": "40b67681line",
-                "textEdit": {
-                    "newText": "line",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "pragma",
-                "insertText": "pragma",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " pragma arguments",
-                "score": 0.787254273891449,
-                "sortText": "40b67681pragma",
-                "textEdit": {
-                    "newText": "pragma",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "undef",
-                "insertText": "undef",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " undef macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681undef",
-                "textEdit": {
-                    "newText": "undef",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "warning",
-                "insertText": "warning",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " warning message",
-                "score": 0.787254273891449,
-                "sortText": "40b67681warning",
-                "textEdit": {
-                    "newText": "warning",
-                    "range": {
-                        "end": {
-                            "character": 1,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
+                            "character": 0,
+                            "line": 0
                         }
                     }
                 }
@@ -612,10 +2426,18 @@ Received response: {
     }
 }
 Received a completion response from LSP.
-Completions received: ['include', 'include', 'include_next', 'include_next', 'define', 'define', 'error', 'if', 'ifdef', 'ifndef', 'line', 'line', 'pragma', 'undef', 'warning']
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
-Request sent with method textDocument/didChange
-Request sent with method textDocument/completion
+Completions received: ['decltype', 'double']
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": []
+    }
+}
+Received a completion response from LSP.
+Completions received: []
 Handling response from LSP
 Received response: {
     "jsonrpc": "2.0",
@@ -623,14 +2445,11 @@ Received response: {
     "params": {
         "diagnostics": [
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
+                "code": "unknown_typename",
+                "message": "Unknown type name 'da'",
                 "range": {
                     "end": {
-                        "character": 19,
+                        "character": 2,
                         "line": 0
                     },
                     "start": {
@@ -638,381 +2457,161 @@ Received response: {
                         "line": 0
                     }
                 },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                "severity": 1,
+                "source": "clang"
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
                 "range": {
                     "end": {
-                        "character": 17,
-                        "line": 1
+                        "character": 2,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 2,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 3
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'da'",
+                "range": {
+                    "end": {
+                        "character": 2,
+                        "line": 0
                     },
                     "start": {
                         "character": 0,
-                        "line": 1
+                        "line": 0
                     }
                 },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 2,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 2,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 3
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": []
+    }
+}
+Received a completion response from LSP.
+Completions received: []
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'daw'",
+                "range": {
+                    "end": {
+                        "character": 3,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 3,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 3,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
         "version": 4
     }
 }
 Diagnostics received from LSP.
-Handling response from LSP
-Received response: {
-    "id": 1,
-    "jsonrpc": "2.0",
-    "result": {
-        "isIncomplete": false,
-        "items": [
-            {
-                "filterText": "include",
-                "insertText": "include",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
-                "textEdit": {
-                    "newText": "include",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include",
-                "insertText": "include",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
-                "textEdit": {
-                    "newText": "include",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "if",
-                "insertText": "if",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " if condition",
-                "score": 0.787254273891449,
-                "sortText": "40b67681if",
-                "textEdit": {
-                    "newText": "if",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "ifdef",
-                "insertText": "ifdef",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " ifdef macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681ifdef",
-                "textEdit": {
-                    "newText": "ifdef",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "ifndef",
-                "insertText": "ifndef",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " ifndef macro",
-                "score": 0.787254273891449,
-                "sortText": "40b67681ifndef",
-                "textEdit": {
-                    "newText": "ifndef",
-                    "range": {
-                        "end": {
-                            "character": 2,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            }
-        ]
-    }
-}
-Received a completion response from LSP.
-Completions received: ['include', 'include', 'include_next', 'include_next', 'if', 'ifdef', 'ifndef']
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
 Request sent with method textDocument/didChange
 Request sent with method textDocument/completion
 Handling response from LSP
 Received response: {
+    "id": 1,
     "jsonrpc": "2.0",
-    "method": "textDocument/publishDiagnostics",
-    "params": {
-        "diagnostics": [
-            {
-                "code": "pp_invalid_directive",
-                "message": "Invalid preprocessing directive",
-                "range": {
-                    "end": {
-                        "character": 2,
-                        "line": 2
-                    },
-                    "start": {
-                        "character": 1,
-                        "line": 2
-                    }
-                },
-                "severity": 1,
-                "source": "clang"
-            },
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 19,
-                        "line": 0
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 0
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            },
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            }
-        ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
-        "version": 5
+    "result": {
+        "isIncomplete": false,
+        "items": []
     }
 }
-Diagnostics received from LSP.
+Received a completion response from LSP.
+Completions received: []
 Handling response from LSP
 Received response: {
     "id": 1,
     "jsonrpc": "2.0",
     "result": {
         "isIncomplete": false,
-        "items": [
-            {
-                "filterText": "include",
-                "insertText": "include",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
-                "textEdit": {
-                    "newText": "include",
-                    "range": {
-                        "end": {
-                            "character": 3,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include",
-                "insertText": "include",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include",
-                "textEdit": {
-                    "newText": "include",
-                    "range": {
-                        "end": {
-                            "character": 3,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next <header>",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 3,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            },
-            {
-                "filterText": "include_next",
-                "insertText": "include_next",
-                "insertTextFormat": 1,
-                "kind": 15,
-                "label": " include_next \"header\"",
-                "score": 0.8523509502410889,
-                "sortText": "40a5cc54include_next",
-                "textEdit": {
-                    "newText": "include_next",
-                    "range": {
-                        "end": {
-                            "character": 3,
-                            "line": 2
-                        },
-                        "start": {
-                            "character": 1,
-                            "line": 2
-                        }
-                    }
-                }
-            }
-        ]
+        "items": []
     }
 }
 Received a completion response from LSP.
-Completions received: ['include', 'include', 'include_next', 'include_next']
+Completions received: []
 Handling response from LSP
 Received response: {
     "jsonrpc": "2.0",
@@ -1020,71 +2619,57 @@ Received response: {
     "params": {
         "diagnostics": [
             {
-                "code": "pp_invalid_directive",
-                "message": "Invalid preprocessing directive",
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawda'",
                 "range": {
                     "end": {
-                        "character": 3,
-                        "line": 2
+                        "character": 5,
+                        "line": 0
                     },
                     "start": {
-                        "character": 1,
-                        "line": 2
+                        "character": 0,
+                        "line": 0
                     }
                 },
                 "severity": 1,
                 "source": "clang"
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
                 "range": {
                     "end": {
-                        "character": 19,
+                        "character": 5,
                         "line": 0
                     },
                     "start": {
-                        "character": 0,
+                        "character": 5,
                         "line": 0
                     }
                 },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            },
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                "severity": 1,
+                "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
         "version": 6
     }
 }
 Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": []
+    }
+}
+Received a completion response from LSP.
+Completions received: []
 Handling response from LSP
 Received response: {
     "jsonrpc": "2.0",
@@ -1092,72 +2677,118 @@ Received response: {
     "params": {
         "diagnostics": [
             {
-                "code": "pp_invalid_directive",
-                "message": "Invalid preprocessing directive",
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawdaw'",
                 "range": {
                     "end": {
-                        "character": 3,
-                        "line": 2
+                        "character": 6,
+                        "line": 0
                     },
                     "start": {
-                        "character": 1,
-                        "line": 2
+                        "character": 0,
+                        "line": 0
                     }
                 },
                 "severity": 1,
                 "source": "clang"
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
                 "range": {
                     "end": {
-                        "character": 19,
+                        "character": 6,
                         "line": 0
                     },
                     "start": {
-                        "character": 0,
+                        "character": 6,
                         "line": 0
                     }
                 },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            },
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                "severity": 1,
+                "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
-        "version": 6
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 7
     }
 }
 Diagnostics received from LSP.
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": []
+    }
+}
+Received a completion response from LSP.
+Completions received: []
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": []
+    }
+}
+Received a completion response from LSP.
+Completions received: []
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawdawda'",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 8,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 9
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
 Request sent with method textDocument/didChange
 Handling response from LSP
 Received response: {
@@ -1166,68 +2797,202 @@ Received response: {
     "params": {
         "diagnostics": [
             {
-                "code": "pp_invalid_directive",
-                "message": "Invalid preprocessing directive",
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawdawdaw'",
                 "range": {
                     "end": {
-                        "character": 4,
-                        "line": 2
+                        "character": 9,
+                        "line": 0
                     },
                     "start": {
-                        "character": 1,
-                        "line": 2
+                        "character": 0,
+                        "line": 0
                     }
                 },
                 "severity": 1,
                 "source": "clang"
             },
             {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header iostream is not used directly (fixes available)",
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
                 "range": {
                     "end": {
-                        "character": 19,
+                        "character": 9,
                         "line": 0
                     },
                     "start": {
-                        "character": 0,
+                        "character": 9,
                         "line": 0
                     }
                 },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
-            },
-            {
-                "code": "unused-includes",
-                "codeDescription": {
-                    "href": "https://clangd.llvm.org/guides/include-cleaner"
-                },
-                "message": "Included header vector is not used directly (fixes available)",
-                "range": {
-                    "end": {
-                        "character": 17,
-                        "line": 1
-                    },
-                    "start": {
-                        "character": 0,
-                        "line": 1
-                    }
-                },
-                "severity": 2,
-                "source": "clangd",
-                "tags": [
-                    1
-                ]
+                "severity": 1,
+                "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
-        "version": 7
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 11
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawdawdawdawdawdaw'",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 18,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 15
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'dawdawdawdawdawdawdawdawdaw'",
+                "range": {
+                    "end": {
+                        "character": 27,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 27,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 27,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 16
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\User\AppData\Local\Temp\tmpfn6xomze.cpp
+Request sent with method textDocument/didChange
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 37
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [],
+        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpfn6xomze.cpp",
+        "version": 37
     }
 }
 Diagnostics received from LSP.

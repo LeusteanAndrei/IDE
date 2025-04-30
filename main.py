@@ -63,9 +63,19 @@ if __name__ == "__main__":
 
     # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     shortcut_manager = ShortcutManager(MainWindow)
-    # Add shortcuts
-    shortcut_manager.add_shortcut("Ctrl+S", lambda: save_file(editor))
-    shortcut_manager.add_shortcut("Ctrl+N", lambda: new_file(editor))
+    
+    # Add shortcuts with descriptive names and default key sequences
+    shortcut_manager.add_shortcut("New File", "Ctrl+N", lambda: new_file(editor))
+    shortcut_manager.add_shortcut("Open File", "Ctrl+O", lambda: open_file(editor))
+    shortcut_manager.add_shortcut("Save File", "Ctrl+S", lambda: save_file(editor))
+    shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", lambda: save_as_file(editor))
+    shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
+    shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
+    
+    # Connect button 1 to open the shortcut settings dialog
+    ui.buttons[0].setText("Shortcuts")
+    ui.buttons[0].setToolTip("Configure keyboard shortcuts")
+    ui.buttons[0].clicked.connect(shortcut_manager.show_config_dialog)
     
     # Connect algorithm actions to their respective functions
     # Sorting algorithms
