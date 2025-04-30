@@ -1,5 +1,6 @@
 from PyQt5 import QtGui, QtCore
 from .color import Colors
+from PyQt5.QtGui import QTextCharFormat, QColor
 
 Styles = {
     'keyword': Colors.Blue,
@@ -134,6 +135,12 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         
         self.rules = [(QtCore.QRegExp(rule[0]),rule[1], rule[2]) for rule in rules]
 
+        self.errors = []
+
+        self.error_format = QTextCharFormat()
+        self.error_format.setUnderlineColor(QColor(255, 0, 0))
+        self.error_format.setUnderlineStyle(QTextCharFormat.WaveUnderline)
+
     def highlightBlock(self, text):
         classNames= []
         varNames=[]
@@ -169,9 +176,20 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         self.setCurrentBlockState(0)
          
         self.multilineComments(text)
+
+        for error in self.errors:
+            error_line = error[0]
+            error_start = error[1][0]
+            error_end = error[1][1]
+            if error_line == self.currentBlock().blockNumber():
+                self.setFormat(error_start, error_end - error_start, self.error_format)
+
         # self.setCurrentBlockState(0) este folosit pentru a reseta starea curenta a blocului de text,
         # astfel incat sa putem aplica din nou regulile de sintaxă la următorul bloc de text.
 
+    def setErrors(self, errors):
+        self.errors = errors
+        self.rehighlight()
 
     def multilineComments(self, text):
         startDelimiter = QtCore.QRegExp(r'/\*')

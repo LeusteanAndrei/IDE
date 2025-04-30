@@ -19,6 +19,7 @@ class Requests:
                         "resolveProvider": True
                     },
                     "textDocument": {
+                        "publishDiagnostics": True,
                         "completion": {"dynamicRegistration": True},
                         "synchronization": {
                             "dynamicRegistration": True,
@@ -52,7 +53,6 @@ class Requests:
             "params": {}
         }
 
-
     def changeNotification(self, text, uri, version):
         return {
             "jsonrpc": self.jsonrpc,
@@ -85,3 +85,4 @@ class Requests:
                 }
             }
         }
+

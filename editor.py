@@ -130,7 +130,7 @@ class Editor(QWidget):
             match message['method']:
                 case 'textDocument/publishDiagnostics':
                     Log.logger.info("Diagnostics received from LSP.")
-                    #To Do
+                    self.handle_diagnostics(message)
         elif 'result' in message:
             match message['id']:
                 case 0:
@@ -145,6 +145,18 @@ class Editor(QWidget):
                     self.handle_completion(message)
                     self.show_completions()
 
+    def handle_diagnostics(self, message):  
+        diagnostics = message['params']['diagnostics']
+        if diagnostics:
+            errors = []
+            for diagnostic in diagnostics:             
+                error_line = diagnostic['range']['start']['line'] 
+                error_line_end = diagnostic['range']['end']['line']
+                error_start =  diagnostic['range']['start']['character']
+                error_end = diagnostic['range']['end']['character']
+                if error_line == error_line_end:
+                    errors  = errors + [error_line, [error_start, error_end]]
+            
     def open_document(self):
         text = self.text_edit.toPlainText()
         notification = requests.Requests().getOpenDocument(self.temp_file_uri, text, self.version)
@@ -235,7 +247,6 @@ class Editor(QWidget):
 
         request = requests.Requests().getCompletionRequest(self.temp_file_uri, line, column)
         self.send_request(request)
-
 
     def keyPressEvent(self, event):
         self.text_change()

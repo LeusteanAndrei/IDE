@@ -1,9 +1,12 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-int main()
-{
 
-	cout<<"hehehehehehehee";
+int main()
+{	
+	int x;
+
+	return 1;
 }

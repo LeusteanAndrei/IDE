@@ -1,4 +1,4 @@
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp9ohsy4ew.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -145,8 +145,1089 @@ Received response: {
     "method": "textDocument/publishDiagnostics",
     "params": {
         "diagnostics": [],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp9ohsy4ew.cpp",
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
         "version": 0
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 2
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 2
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": [
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "define",
+                "insertText": "define",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " define macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681define",
+                "textEdit": {
+                    "newText": "define",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "define",
+                "insertText": "define",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " define macro(args)",
+                "score": 0.787254273891449,
+                "sortText": "40b67681define",
+                "textEdit": {
+                    "newText": "define",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "error",
+                "insertText": "error",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " error message",
+                "score": 0.787254273891449,
+                "sortText": "40b67681error",
+                "textEdit": {
+                    "newText": "error",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "if",
+                "insertText": "if",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " if condition",
+                "score": 0.787254273891449,
+                "sortText": "40b67681if",
+                "textEdit": {
+                    "newText": "if",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "ifdef",
+                "insertText": "ifdef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " ifdef macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681ifdef",
+                "textEdit": {
+                    "newText": "ifdef",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "ifndef",
+                "insertText": "ifndef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " ifndef macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681ifndef",
+                "textEdit": {
+                    "newText": "ifndef",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "line",
+                "insertText": "line",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " line number \"filename\"",
+                "score": 0.787254273891449,
+                "sortText": "40b67681line",
+                "textEdit": {
+                    "newText": "line",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "line",
+                "insertText": "line",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " line number",
+                "score": 0.787254273891449,
+                "sortText": "40b67681line",
+                "textEdit": {
+                    "newText": "line",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "pragma",
+                "insertText": "pragma",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " pragma arguments",
+                "score": 0.787254273891449,
+                "sortText": "40b67681pragma",
+                "textEdit": {
+                    "newText": "pragma",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "undef",
+                "insertText": "undef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " undef macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681undef",
+                "textEdit": {
+                    "newText": "undef",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "warning",
+                "insertText": "warning",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " warning message",
+                "score": 0.787254273891449,
+                "sortText": "40b67681warning",
+                "textEdit": {
+                    "newText": "warning",
+                    "range": {
+                        "end": {
+                            "character": 1,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
+Received a completion response from LSP.
+Completions received: ['include', 'include', 'include_next', 'include_next', 'define', 'define', 'error', 'if', 'ifdef', 'ifndef', 'line', 'line', 'pragma', 'undef', 'warning']
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 4
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": [
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "if",
+                "insertText": "if",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " if condition",
+                "score": 0.787254273891449,
+                "sortText": "40b67681if",
+                "textEdit": {
+                    "newText": "if",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "ifdef",
+                "insertText": "ifdef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " ifdef macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681ifdef",
+                "textEdit": {
+                    "newText": "ifdef",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "ifndef",
+                "insertText": "ifndef",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " ifndef macro",
+                "score": 0.787254273891449,
+                "sortText": "40b67681ifndef",
+                "textEdit": {
+                    "newText": "ifndef",
+                    "range": {
+                        "end": {
+                            "character": 2,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
+Received a completion response from LSP.
+Completions received: ['include', 'include', 'include_next', 'include_next', 'if', 'ifdef', 'ifndef']
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Request sent with method textDocument/completion
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 2,
+                        "line": 2
+                    },
+                    "start": {
+                        "character": 1,
+                        "line": 2
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 5
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+        "isIncomplete": false,
+        "items": [
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 3,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include",
+                "insertText": "include",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include",
+                "textEdit": {
+                    "newText": "include",
+                    "range": {
+                        "end": {
+                            "character": 3,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next <header>",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 3,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            },
+            {
+                "filterText": "include_next",
+                "insertText": "include_next",
+                "insertTextFormat": 1,
+                "kind": 15,
+                "label": " include_next \"header\"",
+                "score": 0.8523509502410889,
+                "sortText": "40a5cc54include_next",
+                "textEdit": {
+                    "newText": "include_next",
+                    "range": {
+                        "end": {
+                            "character": 3,
+                            "line": 2
+                        },
+                        "start": {
+                            "character": 1,
+                            "line": 2
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
+Received a completion response from LSP.
+Completions received: ['include', 'include', 'include_next', 'include_next']
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 3,
+                        "line": 2
+                    },
+                    "start": {
+                        "character": 1,
+                        "line": 2
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 6
+    }
+}
+Diagnostics received from LSP.
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 3,
+                        "line": 2
+                    },
+                    "start": {
+                        "character": 1,
+                        "line": 2
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 6
+    }
+}
+Diagnostics received from LSP.
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp4o1g140s.cpp
+Request sent with method textDocument/didChange
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 2
+                    },
+                    "start": {
+                        "character": 1,
+                        "line": 2
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header iostream is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            },
+            {
+                "code": "unused-includes",
+                "codeDescription": {
+                    "href": "https://clangd.llvm.org/guides/include-cleaner"
+                },
+                "message": "Included header vector is not used directly (fixes available)",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 1
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 1
+                    }
+                },
+                "severity": 2,
+                "source": "clangd",
+                "tags": [
+                    1
+                ]
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp4o1g140s.cpp",
+        "version": 7
     }
 }
 Diagnostics received from LSP.
