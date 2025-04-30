@@ -1,12 +1,18 @@
 #include <iostream>
-#include <vector>
+
 
 using namespace std;
 
+class Testing
+{
+	private: 
+		int x;	
+
+};
 
 int main()
-{	
-	int x;
+{
+	Testing stest;
 
-	return 1;
+
 }

@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget
-from PyQt5.QtCore import QProcess, Qt
+from PyQt5.QtCore import QProcess, Qt, QTimer
 from PyQt5.QtGui import QTextCursor
 
 import tempfile, os, sys, json
@@ -23,6 +23,9 @@ class TextEditor(QPlainTextEdit):
 class Editor(QWidget):
     def __init__(self):
         super().__init__()
+
+        self.errors = []
+        self.highlighter = None
 
         self.current_file_name = None
         self.current_file_path = None
@@ -55,6 +58,17 @@ class Editor(QWidget):
         self.completion_popup.hide()
         self.layout.addWidget(self.completion_popup)
         self.completion_popup.itemClicked.connect(self.insert_completion)
+
+        self.highlihgterTimer = QTimer(self)
+        self.highlihgterTimer.timeout.connect(self.rehighlight)
+        self.highlihgterTimer.start(3000)  
+
+    def rehighlight(self):
+        if self.highlighter:
+            self.open_document()
+            self.highlighter.rehighlight()
+        else:
+            return
 
 
     def initialize_lsp(self):
@@ -144,18 +158,27 @@ class Editor(QWidget):
                     Log.logger.info("Received a completion response from LSP.")
                     self.handle_completion(message)
                     self.show_completions()
+                case 2:
+                    Log.logger.info("Received a diagnostics response from my sent FADJUKSAD JFGKADFGLADF from LSP.")
 
     def handle_diagnostics(self, message):  
         diagnostics = message['params']['diagnostics']
+        errors = []
         if diagnostics:
-            errors = []
-            for diagnostic in diagnostics:             
-                error_line = diagnostic['range']['start']['line'] 
-                error_line_end = diagnostic['range']['end']['line']
-                error_start =  diagnostic['range']['start']['character']
-                error_end = diagnostic['range']['end']['character']
-                if error_line == error_line_end:
-                    errors  = errors + [error_line, [error_start, error_end]]
+            for diagnostic in diagnostics: 
+                if diagnostic['severity'] == 1: # 1 = error, 2 = warning            
+                    error_line = diagnostic['range']['start']['line'] 
+                    error_line_end = diagnostic['range']['end']['line']
+                    error_start =  diagnostic['range']['start']['character']
+                    error_end = diagnostic['range']['end']['character']
+                    if error_line == error_line_end:
+                        errors  = errors + [[error_line, [error_start, error_end]]]
+        self.errors = errors
+        for error in errors:
+            block = self.text_edit.document().findBlockByLineNumber(error[0])
+            self.highlighter.rehighlightBlock(block)
+        Log.logger.info(f"Errors received: {self.errors}")
+
             
     def open_document(self):
         text = self.text_edit.toPlainText()
@@ -249,7 +272,8 @@ class Editor(QWidget):
         self.send_request(request)
 
     def keyPressEvent(self, event):
-        self.text_change()
+        if event.key() != Qt.Key.Key_Down and event.key() != Qt.Key.Key_Up and event.key() != Qt.Key.Key_Right and event.key() != Qt.Key.Key_Left:
+            self.text_change()
 
         if self.completion_popup.isVisible():
             if event.key() == Qt.Key_Tab or event.key() == Qt.Key_Return:
@@ -272,6 +296,7 @@ class Editor(QWidget):
 
         super().keyPressEvent(event)
         super(TextEditor, self.text_edit).keyPressEvent(event)
+
 
         triggered_char = ['.', '>', '-', '<']
         triggered_keys = [Qt.Key_Backspace]

@@ -19,6 +19,10 @@ class Requests:
                         "resolveProvider": True
                     },
                     "textDocument": {
+                        "diagnostics":{
+                            "dynamicRegistration": False, 
+                            "relatedDocumentSupport": False,
+                        },
                         "publishDiagnostics": True,
                         "completion": {"dynamicRegistration": True},
                         "synchronization": {
@@ -86,3 +90,13 @@ class Requests:
             }
         }
 
+    def getDiagnostics(self, uri):
+        return {
+            "jsonrpc": self.jsonrpc,
+            "method": "textDocument/diagnostic",
+            "params": {
+                "textDocument": {
+                    "uri": uri
+                },
+            }
+        }

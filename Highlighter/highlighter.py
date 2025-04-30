@@ -53,9 +53,10 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
     ]
 
 
-    def __init__(self, parent: QtGui.QTextDocument) -> None:
+    def __init__(self,editor, parent: QtGui.QTextDocument) -> None:
         super().__init__(parent)
 
+        self.editor = editor
         self.start_comment = (QtCore.QRegExp("/*"), 0, Styles['string'])
         self.end_comment = (QtCore.QRegExp("*/"), 0, Styles['string'])
         # Primul parametru este expresia regulata, al doilea indexul ( explic acum ) si al treilea este stilul, culoarea
@@ -135,7 +136,6 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         
         self.rules = [(QtCore.QRegExp(rule[0]),rule[1], rule[2]) for rule in rules]
 
-        self.errors = []
 
         self.error_format = QTextCharFormat()
         self.error_format.setUnderlineColor(QColor(255, 0, 0))
@@ -172,24 +172,23 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         for var in varNames:
             if var not in self.keywords:
                 self.rules= [ ( QtCore.QRegExp(r'\b%s\b' % var), 0, Styles["variable"] ) ] + self.rules
-        
-        self.setCurrentBlockState(0)
-         
-        self.multilineComments(text)
 
-        for error in self.errors:
+        for error in self.editor.errors:
             error_line = error[0]
             error_start = error[1][0]
             error_end = error[1][1]
             if error_line == self.currentBlock().blockNumber():
                 self.setFormat(error_start, error_end - error_start, self.error_format)
 
+
+
+
+        self.setCurrentBlockState(0)
+         
+        self.multilineComments(text)
         # self.setCurrentBlockState(0) este folosit pentru a reseta starea curenta a blocului de text,
         # astfel incat sa putem aplica din nou regulile de sintaxă la următorul bloc de text.
 
-    def setErrors(self, errors):
-        self.errors = errors
-        self.rehighlight()
 
     def multilineComments(self, text):
         startDelimiter = QtCore.QRegExp(r'/\*')

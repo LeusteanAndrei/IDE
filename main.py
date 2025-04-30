@@ -50,8 +50,9 @@ if __name__ == "__main__":
     font = editor.font()
     font.setPointSize(style.EDITOR_FONT_SIZE)
     editor.setFont(font)    
-    highlighter = cPlusPlusHighlighter(editor.document())
-    
+    highlighter = cPlusPlusHighlighter(ui.plainTextEdit, editor.document())
+    ui.plainTextEdit.highlighter = highlighter
+
     ui.terminal.setStyleSheet(style.TERMINAL_STYLE)
     
     #DISCLAIMER LIST (vai mama mea)
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     shortcut_manager = ShortcutManager(MainWindow)
     # Add shortcuts
-    shortcut_manager.add_shortcut("Ctrl+S", lambda: save_file(editor))
+    shortcut_manager.add_shortcut("Ctrl+S", lambda: save_file(editor,highlighter))
     shortcut_manager.add_shortcut("Ctrl+N", lambda: new_file(editor))
     
     # Connect algorithm actions to their respective functions

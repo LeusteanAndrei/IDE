@@ -16,7 +16,7 @@ def save_as_file(editor):
         current_file_path = file_path # Update the current file path
         print(f"File saved as: {file_path}")
 
-def save_file(editor):
+def save_file(editor, highlighter):
     """Save current content of the editor into the existing file"""
     global current_file_path
     if current_file_path:
@@ -25,6 +25,7 @@ def save_file(editor):
         print(f"File saved: {current_file_path}")
     else:
         save_as_file(editor) # If no file path is set for now -> we must us save as method
+    highlighter.rehighlight() # Reapply syntax highlighting after saving
 
 def new_file(editor):
     """Create a new file in the editor"""
