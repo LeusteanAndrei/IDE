@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # Add shortcuts with descriptive names and default key sequences
     shortcut_manager.add_shortcut("New File", "Ctrl+N", lambda: new_file(editor))
     shortcut_manager.add_shortcut("Open File", "Ctrl+O", lambda: open_file(editor))
-    shortcut_manager.add_shortcut("Save File", "Ctrl+S", lambda: save_file(editor))
+    shortcut_manager.add_shortcut("Save File", "Ctrl+S", lambda: save_file(editor, highlighter))
     shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", lambda: save_as_file(editor))
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())

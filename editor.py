@@ -59,16 +59,7 @@ class Editor(QWidget):
         self.layout.addWidget(self.completion_popup)
         self.completion_popup.itemClicked.connect(self.insert_completion)
 
-        self.highlihgterTimer = QTimer(self)
-        self.highlihgterTimer.timeout.connect(self.rehighlight)
-        self.highlihgterTimer.start(3000)  
-
-    def rehighlight(self):
-        if self.highlighter:
-            self.open_document()
-            self.highlighter.rehighlight()
-        else:
-            return
+       
 
 
     def initialize_lsp(self):
@@ -162,6 +153,7 @@ class Editor(QWidget):
                     Log.logger.info("Received a diagnostics response from my sent FADJUKSAD JFGKADFGLADF from LSP.")
 
     def handle_diagnostics(self, message):  
+        # return
         diagnostics = message['params']['diagnostics']
         errors = []
         if diagnostics:
@@ -174,9 +166,6 @@ class Editor(QWidget):
                     if error_line == error_line_end:
                         errors  = errors + [[error_line, [error_start, error_end]]]
         self.errors = errors
-        for error in errors:
-            block = self.text_edit.document().findBlockByLineNumber(error[0])
-            self.highlighter.rehighlightBlock(block)
         Log.logger.info(f"Errors received: {self.errors}")
 
             
