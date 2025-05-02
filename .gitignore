@@ -1,2 +1,2 @@
 LLVM/
-__pycache__/*
+/pycache/*
