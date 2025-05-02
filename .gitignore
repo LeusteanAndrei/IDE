@@ -1,2 +1,3 @@
 LLVM/
-/pycache/*
+**/__pycache__
+**/*.pyc
