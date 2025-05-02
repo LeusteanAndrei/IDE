@@ -23,13 +23,14 @@ if __name__ == "__main__":
     # testText = f.readlines()
     # test = "".join(testText)
     # f.close()
-
+    # QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, False)
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
 
     MainWindow.setStyleSheet(style.MAIN_WINDOW_STYLE)
+    MainWindow.showMaximized()
     MainWindow.show()
 
     # pe aici am aplicat styling-ul ala mizerabil

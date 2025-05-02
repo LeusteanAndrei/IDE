@@ -10,19 +10,14 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
     def setupUi(self, MainWindow):
 
 
-        screenSize = QtWidgets.QDesktopWidget().screenGeometry()
-        screenWidth = screenSize.width()
-        screenHeight = screenSize.height()
-        maximizedWidth = screenWidth - 100
-        maximizedHeight = screenHeight - 100
+        # screenSize = QtWidgets.QDesktopWidget().screenGeometry()
+        # screenWidth = screenSize.width()
+        # screenHeight = screenSize.height()
+        # maximizedWidth = screenWidth - 100
+        # maximizedHeight = screenHeight - 100
 
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.showMaximized()
-        # MainWindow.showMinimized()
-        # MainWindow.showMaximized()
-        # MainWindow.resize(maximizedWidth, )
-        # MainWindow.resize(1105, 632)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -206,28 +201,40 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         #Editor (Zona 4) - legat si de file navigator - Zona 3
         import editor
         self.plainTextEdit = editor.Editor() 
-        #self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, screenWidth - 100, screenHeight - 100))
+        # self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, screenWidth - 1000, screenHeight - 1000))
         self.plainTextEdit.setObjectName("plainTextEdit")
-        self.gridLayout.addWidget(self.plainTextEdit, 2, 0, 1, 2)
+        # self.gridLayout.addWidget(self.plainTextEdit, 2, 0, 1, 2)
 
         self.splitter, self.tree_view, self.file_model = initialize_sidebar_and_splitter(self.plainTextEdit) #functia din folder_open.py care initializeaza sidebar-ul si splitter-ul
-        self.splitter.setSizes([1, 4])
-        self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
+        # self.splitter.setSizes([1, 4])
+        self.splitter.setSizes([250, 950])
+        # self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
 
         #Output pentru run code:
 
         
-        #Terminal (Zona 5)
+        # #Terminal (Zona 5)
         self.terminal = QtWidgets.QPlainTextEdit()
         self.terminal.setReadOnly(False)
         self.terminal.setObjectName("terminal")
         self.terminal.setMinimumHeight(100)
 
+        self.output = QtWidgets.QPlainTextEdit()
+        self.output.setReadOnly(True)
+        self.output.setObjectName("output")
+        self.output.setMinimumHeight(100)
+
+        self.tab_widget = QtWidgets.QTabWidget()
+        self.tab_widget.setObjectName("tab_widget")
+        self.tab_widget.addTab(self.terminal, "Terminal")
+        self.tab_widget.addTab(self.output, "Output")
+        self.tab_widget.setTabVisible(1, False)
 
         self.terminal_splitter = QSplitter(Qt.Vertical) #aici ar trebui sa functioneze splitterul la fel ca in cazul file navigator doar ca pe vertical
         self.terminal_splitter.addWidget(self.splitter) #in orice caz e destul de glitched so idk if im doing it right
-        self.terminal_splitter.addWidget(self.terminal) #am separat terminal (zona 5) de splitterul anterior (zonele 3+4)
-        self.terminal_splitter.setSizes([1, 4])
+        self.terminal_splitter.addWidget(self.tab_widget) #am separat terminal (zona 5) de splitterul anterior (zonele 3+4)
+        # self.terminal_splitter.setSizes([1, 4])
+        self.terminal_splitter.setSizes([1000, 100])
 
 
         self.gridLayout.addWidget(self.terminal_splitter, 2, 0, 1, 2)
@@ -246,7 +253,6 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.terminal.installEventFilter(self) #pt functia asta am convertit QtCore.QObject
 
         MainWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -260,7 +266,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         file_directory = os.path.dirname(current_file_path)
         executable_file_name = os.path.basename(current_file_path).split(".")[0] + ".exe"
         command = ["LLVM/bin/clang++.exe", current_file_path, "-o", file_directory+"/" + executable_file_name]
-
+        self.tab_widget.setTabVisible(1, True)
+        self.tab_widget.setCurrentIndex(1)
 
         result = subprocess.run(command,
                                 stdout=subprocess.PIPE,
@@ -268,7 +275,9 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
                                 text=True,
         )       
         if result.returncode !=0 :
-            print("EROARE: ", result.stderr)
+            self.output.clear()
+            self.output.appendPlainText("Error: \n")
+            self.output.appendPlainText(result.stderr)
             return
         run_command = file_directory + "/" + executable_file_name
         result = subprocess.run(run_command, 
@@ -277,10 +286,14 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
                                 text=True,
         )
         if result.returncode !=0 :
-            print("EROARE: ", result.stderr)
+            self.output.clear()
+            self.output.appendPlainText("Error: \n")
+            self.output.appendPlainText(result.stderr)
+            # print("EROARE: ", result.stderr)
             return
-        print("SUCCES: \n", result.stdout)
-
+        self.output.clear()
+        self.output.appendPlainText("Succes: \n")
+        self.output.appendPlainText(result.stdout)
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "C++ IDE"))

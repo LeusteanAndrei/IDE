@@ -34,7 +34,7 @@ def initialize_sidebar_and_splitter(editor):
     # Connect the "doubleClick" function in order to be able to open the files from the sidebar
     tree_view.doubleClicked.connect(lambda index: open_file_from_sidebar(index, file_model, editor))
 
-    editor.setMinimumSize(1000, 1000)  # setat manual pt ca din nush ce motiv editorul se face foarte mic din cauza functiei .addWidget(editor)
+    # editor.setMinimumSize(1000, 1000)  # setat manual pt ca din nush ce motiv editorul se face foarte mic din cauza functiei .addWidget(editor)
     # Initialize the splitter
     splitter = QSplitter()
     splitter.addWidget(tree_view)  # Add the sidebar

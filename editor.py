@@ -24,6 +24,7 @@ class Editor(QWidget):
     def __init__(self):
         super().__init__()
 
+
         self.errors = []
         self.highlighter = None
 
