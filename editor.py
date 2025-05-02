@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget, QToolTip
 from PyQt5.QtCore import QProcess, Qt, QTimer
 from PyQt5.QtGui import QTextCursor
+
 
 import tempfile, os, sys, json
 from lsp import requests, logger
@@ -11,10 +12,6 @@ class TextEditor(QPlainTextEdit):
     def __init__(self):
         super().__init__()
 
-        
-
-
-        
     
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
@@ -60,8 +57,36 @@ class Editor(QWidget):
         self.layout.addWidget(self.completion_popup)
         self.completion_popup.itemClicked.connect(self.insert_completion)
 
-       
+        self.text_edit.setMouseTracking(True)
+        self.text_edit.viewport().installEventFilter(self)
 
+        self.hover_timer = QTimer(self)
+        self.hover_timer.timeout.connect(self.show_hover)
+
+        self.last_hover = None
+
+        QToolTip.setFont(self.text_edit.font())
+
+    def show_hover(self):
+        cursor = self.text_edit.cursorForPosition(self.last_hover)
+        cursor.select(QTextCursor.WordUnderCursor)
+        word = cursor.selectedText().strip()
+
+        if len(word) != 0:
+            hover_request = requests.Requests().getHoverRequest(self.temp_file_uri, cursor.blockNumber(), cursor.columnNumber())
+            self.send_request(hover_request)
+
+    def eventFilter(self, source, event):
+        if source == self.text_edit.viewport() and event.type() == event.HoverMove:
+            current_position = event.pos()
+            if self.last_hover != current_position:
+                QToolTip.hideText()
+                self.hover_timer.stop()
+                self.last_hover = current_position
+                self.hover_timer.start(1000)
+            
+            return True
+        return super().eventFilter(source, event)
 
     def initialize_lsp(self):
         self.create_temporary_file()
@@ -93,6 +118,18 @@ class Editor(QWidget):
         # formatul de sus e formatul standard pt requesturi LSP
         self.lsp_process.write(message_in_bytes)
         Log.logger.info(f"Request sent with method {method}")        
+
+    def handle_hover(self, message):
+        if  message['result']:
+            contents = message['result']['contents']
+            if isinstance(contents, dict) and 'value' in contents:
+                hover_text = contents['value']
+                QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), hover_text, self.text_edit)
+                Log.logger.info(f"Hover text: {hover_text}")
+            else:
+                Log.logger.warning("Hover response does not contain expected format.")
+        else:
+            Log.logger.warning("Hover response does not contain 'contents'.")
 
     def handle_response(self):
         while self.lsp_process.canReadLine():
@@ -151,7 +188,8 @@ class Editor(QWidget):
                     self.handle_completion(message)
                     self.show_completions()
                 case 2:
-                    Log.logger.info("Received a diagnostics response from my sent FADJUKSAD JFGKADFGLADF from LSP.")
+                    Log.logger.info("Received hover response.")
+                    self.handle_hover(message)
 
     def handle_diagnostics(self, message):  
         # return

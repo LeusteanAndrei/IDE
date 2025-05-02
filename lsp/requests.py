@@ -19,6 +19,10 @@ class Requests:
                         "resolveProvider": True
                     },
                     "textDocument": {
+                        "hover":
+                        {
+                            "dynamicRegistration": False
+                        },
                         "diagnostics":{
                             "dynamicRegistration": False, 
                             "relatedDocumentSupport": False,
@@ -90,13 +94,20 @@ class Requests:
             }
         }
 
-    def getDiagnostics(self, uri):
+    def getHoverRequest(self, uri, line, char):
         return {
             "jsonrpc": self.jsonrpc,
-            "method": "textDocument/diagnostic",
+            "id": 2,
+            "method": "textDocument/hover",
             "params": {
                 "textDocument": {
                     "uri": uri
                 },
+                "position": {
+                    "line": line,
+                    "character": char
+                }
             }
         }
+
+  
