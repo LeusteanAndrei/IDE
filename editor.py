@@ -299,6 +299,8 @@ class Editor(QWidget):
         request = requests.Requests().getCompletionRequest(self.temp_file_uri, line, column)
         self.send_request(request)
 
+
+
     def keyPressEvent(self, event):
         if event.key() != Qt.Key.Key_Down and event.key() != Qt.Key.Key_Up and event.key() != Qt.Key.Key_Right and event.key() != Qt.Key.Key_Left:
             self.text_change()
@@ -321,6 +323,33 @@ class Editor(QWidget):
                 return
             elif event.key() == Qt.Key_Space:
                 self.completion_popup.hide()
+        else:
+            if event.key() == Qt.Key_Tab:
+                cursor = self.text_edit.textCursor()
+                start_selection = cursor.selectionStart()
+                end_selection = cursor.selectionEnd()
+
+                start_cursor = QTextCursor(self.text_edit.document())
+                start_cursor.setPosition(start_selection)
+                end_cursor = QTextCursor(self.text_edit.document())
+                end_cursor.setPosition(end_selection)
+
+                if start_cursor.blockNumber() != end_cursor.blockNumber():
+                    cursor.beginEditBlock()
+                    for number in range(start_cursor.blockNumber(), end_cursor.blockNumber()+1):
+                        line = self.text_edit.document().findBlockByNumber(number).text()
+                        new_line = "\n\t" + line
+                        block_cursor = QTextCursor(self.text_edit.document().findBlockByNumber(number))
+                        block_cursor.select(QTextCursor.BlockUnderCursor)
+                        # print(block_cursor.selectedText())
+                        block_cursor.removeSelectedText()
+                        block_cursor.insertText(new_line)
+                    cursor.endEditBlock()
+                else:   
+                    cursor.insertText("   ")
+                return
+
+
 
         super().keyPressEvent(event)
         super(TextEditor, self.text_edit).keyPressEvent(event)
