@@ -15,7 +15,7 @@ public:
 
 	void	functie(int x, int m)
 	{
-		cout<<"hei";
+		cout<<"heibei";
 	}
 
 };

@@ -6,6 +6,7 @@ saved = False #verificam daca fisierul a fost salvat sau nu
 def save_as_file(editor):
     """Save the current of the editor into a new file"""
     global current_file_path
+    global saved
     options = QFileDialog.Options()
     file_path, _ = QFileDialog.getSaveFileName(
                     None, "Save File", current_file_path,  "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", 
@@ -14,6 +15,7 @@ def save_as_file(editor):
         with open(file_path, 'w') as file:
             file.write(editor.toPlainText())
         current_file_path = file_path # Update the current file path
+        saved=True
         print(f"File saved as: {file_path}")
 
 def save_file(editor, highlighter):
@@ -48,6 +50,8 @@ def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
 def open_file(editor):
     """Open an existing file in the editor"""
     global current_file_path
+    global saved
+    saved=True
     options = QFileDialog.Options()
     file_path, _ = QFileDialog.getOpenFileName(
         None, "Open File", "", "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", options=options
