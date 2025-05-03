@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import QFileDialog, QInputDialog, QMessageBox
 
 current_file_path = None #with this one we verify what the current file path is)
-
+saved = False #verificam daca fisierul a fost salvat sau nu
 
 def save_as_file(editor):
     """Save the current of the editor into a new file"""
     global current_file_path
     options = QFileDialog.Options()
     file_path, _ = QFileDialog.getSaveFileName(
-                    None, "Save File", "",  "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", 
+                    None, "Save File", current_file_path,  "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", 
                     options=options)
     if file_path:
         with open(file_path, 'w') as file:
@@ -19,7 +19,8 @@ def save_as_file(editor):
 def save_file(editor, highlighter):
     """Save current content of the editor into the existing file"""
     global current_file_path
-    if current_file_path:
+    global saved
+    if current_file_path and saved:
         with open(current_file_path, 'w') as file:
             file.write(editor.toPlainText())
         print(f"File saved: {current_file_path}")
@@ -27,7 +28,7 @@ def save_file(editor, highlighter):
         save_as_file(editor) # If no file path is set for now -> we must us save as method
     highlighter.rehighlight() # Reapply syntax highlighting after saving
 
-def new_file(editor):
+def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
     """Create a new file in the editor"""
     global current_file_path
     while True:

@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt, QProcess
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QSplitter
 from FileSystem.folder_open import initialize_sidebar_and_splitter
+from FileSystem.file_methods import save_as_file
 import os, subprocess
 
 
@@ -259,13 +260,14 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
     def run_code(self):
         print("Run Code")
         # opened_file = self.plainTextEdit.currentFile
-        from FileSystem.file_methods import current_file_path
-
+        import FileSystem.file_methods as fm #import la tot modulul ca sa am mereu variabilele globale curente (daca importam doar o copie a lor si dupa le modificam in if-ul de jos aici n ar fi fost updated)
+        if fm.saved==False:
+            save_as_file(self.plainTextEdit.text_edit)
         # print(current_file_path)
         # print(current_file_path.split('/')[-1])
-        file_directory = os.path.dirname(current_file_path)
-        executable_file_name = os.path.basename(current_file_path).split(".")[0] + ".exe"
-        command = ["LLVM/bin/clang++.exe", current_file_path, "-o", file_directory+"/" + executable_file_name]
+        file_directory = os.path.dirname(fm.current_file_path)
+        executable_file_name = os.path.basename(fm.current_file_path).split(".")[0] + ".exe"
+        command = ["LLVM/bin/clang++.exe", fm.current_file_path, "-o", file_directory+"/" + executable_file_name]
         self.tab_widget.setTabVisible(1, True)
         self.tab_widget.setCurrentIndex(1)
 
@@ -294,6 +296,7 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.output.clear()
         self.output.appendPlainText("Succes: \n")
         self.output.appendPlainText(result.stdout)
+    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "C++ IDE"))

@@ -1,4 +1,4 @@
-Temporary file created: C:\Users\DELIAN~1\AppData\Local\Temp\tmpyh5asnqo.cpp
+Temporary file created: C:\Users\DELIAN~1\AppData\Local\Temp\tmppse989dj.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -145,9 +145,13 @@ Received response: {
     "method": "textDocument/publishDiagnostics",
     "params": {
         "diagnostics": [],
-        "uri": "file://C:/Users/DELIAN~1/AppData/Local/Temp/tmpyh5asnqo.cpp",
+        "uri": "file://C:/Users/DELIAN~1/AppData/Local/Temp/tmppse989dj.cpp",
         "version": 0
     }
 }
 Diagnostics received from LSP.
 Errors received: []
+Updated temporary file C:\Users\DELIAN~1\AppData\Local\Temp\tmppse989dj.cpp
+Request sent with method textDocument/didChange
+Updated temporary file C:\Users\DELIAN~1\AppData\Local\Temp\tmppse989dj.cpp
+Request sent with method textDocument/didChange
