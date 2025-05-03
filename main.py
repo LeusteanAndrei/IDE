@@ -131,7 +131,7 @@ if __name__ == "__main__":
         lambda: open_file(editor)
     )
     ui.actionSaveFile.triggered.connect(
-        lambda: save_file(editor)
+        lambda: save_file(editor,highlighter)
     )
     ui.actionSaveFileAs.triggered.connect(
         lambda: save_as_file(editor)
