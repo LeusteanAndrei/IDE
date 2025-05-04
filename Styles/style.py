@@ -84,3 +84,48 @@ QPlainTextEdit {
     padding: 5px;
 }
 """
+
+FILE_TAB_STYLE = """ 
+QTabWidget::pane { /* The tab widget frame */
+    background: #35374b;
+    border: none; /* Remove the border around the tab bar */
+    margin-left: 10px; /* Add left margin to align with the editor */
+}
+
+QTabBar::tab {
+    background: #35374b;
+    color: #ffffff;
+    padding: 5px 10px; /* Adjust padding for better spacing */
+    margin: 0px; /* Remove margin between tabs */
+    border-radius: 3px; /* Slightly rounded corners */
+    width: 120px; /* Fixed width for tabs */
+}
+
+QTabBar::tab:selected { /* Style for the selected tab */
+    background: #5c5f77;
+    color: #ffffff;
+}
+
+QTabBar::tab:hover { /* Style for hover effect */
+    background: #4a4d63;
+    color: #ffffff;
+}
+
+QTabBar::close-button {
+    background: #5c5f77; /* Gray background for visibility */
+    content: "X"; 
+    color: #ffffff; /* White "X" text */
+    border: none; /* Remove border */
+    border-radius: 3px; /* Match tab corners */
+    width: 16px; /* Fixed size for the close button */
+    height: 16px;
+    margin: 0px; /* Align with the tab */
+    text-align: center; /* Center the "X" */
+    font-size: 12px; /* Adjust font size */
+}
+
+QTabBar::close-button:hover {
+    background: #4a4d63; /* Darker gray on hover */
+    color: #ffffff;
+}
+"""
