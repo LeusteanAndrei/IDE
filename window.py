@@ -6,7 +6,6 @@ from FileSystem.folder_open import initialize_sidebar_and_splitter
 from FileSystem.file_methods import save_as_file
 import os, subprocess
 
-
 class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga terminalul:))
     def setupUi(self, MainWindow):
 
@@ -225,11 +224,18 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.output.setObjectName("output")
         self.output.setMinimumHeight(100)
 
+        
+        self.input = QtWidgets.QPlainTextEdit()
+        self.input.setReadOnly(False)
+        self.input.setObjectName("input")
+        self.input.setMinimumHeight(100)
+
         self.tab_widget = QtWidgets.QTabWidget()
         self.tab_widget.setObjectName("tab_widget")
         self.tab_widget.addTab(self.terminal, "Terminal")
+        self.tab_widget.addTab(self.input, "Input")
         self.tab_widget.addTab(self.output, "Output")
-        self.tab_widget.setTabVisible(1, False)
+        self.tab_widget.setTabVisible(2, False)
 
         self.terminal_splitter = QSplitter(Qt.Vertical) #aici ar trebui sa functioneze splitterul la fel ca in cazul file navigator doar ca pe vertical
         self.terminal_splitter.addWidget(self.splitter) #in orice caz e destul de glitched so idk if im doing it right
@@ -268,8 +274,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         file_directory = os.path.dirname(fm.current_file_path)
         executable_file_name = os.path.basename(fm.current_file_path).split(".")[0] + ".exe"
         command = ["LLVM/bin/clang++.exe", fm.current_file_path, "-o", file_directory+"/" + executable_file_name]
-        self.tab_widget.setTabVisible(1, True)
-        self.tab_widget.setCurrentIndex(1)
+        self.tab_widget.setTabVisible(2, True)
+        self.tab_widget.setCurrentIndex(2)
 
         result = subprocess.run(command,
                                 stdout=subprocess.PIPE,
@@ -282,7 +288,9 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             self.output.appendPlainText(result.stderr)
             return
         run_command = file_directory + "/" + executable_file_name
+
         result = subprocess.run(run_command, 
+                                input = self.input.toPlainText(),
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 text=True,
@@ -297,6 +305,7 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.output.appendPlainText("Succes: \n")
         self.output.appendPlainText(result.stdout)
     
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "C++ IDE"))
