@@ -1,28 +1,13 @@
 
 #include <iostream>
-#include <string.h>
 
-using namespace std;
-class clasa
-{
-public:
-	int y;
+using namespace std;   
 
-	clasa()
-	{
-		this->y = 0;
-	}
-
-	void	functie(int x, int m)
-	{
-		cout<<"heibei";
-	}
-
-};
+int var1, var2;
 
 int main()
 {
-	clasa c ;
-           int x = 2;
-	c.functie(2, 3);
+         cout<<var1<<" "<<var2;            
+         main;
+         return 0;
 }
