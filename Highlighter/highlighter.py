@@ -87,9 +87,13 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         rules += [
                     (r'\b%s\b(?:\s*|(?:\s*&+\s*)|(?:\s*\[\]\s*)|(?:\s*\*+\s*))(\w+)' % dataType, 1, Styles["variable"]) for dataType in self.dataTypes
                 ]
+        rules += [
+                    (r'\b%s\b\s*(.*)' % dataType, 1, Styles["variable"]) for dataType in self.dataTypes
+        ]
         rules +=[
                     (r'<\s*[\w\s<>:,]*\s*>(?:\s+|(?:\s*&+\s*)|(?:\s*\[\]\s*)|(?:\s*\*+\s*))(\w+)' , 1, Styles["variable"])
             ]
+        
         
         rules += [ ( r'\b%s\b' % keyword, 0, Styles["keyword"]) for keyword in self.keywords ]
         # \b - word boundary => extrage cuvinte intregi ( keywords in cazul nostru)
@@ -153,8 +157,22 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
                         classNames.append(nume_clasa) # adaugam numele clasei in lista de nume de clase
                         self.dataTypes.append(nume_clasa)
                 if expression in [ QtCore.QRegExp(r'\b%s\b(?:\s*|(?:\s*&+\s*)|(?:\s*\[\]\s*)|(?:\s*\*+\s*))(\w+)' % dataType) for dataType in self.dataTypes ] or expression == QtCore.QRegExp(r'<\s*[\w\s<>:,]*\s*>(?:\s+|(?:\s*&+\s*)|(?:\s*\[\]\s*)|(?:\s*\*+\s*))(\w+)'):
+                  
                     nume_var = expression.cap(nr)
                     varNames.append(nume_var)    
+                if expression in [ QtCore.QRegExp(r'\b%s\b\s*(.*)' % dataType) for dataType in self.dataTypes]:
+                    captured_text = expression.cap(nr)
+                    for word in captured_text.split(","):
+                        word = word.strip(" *&;>")
+                        if "[" in word:
+                            word = word.split("[")[0]
+                        if "(" in word:
+                            word = word.split("(")[0]
+                        if "{" in word:
+                            word = word.split("{")[0]
+                        # print(word)
+                        if word:
+                             varNames.append(word)
                         # rules = [ ( QtCore.QRegExp(r'%s' % nume_clasa) ), 0, Styles["classname"]  ] + rules
                 
                     
