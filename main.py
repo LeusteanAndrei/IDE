@@ -18,23 +18,35 @@ def get_current_editor(tab_widget): #asta e pt ca am incercat sa fac posibilitat
     """Get the current editor from the active tab"""
     return tab_widget.currentWidget()
 
-def comment_line(editor):
+def comment_line_or_selection(editor):
+    """ Daca nu e nimic selectat, comenteaza linia curenta, altfel comenteaza toate liniile selectate 
+        In cazul in care linia/selectia este deja comentata, o de-comenteaza """
     cursor = editor.textCursor()
-    start_selection = cursor.selectionStart()
-    end_selection = cursor.selectionEnd()
-
-    start_cursor = QTextCursor(editor.document())
-    start_cursor.setPosition(start_selection)
-    end_cursor = QTextCursor(editor.document())
-    end_cursor.setPosition(end_selection)
-    cursor.select(QtGui.QTextCursor.LineUnderCursor)
-    line = cursor.selectedText()
-    if line.strip().startswith("//"):
-        new_line = line.replace("//", "", 1)
-        cursor.insertText(new_line)
+    if not cursor.hasSelection():
+        cursor.select(QtGui.QTextCursor.LineUnderCursor)
+        lines = [cursor.selectedText()]
     else:
-        new_line = "//" + line
-        cursor.insertText(new_line)
+        start_selection = cursor.selectionStart()
+        end_selection = cursor.selectionEnd()
+
+        start_cursor = QTextCursor(editor.document())
+        start_cursor.setPosition(start_selection)
+        start_cursor.movePosition(QtGui.QTextCursor.StartOfBlock)
+
+        end_cursor = QTextCursor(editor.document())
+        end_cursor.setPosition(end_selection)
+        end_cursor.movePosition(QtGui.QTextCursor.EndOfBlock)
+
+        cursor.setPosition(start_cursor.position())
+        cursor.setPosition(end_cursor.position(), QtGui.QTextCursor.KeepAnchor)
+        lines = cursor.selectedText().split('\u2029')  
+
+    if all(line.strip().startswith("//") for line in lines):
+        new_lines = [line.replace("//", "", 1) for line in lines]
+    else:
+        new_lines = ["//" + line for line in lines]
+
+    cursor.insertText("\n".join(new_lines))
     editor.setTextCursor(cursor)
 
 
@@ -93,7 +105,7 @@ if __name__ == "__main__":
     shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", lambda: save_as_file(editor))
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
-    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line(editor))
+    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
     
     # Connect button 1 to open the shortcut settings dialog
     ui.buttons[0].setText("Shortcuts")
