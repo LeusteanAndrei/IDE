@@ -1,3 +1,6 @@
 LLVM/
 **/__pycache__
 **/*.pyc
+lsp.log
+testingCode.cpp
+*.exe

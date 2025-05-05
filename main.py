@@ -88,21 +88,15 @@ if __name__ == "__main__":
 
     ui.terminal.setStyleSheet(style.TERMINAL_STYLE)
     
-    #DISCLAIMER LIST (vai mama mea)
-    #1. Terminalul odata ascuns nu mai reuseste sa fie afisat - de aia il si las not hidden initial ca macar sa se vada si sa poata fi testat:))
-    #2. Also terminaul se suprapune peste editor si orice am incercat nu am reusit sa il fac sa stea in continuarea lui (cum e la file explorer de ex)
-    #3. Din cauza asta de multe ori lucrurile se glitch-uiesc si nu se mai vede tot codul din editor - daca fac fereasta minimized si dupa maximized iar in general isi revine
-    #4. A da si in minimized terminalul nici macar nu apare :( (mai vezi alte precizari legate de terminal si in windows.py la declararea lui)
-
 
     # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     shortcut_manager = ShortcutManager(MainWindow)
     
     # Add shortcuts with descriptive names and default key sequences
-    shortcut_manager.add_shortcut("New File", "Ctrl+N", lambda: new_file(editor))
-    shortcut_manager.add_shortcut("Open File", "Ctrl+O", lambda: open_file(editor))
-    shortcut_manager.add_shortcut("Save File", "Ctrl+S", lambda: save_file(editor, highlighter))
-    shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", lambda: save_as_file(editor))
+    shortcut_manager.add_shortcut("New File", "Ctrl+N", ui.handle_new_file)
+    shortcut_manager.add_shortcut("Open File", "Ctrl+O", ui.handle_open_file)
+    shortcut_manager.add_shortcut("Save File", "Ctrl+S", ui.handle_save_file)
+    shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
     shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
@@ -157,17 +151,19 @@ if __name__ == "__main__":
     
 
     # Connect Files actions to their respective functions
+    #Si aici si in shortcuts apelam acum handler functions din window.py - care manevreaza sistemul de filebar si apeleaza functiile din file_methods.py
+    #ik codul e un mess trebuie sa ii mai dam refactor ca at this rate ajungem cu 70% din proiect in window.py
     ui.actionNewFile.triggered.connect(
-        lambda: new_file(editor)
+        ui.handle_new_file
     )
     ui.actionOpenFile.triggered.connect(
-        lambda: open_file(editor)
+        ui.handle_open_file
     )
     ui.actionSaveFile.triggered.connect(
-        lambda: save_file(editor,highlighter)
+        ui.handle_save_file
     )
     ui.actionSaveFileAs.triggered.connect(
-        lambda: save_as_file(editor)
+        ui.handle_save_file_as
     )
     ui.actionOpenFolder.triggered.connect(
         lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show())

@@ -4,6 +4,7 @@ from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QSplitter
 from FileSystem.folder_open import initialize_sidebar_and_splitter
 from FileSystem.file_methods import save_as_file
+from Styles import style
 import os, subprocess
 
 class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga terminalul:))
@@ -198,17 +199,61 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         # Add the button layout to the grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
 
-        #Editor (Zona 4) - legat si de file navigator - Zona 3
+        #Opened files tab
+        #bara unde vor fi afisate fisierle deschise
+        self.file_tab_bar = QtWidgets.QTabBar()
+        self.file_tab_bar.setObjectName("file_tab_bar")
+        self.file_tab_bar.setTabsClosable(True)
+        self.file_tab_bar.setMovable(True)
+        self.file_tab_bar.setFixedHeight(25)
+        self.file_tab_bar.setStyleSheet(style.FILE_TAB_STYLE)
+        self.file_tab_bar.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)  # Fix the size
+        self.file_tab_bar.setLayoutDirection(Qt.LeftToRight) 
+
+        self.opened_files = []  # Aici ar trebui sa fie adaugate dinamic fisierele deschise
+        self.file_states={} #pt a retine care au fost salvate si path-ul lor
+
+         # Cand deschidem editorul, adaugam un tab default numit Untitled
+         # ca sa fie rulat codul din el intai ne va obliga sa il salvam
+        default_file_name = "Untitled"
+        self.file_tab_bar.addTab(default_file_name)
+        self.opened_files.append(default_file_name)
+        self.file_states[0] = {
+            "file_path": None,  # No file path yet
+            "saved": False      # File is not saved
+        }
+        self.file_tab_bar.setCurrentIndex(0)  # Set the default file as the active tab
+
+        # self.file_tab_bar.addTab("filename1.cpp") #astea sunt hardcoded for testing purposes
+        # self.file_tab_bar.addTab("filename2.cpp")
+        # self.file_tab_bar.addTab("filename3.cpp")
+
+        # Connect the close button signal
+        self.file_tab_bar.tabCloseRequested.connect(self.close_tab) #inchidem tab
+
+         #Editor (Zona 4) - legat si de file navigator - Zona 3
         import editor
         self.plainTextEdit = editor.Editor() 
-        # self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, screenWidth - 1000, screenHeight - 1000))
         self.plainTextEdit.setObjectName("plainTextEdit")
+
+        self.editor_layout = QtWidgets.QVBoxLayout()
+        self.editor_layout.setContentsMargins(0, 0, 0, 0)  # Remove margins
+        self.editor_layout.setSpacing(0)  # Remove spacing
+        self.editor_layout.addWidget(self.file_tab_bar)
+        self.editor_layout.addWidget(self.plainTextEdit)
+
+        # self.plainTextEdit.setGeometry(QtCore.QRect(50, 0, screenWidth - 1000, screenHeight - 1000))
+
+        self.editor_container = QtWidgets.QWidget() #container ca file bar sa fie doar deasupra editorului, nu si deasupra sidebar-ului cand e deschis
+        self.editor_container.setLayout(self.editor_layout)
+        self.editor_container.plainTextEdit = self.plainTextEdit  # Store reference to plainTextEdit
         # self.gridLayout.addWidget(self.plainTextEdit, 2, 0, 1, 2)
 
-        self.splitter, self.tree_view, self.file_model = initialize_sidebar_and_splitter(self.plainTextEdit) #functia din folder_open.py care initializeaza sidebar-ul si splitter-ul
+        self.splitter, self.tree_view, self.file_model = initialize_sidebar_and_splitter(self.editor_container,self) #functia din folder_open.py care initializeaza sidebar-ul si splitter-ul
         # self.splitter.setSizes([1, 4])
         self.splitter.setSizes([250, 950])
-        # self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
+        self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
+
 
         #Output pentru run code:
 
@@ -264,47 +309,164 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def run_code(self):
-        print("Run Code")
-        # opened_file = self.plainTextEdit.currentFile
-        import FileSystem.file_methods as fm #import la tot modulul ca sa am mereu variabilele globale curente (daca importam doar o copie a lor si dupa le modificam in if-ul de jos aici n ar fi fost updated)
-        if fm.saved==False:
-            save_as_file(self.plainTextEdit.text_edit)
-        # print(current_file_path)
-        # print(current_file_path.split('/')[-1])
-        file_directory = os.path.dirname(fm.current_file_path)
-        executable_file_name = os.path.basename(fm.current_file_path).split(".")[0] + ".exe"
-        command = ["LLVM/bin/clang++.exe", fm.current_file_path, "-o", file_directory+"/" + executable_file_name]
+        """Compile and run the current file."""
+        current_index = self.file_tab_bar.currentIndex()
+        file_state = self.file_states[current_index]
+
+        # Check if the file is saved - asa ne obliga sa salvam o copie a fisierului inainte de a da run si apoi va functiona
+        if not file_state["saved"]:
+            self.handle_save_file()  # Save the file before running
+
+        # Get the current file path
+        file_path = file_state["file_path"]
+        if not file_path:
+            self.output.clear()
+            self.output.appendPlainText("Error: No file to run.")
+            return
+
+        # Compile the file
+        file_directory = os.path.dirname(file_path)
+        executable_file_name = os.path.basename(file_path).split(".")[0] + ".exe"
+        command = ["LLVM/bin/clang++.exe", file_path, "-o", os.path.join(file_directory, executable_file_name)]
+
         self.tab_widget.setTabVisible(2, True)
         self.tab_widget.setCurrentIndex(2)
 
-        result = subprocess.run(command,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                text=True,
-        )       
-        if result.returncode !=0 :
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+        if result.returncode != 0:
             self.output.clear()
-            self.output.appendPlainText("Error: \n")
+            self.output.appendPlainText("Compilation Error:\n")
             self.output.appendPlainText(result.stderr)
             return
-        run_command = file_directory + "/" + executable_file_name
 
+        # Run the compiled executable
+        run_command = os.path.join(file_directory, executable_file_name)
+        
         result = subprocess.run(run_command, 
                                 input = self.input.toPlainText(),
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
-                                text=True,
-        )
-        if result.returncode !=0 :
+                                text=True,)
+
+        if result.returncode != 0:
             self.output.clear()
-            self.output.appendPlainText("Error: \n")
+            self.output.appendPlainText("Runtime Error:\n")
             self.output.appendPlainText(result.stderr)
-            # print("EROARE: ", result.stderr)
             return
+
+        # Display the output
         self.output.clear()
-        self.output.appendPlainText("Succes: \n")
+        self.output.appendPlainText("Execution Output:\n")
         self.output.appendPlainText(result.stdout)
     
+    def close_tab(self, index):
+        """Handle tab close requests.""" #scoatem din lista si din dictionar datele
+        self.file_tab_bar.removeTab(index)
+        del self.file_states[index]
+        del self.opened_files[index]
+        
+        # Update the keys in file_states to reflect the new tab indices
+        updated_file_states = {}
+        for i, key in enumerate(sorted(self.file_states.keys())):
+            updated_file_states[i] = self.file_states[key]
+        self.file_states = updated_file_states
+
+    #Functiile Handler pt functiile din FileSystem/file_methods.py
+    def handle_new_file(self):
+        """Handle the New File action."""
+        import FileSystem.file_methods as fm
+
+        # Call the new_file function to create a new file
+        new_file_name = fm.new_file(self.plainTextEdit.text_edit)
+
+        if new_file_name:
+            # Check if the file is already opened
+            if new_file_name not in self.opened_files:
+                # Add the file to the opened files list
+                self.opened_files.append(new_file_name)
+
+                # Add a new tab to the file_tab_bar
+                self.file_tab_bar.addTab(new_file_name)
+
+                # Initialize the file state
+                self.file_states[len(self.opened_files) - 1] = {
+                    "file_path": new_file_name,
+                    "saved": False
+                }
+
+
+                # Switch to the new tab
+                self.file_tab_bar.setCurrentIndex(len(self.opened_files) - 1)
+
+    def handle_open_file(self):
+        """Handle the Open File action."""
+        import FileSystem.file_methods as fm
+
+        # Call the open_file function and get the file path
+        file_path = fm.open_file(self.plainTextEdit.text_edit)
+
+        if file_path:
+            # Check if the file is already opened
+            if file_path not in self.opened_files:
+                # Add the file to the opened files list
+                self.opened_files.append(file_path)
+
+                # Add a new tab to the file_tab_bar
+                self.file_tab_bar.addTab(os.path.basename(file_path))
+
+                # Initialize the file state
+                self.file_states[len(self.opened_files) - 1] = {
+                    "file_path": file_path,
+                    "saved": True
+                }
+
+                # Switch to the newly opened tab
+                self.file_tab_bar.setCurrentIndex(len(self.opened_files) - 1)
+            else:
+                # If the file is already opened, switch to its tab
+                index = self.opened_files.index(file_path)
+                self.file_tab_bar.setCurrentIndex(index)
+
+    def handle_save_file(self):
+        """Handle the Save File action."""
+        import FileSystem.file_methods as fm
+
+        current_index = self.file_tab_bar.currentIndex()
+        file_state = self.file_states[current_index]
+
+        # Call the save_file function
+        file_path, saved = fm.save_file(
+            self.plainTextEdit.text_edit,
+            file_state["file_path"],
+            file_state["saved"],
+            self.plainTextEdit.highlighter
+        )
+
+        # Update the file state
+        self.file_states[current_index]["file_path"] = file_path
+        self.file_states[current_index]["saved"] = saved
+
+    def handle_save_file_as(self):
+        """Handle the Save File As action."""
+        import FileSystem.file_methods as fm
+
+        current_index = self.file_tab_bar.currentIndex()
+        file_state = self.file_states[current_index]
+
+        # Call the save_as_file function
+        file_path, saved = fm.save_as_file(
+            self.plainTextEdit.text_edit,
+            file_state["file_path"]
+        )
+
+        # Update the file state
+        self.file_states[current_index]["file_path"] = file_path
+        self.file_states[current_index]["saved"] = saved
+
+        # Update the tab name
+        self.file_tab_bar.setTabText(current_index, os.path.basename(file_path))
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
