@@ -146,6 +146,9 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         self.error_format.setUnderlineStyle(QTextCharFormat.WaveUnderline)
 
     def highlightBlock(self, text):
+
+ 
+
         classNames= []
         varNames=[]
         for expression, nr, fmt in self.rules:
@@ -192,9 +195,9 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
                 self.rules= [ ( QtCore.QRegExp(r'\b%s\b' % var), 0, Styles["variable"] ) ] + self.rules
 
         for error in self.editor.errors:
-            error_line = error[0]
-            error_start = error[1][0]
-            error_end = error[1][1]
+            error_line = error.line
+            error_start = error.column_start
+            error_end = error.column_end
             if error_line == self.currentBlock().blockNumber():
                 self.setFormat(error_start, error_end - error_start, self.error_format)
 
@@ -207,6 +210,27 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         # self.setCurrentBlockState(0) este folosit pentru a reseta starea curenta a blocului de text,
         # astfel incat sa putem aplica din nou regulile de sintaxă la următorul bloc de text.
 
+    def get_last_block(self):
+        first_visible_block = self.editor.text_edit.firstVisibleBlock()
+        viewport = self.editor.text_edit.viewport()
+
+        last_block = first_visible_block
+        block = first_visible_block
+        while block.isValid():
+            block_geometry = self.editor.text_edit.blockBoundingGeometry(block)
+            block_position = self.editor.text_edit.contentOffset().y() + block_geometry.translated(self.editor.text_edit.contentOffset()).top()
+            if block_position > viewport.height():
+                break
+            last_block = block
+            block = block.next()
+        return last_block
+
+    def rehighlight(self):
+        first_visible_block = self.editor.text_edit.firstVisibleBlock()
+        last_block = self.get_last_block()
+        for block in range(first_visible_block.blockNumber(), last_block.blockNumber() + 1):
+            self.rehighlightBlock(self.editor.text_edit.document().findBlockByNumber(block))
+        
 
     def multilineComments(self, text):
         startDelimiter = QtCore.QRegExp(r'/\*')

@@ -6,9 +6,15 @@ from FileSystem.folder_open import initialize_sidebar_and_splitter
 from FileSystem.file_methods import save_as_file
 from Styles import style
 import os, subprocess
+from PyQt5.QtCore import QTimer
 
 class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga terminalul:))
     def setupUi(self, MainWindow):
+
+        self.run_process = None
+        self.output_code = None
+        self.start_time = None
+        self.end_time = None
 
 
         # screenSize = QtWidgets.QDesktopWidget().screenGeometry()
@@ -199,6 +205,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         # Add the button layout to the grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
 
+        self.buttons[17].clicked.connect(self.abort_run)
+
         #Opened files tab
         #bara unde vor fi afisate fisierle deschise
         self.file_tab_bar = QtWidgets.QTabBar()
@@ -308,7 +316,29 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def abort_run(self):
+        print("Abort Run")
+        if self.run_process:
+            self.end_time = QtCore.QDateTime.currentMSecsSinceEpoch() / 1000.0
+            self.run_process.kill()
+            self.run_process.waitForFinished()
+            self.run_process = None
+            self.output.clear()
+            if len(self.output_code) > 100000:
+                self.output_code = self.output_code[-100000:] + "......."
+            self.output.appendPlainText("Run aborted.\nOutput:\n")
+            self.output.appendPlainText(self.output_code)
+            self.output.appendPlainText(f"Execution time: {self.end_time - self.start_time:.2f} seconds")
+            self.dot_timer.stop()
+            self.run_button.setEnabled(True)  # Re-enable the button after execution
+
+
     def run_code(self):
+        # if self.run_process:
+        #     return
+
+        self.run_button.setEnabled(False)  # Disable the button to prevent multiple clicks
+
         """Compile and run the current file."""
         current_index = self.file_tab_bar.currentIndex()
         file_state = self.file_states[current_index]
@@ -322,15 +352,19 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         if not file_path:
             self.output.clear()
             self.output.appendPlainText("Error: No file to run.")
+            self.run_button.setEnabled(True)
             return
 
         # Compile the file
         file_directory = os.path.dirname(file_path)
         executable_file_name = os.path.basename(file_path).split(".")[0] + ".exe"
+
+            
         command = ["LLVM/bin/clang++.exe", file_path, "-o", os.path.join(file_directory, executable_file_name)]
 
         self.tab_widget.setTabVisible(2, True)
         self.tab_widget.setCurrentIndex(2)
+
 
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
@@ -338,28 +372,71 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             self.output.clear()
             self.output.appendPlainText("Compilation Error:\n")
             self.output.appendPlainText(result.stderr)
+            self.run_button.setEnabled(True)
             return
 
-        # Run the compiled executable
+
+        self.run_process = QProcess()
+
         run_command = os.path.join(file_directory, executable_file_name)
+
+        self.start_time = QtCore.QDateTime.currentMSecsSinceEpoch() / 1000.0
+        self.output_code = ""
+
+
+
+        self.run_process.start(run_command)
+        self.run_process.readyReadStandardOutput.connect(self.display_run_output)
         
-        result = subprocess.run(run_command, 
-                                input = self.input.toPlainText(),
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                text=True,)
+        input_text = self.input.toPlainText()
+        if input_text:
+            self.run_process.write(input_text.encode())
+        self.run_process.closeWriteChannel()
 
-        if result.returncode != 0:
-            self.output.clear()
-            self.output.appendPlainText("Runtime Error:\n")
-            self.output.appendPlainText(result.stderr)
-            return
 
-        # Display the output
+        self.run_process.finished.connect(self.run_finished)
+
+
+        self.print_running_output()
+
+
+    
+    def display_run_output(self):
+        output = self.run_process.readAllStandardOutput().data().decode()
+        self.output_code += output
+        
+
+    
+
+    def run_finished(self):
         self.output.clear()
         self.output.appendPlainText("Execution Output:\n")
-        self.output.appendPlainText(result.stdout)
-    
+        self.output.appendPlainText(self.output_code)
+        self.run_process.close()
+        self.run_process = None
+        self.dot_timer.stop()
+        self.end_time = QtCore.QDateTime.currentMSecsSinceEpoch() / 1000.0
+        self.output.appendPlainText(f"\nExecution time: {self.end_time - self.start_time:.2f} seconds")
+        self.run_button.setEnabled(True)  # Re-enable the button after execution is finished
+
+    def print_running_output(self):
+        self.output.clear()
+        self.output.appendPlainText("Running")
+        self.dots = ""
+        self.dot_timer = QTimer(self.output)
+        self.dot_timer.setInterval(1000)
+        def update_dots():
+            if len(self.dots) < 3:
+                self.dots += "."
+            else:
+                self.dots = "."
+            self.output.clear()
+            self.output.appendPlainText("Running" + self.dots)
+        self.dot_timer.timeout.connect(update_dots)
+        self.dot_timer.start()
+
+
+
     def close_tab(self, index):
         """Handle tab close requests.""" #scoatem din lista si din dictionar datele
         self.file_tab_bar.removeTab(index)
@@ -398,6 +475,9 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
 
                 # Switch to the new tab
                 self.file_tab_bar.setCurrentIndex(len(self.opened_files) - 1)
+
+
+        
 
     def handle_open_file(self):
         """Handle the Open File action."""

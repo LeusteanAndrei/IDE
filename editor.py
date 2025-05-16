@@ -72,6 +72,11 @@ class Editor(QWidget):
         cursor.select(QTextCursor.WordUnderCursor)
         word = cursor.selectedText().strip()
 
+        for error in self.errors:
+            if error.line == cursor.blockNumber() and error.column_start <= cursor.columnNumber() <= error.column_end:
+                QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), error.message, self.text_edit)
+                return
+
         if len(word) != 0:
             hover_request = requests.Requests().getHoverRequest(self.temp_file_uri, cursor.blockNumber(), cursor.columnNumber())
             self.send_request(hover_request)
@@ -203,11 +208,12 @@ class Editor(QWidget):
                     error_start =  diagnostic['range']['start']['character']
                     error_end = diagnostic['range']['end']['character']
                     if error_line == error_line_end:
-                        errors  = errors + [[error_line, [error_start, error_end]]]
+                        errors.append(Error(error_line, error_start, error_end, diagnostic['message']))
+                        # errors  = errors + [[error_line, [error_start, error_end]]]
         self.errors = errors
+        self.highlighter.rehighlight()
         Log.logger.info(f"Errors received: {self.errors}")
-
-            
+   
     def open_document(self):
         text = self.text_edit.toPlainText()
         notification = requests.Requests().getOpenDocument(self.temp_file_uri, text, self.version)
@@ -302,6 +308,7 @@ class Editor(QWidget):
 
 
     def keyPressEvent(self, event):
+
         if event.key() != Qt.Key.Key_Down and event.key() != Qt.Key.Key_Up and event.key() != Qt.Key.Key_Right and event.key() != Qt.Key.Key_Left:
             self.text_change()
 
@@ -359,6 +366,19 @@ class Editor(QWidget):
         triggered_keys = [Qt.Key_Backspace]
         if event.text().isalnum() or event.text() in triggered_char or event.key() in triggered_keys:
             self.get_completion()
+        
+        self.sync_document()
+
+
+class Error:
+    def __init__(self, line, column_start, column_end, message):
+        self.line = line
+        self.column_start = column_start
+        self.column_end = column_end
+        self.message = message
+
+    def __repr__(self):
+        return f"Error(line={self.line}, column={self.column_start}, column_end = {self.column_end}, message={self.message})"
 
 
 if __name__ == "__main__":
