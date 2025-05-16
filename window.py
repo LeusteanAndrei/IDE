@@ -404,6 +404,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
     def display_run_output(self):
         output = self.run_process.readAllStandardOutput().data().decode()
         self.output_code += output
+        if len(self.output_code) > 100000:
+            self.output_code = self.output_code[-100000:] 
         
 
     
