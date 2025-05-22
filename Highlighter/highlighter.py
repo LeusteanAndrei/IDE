@@ -52,6 +52,7 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
     "\\{", "\\}", "\\(", "\\)", "\\[", "\\]"
     ]
 
+    errors = []
 
     def __init__(self,editor, parent: QtGui.QTextDocument) -> None:
         super().__init__(parent)
@@ -194,7 +195,7 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
             if var not in self.keywords:
                 self.rules= [ ( QtCore.QRegExp(r'\b%s\b' % var), 0, Styles["variable"] ) ] + self.rules
 
-        for error in self.editor.errors:
+        for error in self.errors:
             error_line = error.line
             error_start = error.column_start
             error_end = error.column_end

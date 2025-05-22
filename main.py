@@ -8,7 +8,7 @@ from FileSystem.folder_open import initialize_sidebar_and_splitter, open_folder
 from Styles import style
 from Functions.toggle_terminal import toggle_terminal
 
-def insert_algorithm(editor, algorithm_code):
+def insert_algorithm(editor, algorithm_code):   
     """Insert algorithm code at the current cursor position in the editor"""
     cursor = editor.textCursor()
     cursor.insertText(algorithm_code)
@@ -49,64 +49,8 @@ def comment_line_or_selection(editor):
     cursor.insertText("\n".join(new_lines))
     editor.setTextCursor(cursor)
 
-
-if __name__ == "__main__":
-    # f = open("testingCode.cpp", "r")
-    # testText = f.readlines()
-    # test = "".join(testText)
-    # f.close()
-    # QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, False)
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-
-    MainWindow.setStyleSheet(style.MAIN_WINDOW_STYLE)
-    MainWindow.showMaximized()
-    MainWindow.show()
-
-    # pe aici am aplicat styling-ul ala mizerabil
-    ui.tree_view.setStyleSheet(style.PLACEHOLDER_STYLE)
-    ui.terminal.setStyleSheet(style.PLACEHOLDER_STYLE)
-
-    for button in ui.buttons:
-        button.setStyleSheet(style.BUTTON_STYLE)
-
-    ui.buttons[19].clicked.connect(lambda: toggle_terminal(ui.terminal, ui.terminal_splitter)) #terminal toggle button (ultimul din zona 2)
-
-    editor = ui.plainTextEdit.text_edit
-    # editor.setPlainText(test)
-    
-
-    editor.setStyleSheet(style.EDITOR_STYLE)
-    # editor.setStyleSheet()
-    font = editor.font()
-    font.setPointSize(style.EDITOR_FONT_SIZE)
-    editor.setFont(font)    
-    highlighter = cPlusPlusHighlighter(ui.plainTextEdit, editor.document())
-    ui.plainTextEdit.highlighter = highlighter
-
-    ui.terminal.setStyleSheet(style.TERMINAL_STYLE)
-    
-
-    # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
-    shortcut_manager = ShortcutManager(MainWindow)
-    
-    # Add shortcuts with descriptive names and default key sequences
-    shortcut_manager.add_shortcut("New File", "Ctrl+N", ui.handle_new_file)
-    shortcut_manager.add_shortcut("Open File", "Ctrl+O", ui.handle_open_file)
-    shortcut_manager.add_shortcut("Save File", "Ctrl+S", ui.handle_save_file)
-    shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
-    shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
-    shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
-    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
-    
-    # Connect button 1 to open the shortcut settings dialog
-    ui.buttons[0].setText("Shortcuts")
-    ui.buttons[0].setToolTip("Configure keyboard shortcuts")
-    ui.buttons[0].clicked.connect(shortcut_manager.show_config_dialog)
-    
-    # Connect algorithm actions to their respective functions
+def connect_to_action(editor):
+        # Connect algorithm actions to their respective functions
     # Sorting algorithms
     ui.actionBubbleSort.triggered.connect(
         lambda: insert_algorithm(editor, ALGORITHMS["Sorting"]["Bubble Sort"]))
@@ -168,6 +112,62 @@ if __name__ == "__main__":
     ui.actionOpenFolder.triggered.connect(
         lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show())
     )
+
+def intialize_shortcuts(ui, MainWindow):
+        # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
+    shortcut_manager = ShortcutManager(MainWindow)
+    
+    # Add shortcuts with descriptive names and default key sequences
+    shortcut_manager.add_shortcut("New File", "Ctrl+N", ui.handle_new_file)
+    shortcut_manager.add_shortcut("Open File", "Ctrl+O", ui.handle_open_file)
+    shortcut_manager.add_shortcut("Save File", "Ctrl+S", ui.handle_save_file)
+    shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
+    shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
+    shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
+    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
+    
+    # Connect button 1 to open the shortcut settings dialog
+    ui.buttons[0].setText("Shortcuts")
+    ui.buttons[0].setToolTip("Configure keyboard shortcuts")
+    ui.buttons[0].clicked.connect(shortcut_manager.show_config_dialog)
+    
+def apply_style( ui, MainWindow):
+    MainWindow.setStyleSheet(style.MAIN_WINDOW_STYLE)
+    # pe aici am aplicat styling-ul ala mizerabil
+    ui.tree_view.setStyleSheet(style.PLACEHOLDER_STYLE)
+    ui.terminal.setStyleSheet(style.PLACEHOLDER_STYLE)
+
+    for button in ui.buttons:
+        button.setStyleSheet(style.BUTTON_STYLE)
+
+    ui.buttons[19].clicked.connect(lambda: toggle_terminal(ui.terminal, ui.terminal_splitter)) #terminal toggle button (ultimul din zona 2)
+
+    editor = ui.plainTextEdit.text_edit
+
+    editor.setStyleSheet(style.EDITOR_STYLE)
+    # editor.setStyleSheet()
+    font = editor.font()
+    font.setPointSize(style.EDITOR_FONT_SIZE)
+    editor.setFont(font)    
+
+    ui.terminal.setStyleSheet(style.TERMINAL_STYLE)
+
+if __name__ == "__main__":
+    
+
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+
+    MainWindow.showMaximized()
+    MainWindow.show()
+
+    editor = ui.plainTextEdit.text_edit
+    apply_style( ui, MainWindow)
+    intialize_shortcuts(ui, MainWindow)    
+
+    connect_to_action(editor)
 
     editor.show()
     sys.exit(app.exec_())

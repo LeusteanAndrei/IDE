@@ -48,15 +48,19 @@ def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
 
 def open_file(editor):
     """Open an existing file in the editor"""
+
     options = QFileDialog.Options()
     file_path, _ = QFileDialog.getOpenFileName(
         None, "Open File", "", "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", options=options
     )
 
+    # print(f"Selected file: {file_path}")
     if file_path:
         with open(file_path, 'r') as file:
             content=file.read()
         editor.setPlainText(content)
-        current_file_path = file_path
         print(f"File opened: {file_path}")
+        if not editor.isVisible():
+            editor.parentWidget().show()  # Show the parent/container
+            editor.show()
         return file_path
