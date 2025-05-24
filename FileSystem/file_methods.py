@@ -35,7 +35,7 @@ def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
         #prompt the user to provide a file name
         file_name, ok = QInputDialog.getText(None, "New File", "Enter file name:")
         if not ok: #user pressed cancel button
-            break
+            return None #return None to indicate no file was created
         if file_name.strip():
             current_file_path = file_name.strip()
             editor.clear() # Clear the editor content

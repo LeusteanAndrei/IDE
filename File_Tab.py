@@ -25,6 +25,8 @@ class File_Tab_Bar(QTabBar):
         self.setCurrentIndex(0)
 
         self.tabCloseRequested.connect(self.close_tab)
+        self.currentChanged.connect(self.tab_switch)
+        self.tabMoved.connect(self.tab_moved)
 
         self.opened_files = []  # Aici ar trebui sa fie adaugate dinamic fisierele deschise
         self.file_states={} #pt a retine care au fost salvate si path-ul lor
@@ -39,6 +41,7 @@ class File_Tab_Bar(QTabBar):
 
 
     def close_tab(self, index):
+
         """Handle tab close requests.""" #scoatem din lista si din dictionar datele
         current_index = self.currentIndex()
         self.removeTab(index)
@@ -65,6 +68,26 @@ class File_Tab_Bar(QTabBar):
                     self.ui.plainTextEdit.text_edit.setPlainText(content)
             except Exception as e:
                 pass
+            
+
+
+
+    def tab_moved(self, from_index, to_index): 
+
+        aux = self.file_states[from_index]
+        self.file_states[from_index] = self.file_states[to_index]
+        self.file_states[to_index] = aux
+
+        aux = self.opened_files[from_index]
+        self.opened_files[from_index] = self.opened_files[to_index]
+        self.opened_files[to_index] = aux
+
+    def tab_switch(self, index):
+        file_state = self.file_states.get(index)
+        if file_state and file_state["file_path"] is not None:
+            with open(file_state["file_path"], 'r') as file:
+                content = file.read()
+            self.ui.plainTextEdit.text_edit.setPlainText(content)
 
 
 class Terminal(QPlainTextEdit):
