@@ -65,15 +65,20 @@ def open_file_from_sidebar(index, file_model, main_window):
         file_model: The QFileSystemModel for the file system.
         main_window: The main window instance (Ui_MainWindow).
     """
+    editor = main_window.plainTextEdit.text_edit
+
     file_path = file_model.filePath(index)
     file_extension = file_path.split('.')[-1].lower()  # Obtain the extension (without .)
 
     # Supported file types
     supported_extensions = ['txt', 'cpp', 'py', 'md', 'h']  # Add more extensions if needed
 
+    opened_files = main_window.file_tab_bar.opened_files
+    file_states = main_window.file_tab_bar.file_states
+
     if file_extension in supported_extensions:
         # Acelasi principiu ca in window.py - verificam daca fisierul e deja deschis in navbar
-        if file_path not in main_window.opened_files:
+        if file_path not in opened_files:
             try:
                 # Open the file and read its content
                 with open(file_path, 'r') as file:
@@ -83,23 +88,25 @@ def open_file_from_sidebar(index, file_model, main_window):
                 # Add the file to the file bar
                 file_name = os.path.basename(file_path)
                 main_window.file_tab_bar.addTab(file_name)
-                main_window.opened_files.append(file_path)
+                opened_files.append(file_path)
 
                 # Initialize the file state
-                main_window.file_states[len(main_window.opened_files) - 1] = {
+                file_states[len(opened_files) - 1] = {
                     "file_path": file_path,
                     "saved": True  # Avand in vedere ca il deschidem dintr-un folder evident e deja salvat
                 }
 
                 # Switch to the newly opened tab
-                main_window.file_tab_bar.setCurrentIndex(len(main_window.opened_files) - 1)
-
+                main_window.file_tab_bar.setCurrentIndex(len(opened_files) - 1)
+                if not editor.isVisible():
+                    editor.parentWidget().show()  # Show the parent/container
+                    editor.show()
                 print(f"Opened file: {file_path}")
             except Exception as e:
                 QMessageBox.critical(None, "Error", f"Failed to open file: {e}")
         else:
             # If the file is already opened, switch to its tab
-            index = main_window.opened_files.index(file_path)
+            index =opened_files.index(file_path)
             main_window.file_tab_bar.setCurrentIndex(index)
     else:
         QMessageBox.warning(None, "Unsupported File", "File type not supported.")

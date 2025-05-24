@@ -5,6 +5,8 @@ from PyQt5.QtGui import QTextCursor
 
 import tempfile, os, sys, json
 from lsp import requests, logger
+from Highlighter.highlighter import cPlusPlusHighlighter
+from Styles import style
 
 Log = logger.Logger("lsp.log")
 
@@ -15,83 +17,17 @@ class TextEditor(QPlainTextEdit):
     
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
-    
 
-class Editor(QWidget):
-    def __init__(self):
-        super().__init__()
+class LspProcess():
 
-
-        self.errors = []
-        self.highlighter = None
-
-        self.current_file_name = None
-        self.current_file_path = None
-
+    def __init__(self, editor):
+        self.editor = editor
+        self.text_edit = editor.text_edit
+        self.lsp_process = None
         self.version = 0
         self.temp_file_path = None
         self.temp_file_uri = None
         self.lsp_path = "./LLVM/bin/clangd.exe"
-
-        self.text_edit = TextEditor()
-        
-        self.container = QWidget()
-        self.layout = QVBoxLayout(self.container)
-        self.layout.addWidget(self.text_edit)
-        self.container.setLayout(self.layout)
-        self.setLayout(self.layout)
-        # self.setCentralWidget(self.container)
-
-        self.text_edit.keyPressEvent = self.keyPressEvent
-
-
-        self.initialize_lsp()
-
-        self.completion_words = []
-        self.completion_popup = QListWidget(self)
-        self.completion_popup.setWindowFlag(Qt.ToolTip)
-        self.completion_popup.setFocusPolicy(Qt.NoFocus)
-        self.completion_popup.setMaximumHeight(100)
-        self.completion_popup.setMaximumWidth(300)
-        self.completion_popup.hide()
-        self.layout.addWidget(self.completion_popup)
-        self.completion_popup.itemClicked.connect(self.insert_completion)
-
-        self.text_edit.setMouseTracking(True)
-        self.text_edit.viewport().installEventFilter(self)
-
-        self.hover_timer = QTimer(self)
-        self.hover_timer.timeout.connect(self.show_hover)
-
-        self.last_hover = None
-
-        QToolTip.setFont(self.text_edit.font())
-
-    def show_hover(self):
-        cursor = self.text_edit.cursorForPosition(self.last_hover)
-        cursor.select(QTextCursor.WordUnderCursor)
-        word = cursor.selectedText().strip()
-
-        for error in self.errors:
-            if error.line == cursor.blockNumber() and error.column_start <= cursor.columnNumber() <= error.column_end:
-                QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), error.message, self.text_edit)
-                return
-
-        if len(word) != 0:
-            hover_request = requests.Requests().getHoverRequest(self.temp_file_uri, cursor.blockNumber(), cursor.columnNumber())
-            self.send_request(hover_request)
-
-    def eventFilter(self, source, event):
-        if source == self.text_edit.viewport() and event.type() == event.HoverMove:
-            current_position = event.pos()
-            if self.last_hover != current_position:
-                QToolTip.hideText()
-                self.hover_timer.stop()
-                self.last_hover = current_position
-                self.hover_timer.start(1000)
-            
-            return True
-        return super().eventFilter(source, event)
 
     def initialize_lsp(self):
         self.create_temporary_file()
@@ -111,7 +47,7 @@ class Editor(QWidget):
         self.lsp_process.readyReadStandardOutput.connect(self.handle_response)
 
         self.initialize_request()
-
+    
     def initialize_request(self):
         req = requests.Requests().getInitializeRequest(self.lsp_process.processId())
         self.send_request(req)
@@ -129,7 +65,7 @@ class Editor(QWidget):
             contents = message['result']['contents']
             if isinstance(contents, dict) and 'value' in contents:
                 hover_text = contents['value']
-                QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), hover_text, self.text_edit)
+                self.editor.showHover(hover_text)
                 Log.logger.info(f"Hover text: {hover_text}")
             else:
                 Log.logger.warning("Hover response does not contain expected format.")
@@ -161,8 +97,8 @@ class Editor(QWidget):
 
                     #urm 3 linii sunt doar pt logging, pt a avea usor mesajul de citit la debugging
                     aux = json.loads(json_in_string)
-                    formattet_json = json.dumps(aux, indent=4)
-                    Log.logger.info(f"Received response: {formattet_json}")
+                    formatted_json = json.dumps(aux, indent=4)
+                    Log.logger.info(f"Received response: {formatted_json}")
 
 
                     self.handle_message(json.loads(json_in_string))
@@ -191,7 +127,7 @@ class Editor(QWidget):
                 case 1:
                     Log.logger.info("Received a completion response from LSP.")
                     self.handle_completion(message)
-                    self.show_completions()
+                    self.editor.completion_popup.show_completions()
                 case 2:
                     Log.logger.info("Received hover response.")
                     self.handle_hover(message)
@@ -210,9 +146,9 @@ class Editor(QWidget):
                     if error_line == error_line_end:
                         errors.append(Error(error_line, error_start, error_end, diagnostic['message']))
                         # errors  = errors + [[error_line, [error_start, error_end]]]
-        self.errors = errors
-        self.highlighter.rehighlight()
-        Log.logger.info(f"Errors received: {self.errors}")
+        self.editor.highlighter.errors = errors
+        self.editor.highlighter.rehighlight()
+        Log.logger.info(f"Errors received: {self.editor.highlighter.errors}")
    
     def open_document(self):
         text = self.text_edit.toPlainText()
@@ -225,37 +161,10 @@ class Editor(QWidget):
         for item in result:
             text = item['insertText']
             completions.append(text)
-        self.completion_words.clear()
-        self.completion_words = completions
-        Log.logger.info(f"Completions received: {self.completion_words}")
-
-    def show_completions(self):
-
-        cursor = self.text_edit.cursorRect()
-        cursor_global_coordinates = self.text_edit.mapToGlobal(cursor.bottomLeft())
-        cursor_local_coordinates = self.container.mapFromGlobal(cursor_global_coordinates)
-        self.completion_popup.move(cursor_local_coordinates.x(), cursor_local_coordinates.y() + 5)
-
-        cursor = self.text_edit.textCursor()
-        cursor.select(QTextCursor.WordUnderCursor)
-        word = cursor.selectedText().strip()
-
-        if len(word) == 0:
-            self.completion_popup.hide()
-            return
+        self.editor.completion_popup.completion_words.clear()
+        self.editor.completion_popup.completion_words = completions
+        Log.logger.info(f"Completions received: {self.editor.completion_words}")
     
-        good_completions = [
-            comp for comp in self.completion_words if comp.startswith(word)
-        ]
-
-        if good_completions:
-            self.completion_popup.clear()
-            self.completion_popup.addItems(good_completions)
-            self.completion_popup.show()
-            self.completion_popup.setCurrentRow(0)
-        else:
-            self.completion_popup.hide()
-
     def create_temporary_file(self):
         # avem nevoie de un fisier temporar pt a putea lucra cu modificarile curente, fara a fi nevoie sa salvam totimpul
         if hasattr(self, 'temp_file'):
@@ -282,21 +191,7 @@ class Editor(QWidget):
         self.version += 1
         change_notification = requests.Requests().changeNotification(text, self.temp_file_uri, self.version)
         self.send_request(change_notification)
-
-    def text_change(self):
-        self.rewrite_temp_file()
-        self.sync_document()
-
-    def insert_completion(self, item):
-        completion = item.text()
-
-        cursor = self.text_edit.textCursor()
-        cursor.select(QTextCursor.WordUnderCursor)
-        cursor.removeSelectedText()
-        cursor.insertText(completion)
-
-        self.completion_popup.hide()
-
+    
     def get_completion(self):
         cursor = self.text_edit.textCursor()
         line = cursor.blockNumber()
@@ -305,17 +200,100 @@ class Editor(QWidget):
         request = requests.Requests().getCompletionRequest(self.temp_file_uri, line, column)
         self.send_request(request)
 
+    def text_change(self):
+        self.rewrite_temp_file()
+        self.sync_document()
 
+class Editor(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        
+        self.setObjectName("plainTextEdit")
+
+        self.current_file_name = None
+        self.current_file_path = None
+
+
+        self.setup_layout()
+        self.text_edit.keyPressEvent = self.keyPressEvent
+        self.setup_lsp()
+        self.setup_completions()
+        self.setup_hover()
+        self.set_highlighter()
+
+
+    def setup_hover(self):
+        self.text_edit.setMouseTracking(True)
+        self.text_edit.viewport().installEventFilter(self)
+
+        self.hover_timer = QTimer(self)
+        self.hover_timer.timeout.connect(self.show_hover)
+
+        self.last_hover = None
+        QToolTip.setFont(self.text_edit.font())
+
+    def setup_completions(self):
+
+        self.completion_words = []
+        self.completion_popup = Completion_Popup(self)
+        self.completion_popup.hide()
+        self.layout.addWidget(self.completion_popup)
+
+    def setup_lsp(self):
+        self.Lsp = LspProcess(self)
+        self.Lsp.initialize_lsp()
+
+    def setup_layout(self):
+        self.text_edit = TextEditor()
+
+        self.container = QWidget()
+        self.layout = QVBoxLayout(self.container)
+        self.layout.addWidget(self.text_edit)
+        self.container.setLayout(self.layout)
+        self.setLayout(self.layout)
+
+    def show_hover(self):
+        cursor = self.text_edit.cursorForPosition(self.last_hover)
+        cursor.select(QTextCursor.WordUnderCursor)
+        word = cursor.selectedText().strip()
+
+        for error in self.highlighter.errors:
+            if error.line == cursor.blockNumber() and error.column_start <= cursor.columnNumber() <= error.column_end:
+                QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), error.message, self.text_edit)
+                return
+
+        if len(word) != 0:
+            hover_request = requests.Requests().getHoverRequest(self.Lsp.temp_file_uri, cursor.blockNumber(), cursor.columnNumber())
+            self.Lsp.send_request(hover_request)
+
+    def set_highlighter(self):
+        self.highlighter = cPlusPlusHighlighter(self, self.text_edit.document())
+
+    def eventFilter(self, source, event):
+        if source == self.text_edit.viewport() and event.type() == event.HoverMove:
+            current_position = event.pos()
+            if self.last_hover != current_position:
+                QToolTip.hideText()
+                self.hover_timer.stop()
+                self.last_hover = current_position
+                self.hover_timer.start(1000)
+            
+            return True
+        return super().eventFilter(source, event)
+
+    def showHover(self, hover_text):
+        QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), hover_text, self.text_edit)
 
     def keyPressEvent(self, event):
 
         if event.key() != Qt.Key.Key_Down and event.key() != Qt.Key.Key_Up and event.key() != Qt.Key.Key_Right and event.key() != Qt.Key.Key_Left:
-            self.text_change()
+            self.Lsp.text_change()
 
         if self.completion_popup.isVisible():
             if event.key() == Qt.Key_Tab or event.key() == Qt.Key_Return:
                 if self.completion_popup.currentItem():
-                    self.insert_completion(self.completion_popup.currentItem())
+                    self.completion_popup.insert_completion(self.completion_popup.currentItem())
                 return
             elif event.key() == Qt.Key_Escape:
                 self.completion_popup.hide()
@@ -365,9 +343,70 @@ class Editor(QWidget):
         triggered_char = ['.', '>', '-', '<']
         triggered_keys = [Qt.Key_Backspace]
         if event.text().isalnum() or event.text() in triggered_char or event.key() in triggered_keys:
-            self.get_completion()
+            self.Lsp.get_completion()
         
-        self.sync_document()
+        self.Lsp.sync_document()
+
+
+
+class Completion_Popup(QListWidget):
+    def __init__(self, parent=None):
+
+
+        super().__init__(parent)
+        self.parent = parent
+        self.setWindowFlag(Qt.ToolTip)
+        self.setFocusPolicy(Qt.NoFocus)
+        self.setMaximumHeight(100)
+        self.setMaximumWidth(300)
+        self.hide()
+
+        self.itemClicked.connect(self.insert_completion)
+
+        self.completion_words = []
+        
+        self.setCss()
+
+    def setCss(self):
+        self.setStyleSheet(style.COMPLETION_POPUP_STYLE)
+
+    def insert_completion(self, item):
+        completion = item.text()
+
+        cursor = self.parent.text_edit.textCursor()
+        cursor.select(QTextCursor.WordUnderCursor)
+        cursor.removeSelectedText()
+        cursor.insertText(completion)
+
+        self.hide()
+
+    
+    def show_completions(self):
+
+        cursor = self.parent.text_edit.cursorRect()
+        cursor_global_coordinates = self.parent.text_edit.mapToGlobal(cursor.bottomLeft())
+        cursor_local_coordinates = self.parent.container.mapFromGlobal(cursor_global_coordinates)
+        self.move(cursor_local_coordinates.x(), cursor_local_coordinates.y() + 5)
+
+        cursor = self.parent.text_edit.textCursor()
+        cursor.select(QTextCursor.WordUnderCursor)
+        word = cursor.selectedText().strip()
+
+        if len(word) == 0:
+            self.hide()
+            return
+    
+        good_completions = [
+            comp for comp in self.completion_words if comp.startswith(word)
+        ]
+
+        if good_completions:
+            self.clear()
+            self.addItems(good_completions)
+            self.show()
+            self.setCurrentRow(0)
+        else:
+            self.hide()
 
 
 class Error:

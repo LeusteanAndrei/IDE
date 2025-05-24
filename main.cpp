@@ -32,6 +32,7 @@ int main()
 int x;
 x = integer1;
 integer2 = integer1; 
+cout<<1;
   return 0;      
 
 }

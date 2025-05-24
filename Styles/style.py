@@ -129,3 +129,27 @@ QTabBar::close-button:hover {
     color: #ffffff;
 }
 """
+
+COMPLETION_POPUP_STYLE = """
+            QListWidget {
+                background: #23272e;
+                color: #e6e6e6;
+                border: 1px solid #444;
+                border-radius: 6px;
+                font-size: 14px;
+                padding: 4px 0;
+                selection-background-color: #3d4250;
+                selection-color: #ffffff;
+            }
+            QListWidget::item {
+                padding: 6px 16px;
+                border: none;
+            }
+            QListWidget::item:selected {
+                background: #3d4250;
+                color: #ffffff;
+            }
+            QListWidget::item:hover {
+                background: #2a2f3a;
+                color: #ffffff;
+            }"""
