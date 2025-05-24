@@ -3,4 +3,9 @@ LLVM/
 **/*.pyc
 lsp.log
 testingCode.cpp
+main.cpp
+testingCode.exe
 *.exe
+*.pdf
+*.pptx
+*.mp4
