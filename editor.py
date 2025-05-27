@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget, QToolTip
 from PyQt5.QtCore import QProcess, Qt, QTimer
 from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QShortcut
 
 
 import tempfile, os, sys, json
@@ -8,15 +10,30 @@ from lsp import requests, logger
 from Highlighter.highlighter import cPlusPlusHighlighter
 from Styles import style
 
+
 Log = logger.Logger("lsp.log")
 
 class TextEditor(QPlainTextEdit):
-    def __init__(self):
+    def __init__(self, file_path = None):
         super().__init__()
+        self.file_path = file_path
+        self.saved = False
+        self.up_to_date = True
 
-    
+
+    def readContent(self):
+        if self.file_path and os.path.exists(self.file_path):
+            with open(self.file_path, 'r') as file:
+                content = file.read()
+                return content
+        return "Nope, nothing here"
+
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
+        if e.key() != Qt.Key.Key_Down and e.key() != Qt.Key.Key_Up and e.key() != Qt.Key.Key_Right and e.key() != Qt.Key.Key_Left:
+            self.up_to_date = False
+            # self.saved = False
+
 
 class LspProcess():
 
@@ -204,8 +221,23 @@ class LspProcess():
         self.rewrite_temp_file()
         self.sync_document()
 
+    def shutdown(self):
+        if self.lsp_process is not None:
+            self.lsp_process.kill()
+            self.lsp_process.close()
+            self.lsp_process = None
+            Log.logger.info("LSP process shut down successfully.")
+
+    def restart(self):
+        if self.lsp_process is not None:
+            self.shutdown()
+            self.initialize_lsp()
+            Log.logger.info("LSP process restarted successfully.")
+        else:
+            Log.logger.error("LSP process is not running, cannot restart.")
+
 class Editor(QWidget):
-    def __init__(self):
+    def __init__(self, text_edit = None):
         super().__init__()
 
         
@@ -213,6 +245,7 @@ class Editor(QWidget):
 
         self.current_file_name = None
         self.current_file_path = None
+        self.text_edit = text_edit if text_edit else TextEditor()
 
 
         self.setup_layout()
@@ -245,7 +278,6 @@ class Editor(QWidget):
         self.Lsp.initialize_lsp()
 
     def setup_layout(self):
-        self.text_edit = TextEditor()
 
         self.container = QWidget()
         self.layout = QVBoxLayout(self.container)
@@ -271,15 +303,32 @@ class Editor(QWidget):
         self.highlighter = cPlusPlusHighlighter(self, self.text_edit.document())
 
     def eventFilter(self, source, event):
-        if source == self.text_edit.viewport() and event.type() == event.HoverMove:
-            current_position = event.pos()
-            if self.last_hover != current_position:
+        if source == self.text_edit.viewport() :
+            if event.type() == event.HoverMove:
+
+                if not self.isActiveWindow():
+                    QToolTip.hideText()
+                    self.hover_timer.stop()
+                    return True
+
+                current_position = event.pos()
+                if self.last_hover != current_position:
+                    QToolTip.hideText()
+                    self.hover_timer.stop()
+                    self.last_hover = current_position
+                    self.hover_timer.start(1000)
+                
+                return True
+            
+            elif event.type() == event.HoverLeave:
                 QToolTip.hideText()
                 self.hover_timer.stop()
-                self.last_hover = current_position
-                self.hover_timer.start(1000)
-            
-            return True
+                return True
+        elif event.type() == event.WindowDeactivate:
+            QToolTip.hideText()
+            self.hover_timer.stop()
+        elif event.type() == event.WindowActivate:
+            self.hover_timer.start(1000)
         return super().eventFilter(source, event)
 
     def showHover(self, hover_text):
@@ -347,6 +396,41 @@ class Editor(QWidget):
         
         self.Lsp.sync_document()
 
+    def hide_editor(self):
+        self.text_edit.hide()
+        self.hide()
+
+    def show_editor(self):
+        self.text_edit.show()
+        self.show()
+
+    
+    def switch_text_edit(self, textedit):
+        if textedit is None:
+            return
+        
+        if self.text_edit is not None:
+            # Remove the old text_edit from the layout
+            self.layout.removeWidget(self.text_edit)
+            self.text_edit.hide()
+            
+        self.text_edit = textedit
+        self.layout.addWidget(self.text_edit)
+        self.text_edit.show()
+        self.set_highlighter()
+        self.Lsp.rewrite_temp_file()
+        self.text_edit.keyPressEvent = self.keyPressEvent
+        self.text_edit.setMouseTracking(True)
+        self.text_edit.viewport().installEventFilter(self)
+
+        self.Lsp.shutdown()
+        self.setup_lsp()
+
+        self.text_edit.setStyleSheet(style.EDITOR_STYLE)
+        # editor.setStyleSheet()
+        font = self.text_edit.font()
+        font.setPointSize(style.EDITOR_FONT_SIZE)
+        self.text_edit.setFont(font)
 
 
 class Completion_Popup(QListWidget):
@@ -420,14 +504,29 @@ class Error:
         return f"Error(line={self.line}, column={self.column_start}, column_end = {self.column_end}, message={self.message})"
 
 
+
+    
 if __name__ == "__main__":
 
 
 
     app = QApplication(sys.argv)
-    editor = Editor()
+
+    texteditor1 = TextEditor()
+    texteditor2 = TextEditor()
+
+    editor = Editor(text_edit=texteditor1)
+    editor.text_edit = texteditor1
+
     editor.showMaximized()
     editor.show()
+
+
+    shortcut = QShortcut(QKeySequence("Ctrl+Tab"), editor)
+    shortcut.activated.connect(lambda: editor.switch_text_edit(texteditor2))
+    shortcut2 = QShortcut(QKeySequence("Ctrl+Shift+Tab"), editor)
+    shortcut2.activated.connect(lambda: editor.switch_text_edit(texteditor1))
+
 
 
     sys.exit(app.exec_())

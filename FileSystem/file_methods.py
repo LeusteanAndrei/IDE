@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QFileDialog, QInputDialog, QMessageBox
+from editor import TextEditor
+
 
 #Nu mai folosim variabilele globale de current_path si saved pt ca erau folosite cum trebuie doar prima data
 #in schimb acum fiecare file va avea un path si saved state propriu - le retinem intr-un dictionar in window.py
@@ -12,11 +14,12 @@ def save_as_file(editor, file_path):
                     None, "Save File", file_path,  "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", 
                     options=options)
     if new_file_path:
-        with open(new_file_path, 'w') as file:
-            file.write(editor.toPlainText())
-        print(f"File saved as: {file_path}")
+        # with open(new_file_path, 'w') as file:
+        #     file.write(editor.toPlainText())
+        # print(f"File saved as: {file_path}")
         return new_file_path, True #return the new file path and set saved to True
-    return file_path, False #if the user cancels the save dialog, return the original file path and set saved to False
+    return None, False
+    # return file_path, False #if the user cancels the save dialog, return the original file path and set saved to False
 
 def save_file(editor, file_path, saved, highlighter):
     """Save current content of the editor into the existing file"""
@@ -38,7 +41,7 @@ def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
             return None #return None to indicate no file was created
         if file_name.strip():
             current_file_path = file_name.strip()
-            editor.clear() # Clear the editor content
+            # editor.clear() # Clear the editor content
             break
         else:
             # Show an error message to the user
@@ -46,7 +49,7 @@ def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
     print("New file created")
     return current_file_path
 
-def open_file(editor):
+def open_file(ui):
     """Open an existing file in the editor"""
 
     options = QFileDialog.Options()
@@ -58,9 +61,36 @@ def open_file(editor):
     if file_path:
         with open(file_path, 'r') as file:
             content=file.read()
-        editor.setPlainText(content)
+        # new_text_edit = TextEditor()
+        # new_text_edit.setPlainText(content)
+        
+        # ui.plainTextEdit.switch_text_edit(new_text_edit)
         print(f"File opened: {file_path}")
-        if not editor.isVisible():
-            editor.parentWidget().show()  # Show the parent/container
-            editor.show()
-        return file_path
+        # if not editor.isVisible():
+        #     editor.parentWidget().show()  # Show the parent/container
+        #     editor.show()
+        return file_path, content
+    
+    return None, None  # If no file was opened, return None
+
+
+
+# def open_file(editor):
+#     """Open an existing file in the editor"""
+
+#     options = QFileDialog.Options()
+#     file_path, _ = QFileDialog.getOpenFileName(
+#         None, "Open File", "", "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", options=options
+#     )
+
+#     # print(f"Selected file: {file_path}")
+#     if file_path:
+#         with open(file_path, 'r') as file:
+#             content=file.read()
+#         editor.setPlainText(content)
+#         print(f"File opened: {file_path}")
+#         if not editor.isVisible():
+#             editor.parentWidget().show()  # Show the parent/container
+#             editor.show()
+#         return file_path
+
