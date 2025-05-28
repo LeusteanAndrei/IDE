@@ -206,10 +206,11 @@ class Ui_MainWindow(QtCore.QObject):
         self.setup_buttons()
 
 
+        self.plainTextEdit = editor.Editor()
         self.file_tab_bar = File_Tab.File_Tab_Bar(ui = self)  # Use the custom tab bar class
 
          #Editor (Zona 4) - legat si de file navigator - Zona 3
-        self.plainTextEdit = editor.Editor() 
+        # self.plainTextEdit = editor.Editor() 
 
         self.editor_layout = QtWidgets.QVBoxLayout()
         self.editor_layout.setContentsMargins(0, 0, 0, 0)  # Remove margins
@@ -252,95 +253,108 @@ class Ui_MainWindow(QtCore.QObject):
     
     #Functiile Handler pt functiile din FileSystem/file_methods.py
     def handle_new_file(self):
+
+        
         """Handle the New File action."""
         import FileSystem.file_methods as fm
 
         # Call the new_file function to create a new file
         new_file_name = fm.new_file(self.plainTextEdit.text_edit)
-
+        # print(new_file_name)
         if new_file_name:
             # Check if the file is already opened
             if new_file_name not in self.file_tab_bar.opened_files:
+                self.file_tab_bar.add_new_tab(name = new_file_name, file_path = None)
                 # Add the file to the opened files list
-                self.file_tab_bar.opened_files.append(new_file_name)
+                # self.file_tab_bar.opened_files.append(new_file_name)
 
-                # Add a new tab to the file_tab_bar
-                self.file_tab_bar.addTab(new_file_name)
+                # # Add a new tab to the file_tab_bar
+                # self.file_tab_bar.addTab(new_file_name)
 
-                # Initialize the file state
-                self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
-                    "file_path": new_file_name,
-                    "saved": False
-                }
+                # # Initialize the file state
+                # self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
+                #     "file_path": None,
+                #     "saved": False
+                # }
 
 
-                # Switch to the new tab
-                self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
+                # # Switch to the new tab
+                # self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
 
     def handle_open_file(self):
         """Handle the Open File action."""
         import FileSystem.file_methods as fm
 
         # Call the open_file function and get the file path
-        file_path = fm.open_file(self.plainTextEdit.text_edit)
+        # file_path = fm.open_file(self.plainTextEdit.text_edit)
+        file_path, content = fm.open_file(self)
+
 
         if file_path:
             # Check if the file is already opened
             if file_path not in self.file_tab_bar.opened_files:
-                # Add the file to the opened files list
-                self.file_tab_bar.opened_files.append(file_path)
+                self.file_tab_bar.add_new_tab(name = os.path.basename(file_path), file_path = file_path, content = content, saved=True)
+                # # Add the file to the opened files list
+                # self.file_tab_bar.opened_files.append(file_path)
 
-                # Add a new tab to the file_tab_bar
-                self.file_tab_bar.addTab(os.path.basename(file_path))
+                # # Add a new tab to the file_tab_bar
+                # self.file_tab_bar.addTab(os.path.basename(file_path))
 
-                # Initialize the file state
-                self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
-                    "file_path": file_path,
-                    "saved": True
-                }
+                # # Initialize the file state
+                # self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
+                #     "file_path": file_path,
+                #     "saved": True
+                # }
 
-                # Switch to the newly opened tab
-                self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
+                # # Switch to the newly opened tab
+                # self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
             else:
                 # If the file is already opened, switch to its tab
                 index = self.file_tab_bar.opened_files.index(file_path)
-                self.file_tab_bar.setCurrentIndex(index)
+                self.file_tab_bar.tab_switch(index)
 
     def handle_save_file(self):
         """Handle the Save File action."""
         import FileSystem.file_methods as fm
 
         current_index = self.file_tab_bar.currentIndex()
-        file_state = self.file_tab_bar.file_states[current_index]
+        # file_state = self.file_tab_bar.file_states[current_index]
+
 
         # Call the save_file function
         file_path, saved = fm.save_file(
             self.plainTextEdit.text_edit,
-            file_state["file_path"],
-            file_state["saved"],
+            self.plainTextEdit.text_edit.file_path,
+            self.plainTextEdit.text_edit.saved,
             self.plainTextEdit.highlighter
         )
 
         # Update the file state
-        self.file_tab_bar.file_states[current_index]["file_path"] = file_path
-        self.file_tab_bar.file_states[current_index]["saved"] = saved
+        # self.file_tab_bar.file_states[current_index]["file_path"] = file_path
+        # self.file_tab_bar.file_states[current_index]["saved"] = saved
+        self.plainTextEdit.text_edit.file_path = file_path
+        self.plainTextEdit.text_edit.saved = saved
 
     def handle_save_file_as(self):
         """Handle the Save File As action."""
         import FileSystem.file_methods as fm
 
         current_index = self.file_tab_bar.currentIndex()
-        file_state = self.file_tab_bar.file_states[current_index]
+        # file_state = self.file_tab_bar.file_states[current_index]
 
         # Call the save_as_file function
         file_path, saved = fm.save_as_file(
             self.plainTextEdit.text_edit,
-            file_state["file_path"]
+            self.plainTextEdit.text_edit.file_path
         )
 
+        if file_path is None:
+            return
         # Update the file state
-        self.file_tab_bar.file_states[current_index]["file_path"] = file_path
-        self.file_tab_bar.file_states[current_index]["saved"] = saved
+        # self.file_tab_bar.file_states[current_index]["file_path"] = file_path
+        # self.file_tab_bar.file_states[current_index]["saved"] = saved
+        self.plainTextEdit.text_edit.file_path = file_path
+        self.plainTextEdit.text_edit.saved = saved
 
         # Update the tab name
         self.file_tab_bar.setTabText(current_index, os.path.basename(file_path))
@@ -392,6 +406,11 @@ class Ui_MainWindow(QtCore.QObject):
             self.terminal.handle_event(event)
         return super().eventFilter(obj, event)
 
+    def changeEditor(self, new_editor):
+        self.plainTextEdit.hide_editor()
+        self.plainTextEdit = new_editor
+        self.plainTextEdit.show_editor()
+
 
 
 
@@ -414,3 +433,20 @@ class Ui_MainWindow(QtCore.QObject):
     #             return
 
     #     super(QtWidgets.QPlainTextEdit, self.terminal).keyPressEvent(event)
+
+
+class fileHandler():
+    def __init__ (self, ui):
+        self.ui = ui
+    
+
+    def handle_new_file(self):
+            # get_file_path()
+            # create_text_edit()
+            # create_tab()
+            # link_tab_to_text_edit()
+            # switch_text_edit()
+        import FileSystem.file_methods as fm
+        new_file_name = fm.new_file(self.ui.plainTextEdit.text_edit)
+        if new_file_name:
+            self.ui.file_tab_bar.add_new_tab(new_file_name, new_file_name)

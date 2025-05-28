@@ -51,11 +51,14 @@ def open_folder(file_model, tree_view):
         tree_view: The QTreeView for the file tree.
     """
     folder_path = QFileDialog.getExistingDirectory(None, "Select Folder")
+  # Hide the sidebar if no folder is selected
     if folder_path:
         #print(f"Selected folder: {folder_path}")
         file_model.setRootPath(folder_path) #set root <=> we will see the rest of the files relative to the selected folder
         tree_view.setRootIndex(file_model.index(folder_path))
         tree_view.show() # Show the sidebar when a folder is opened
+        return
+    # tree_view.hide()  # Hide the sidebar if no folder is selected
 
 def open_file_from_sidebar(index, file_model, main_window):
     """
@@ -74,7 +77,7 @@ def open_file_from_sidebar(index, file_model, main_window):
     supported_extensions = ['txt', 'cpp', 'py', 'md', 'h']  # Add more extensions if needed
 
     opened_files = main_window.file_tab_bar.opened_files
-    file_states = main_window.file_tab_bar.file_states
+    # file_states = main_window.file_tab_bar.file_states
 
     if file_extension in supported_extensions:
         # Acelasi principiu ca in window.py - verificam daca fisierul e deja deschis in navbar
@@ -83,21 +86,23 @@ def open_file_from_sidebar(index, file_model, main_window):
                 # Open the file and read its content
                 with open(file_path, 'r') as file:
                     content = file.read()
-                main_window.plainTextEdit.text_edit.setPlainText(content)
+               
+                # main_window.plainTextEdit.text_edit.setPlainText(content)
 
-                # Add the file to the file bar
+                # # Add the file to the file bar
                 file_name = os.path.basename(file_path)
-                main_window.file_tab_bar.addTab(file_name)
-                opened_files.append(file_path)
+                # main_window.file_tab_bar.addTab(file_name)
+                # opened_files.append(file_path)
 
-                # Initialize the file state
-                file_states[len(opened_files) - 1] = {
-                    "file_path": file_path,
-                    "saved": True  # Avand in vedere ca il deschidem dintr-un folder evident e deja salvat
-                }
+                # # Initialize the file state
+                # file_states[len(opened_files) - 1] = {
+                #     "file_path": file_path,
+                #     "saved": True  # Avand in vedere ca il deschidem dintr-un folder evident e deja salvat
+                # }
+                main_window.file_tab_bar.add_new_tab(file_name, file_path = file_path, content=content, saved = True)
 
-                # Switch to the newly opened tab
-                main_window.file_tab_bar.setCurrentIndex(len(opened_files) - 1)
+                # # Switch to the newly opened tab
+                # main_window.file_tab_bar.setCurrentIndex(len(opened_files) - 1)
                 if not editor.isVisible():
                     editor.parentWidget().show()  # Show the parent/container
                     editor.show()
@@ -107,6 +112,7 @@ def open_file_from_sidebar(index, file_model, main_window):
         else:
             # If the file is already opened, switch to its tab
             index =opened_files.index(file_path)
-            main_window.file_tab_bar.setCurrentIndex(index)
+            # main_window.file_tab_bar.setCurrentIndex(index)
+            main_window.file_tab_bar.tab_switch(index)
     else:
         QMessageBox.warning(None, "Unsupported File", "File type not supported.")

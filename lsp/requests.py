@@ -4,6 +4,14 @@ class Requests:
     def __init__(self):
         self.jsonrpc = "2.0"
 
+    def getShutdownRequest(self):
+        return {
+            "jsonrpc": self.jsonrpc,
+            "id": 0,
+            "method": "shutdown",
+            "params": {}
+        }
+
 
     def getInitializeRequest(self, process_id):
         return {

@@ -115,7 +115,6 @@ def connect_to_action(editor):
 
 def intialize_shortcuts(ui, MainWindow):
         # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
-    shortcut_manager = ShortcutManager(MainWindow)
     
     # Add shortcuts with descriptive names and default key sequences
     shortcut_manager.add_shortcut("New File", "Ctrl+N", ui.handle_new_file)
@@ -165,6 +164,7 @@ if __name__ == "__main__":
 
     editor = ui.plainTextEdit.text_edit
     apply_style( ui, MainWindow)
+    shortcut_manager = ShortcutManager(MainWindow)
     intialize_shortcuts(ui, MainWindow)    
 
     connect_to_action(editor)
