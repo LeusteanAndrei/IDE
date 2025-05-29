@@ -239,14 +239,14 @@ class LspProcess():
 class Editor(QWidget):
     def __init__(self, text_edit = None):
         super().__init__()
-
-        
         self.setObjectName("plainTextEdit")
+        self.setStyleSheet("border: none; background: #344955;")
 
         self.current_file_name = None
         self.current_file_path = None
         self.text_edit = text_edit if text_edit else TextEditor()
 
+        self.text_edit.setCursorWidth(0)  # Elimină linia de cursor
 
         self.setup_layout()
         self.text_edit.keyPressEvent = self.keyPressEvent

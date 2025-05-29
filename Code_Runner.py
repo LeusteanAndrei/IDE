@@ -42,14 +42,10 @@ class Code_Runner:
 
         """Compile and run the current file."""
         current_index = self.ui.file_tab_bar.currentIndex()
-        file_state = self.ui.file_tab_bar.file_states[current_index]
-
-        # Check if the file is saved - asa ne obliga sa salvam o copie a fisierului inainte de a da run si apoi va functiona
-        if not file_state["saved"]:
+        editor = self.ui.file_tab_bar.editors[current_index]
+        if not editor.saved:
             self.ui.handle_save_file()  # Save the file before running
-
-        # Get the current file path
-        file_path = file_state["file_path"]
+        file_path = editor.file_path
         if not file_path:
             self.output.clear()
             self.output.appendPlainText("Error: No file to run.")

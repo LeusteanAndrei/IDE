@@ -110,7 +110,7 @@ def connect_to_action(editor):
         ui.handle_save_file_as
     )
     ui.actionOpenFolder.triggered.connect(
-        lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show())
+        lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show(), ui.update_root_folder_label())
     )
 
 def intialize_shortcuts(ui, MainWindow):
@@ -131,6 +131,8 @@ def intialize_shortcuts(ui, MainWindow):
     ui.buttons[0].clicked.connect(shortcut_manager.show_config_dialog)
     
 def apply_style( ui, MainWindow):
+    # app = QtWidgets.QApplication.instance()
+    # app.setStyleSheet(style.GLOBAL_STYLE)  # Eliminat, nu mai există această variabilă
     MainWindow.setStyleSheet(style.MAIN_WINDOW_STYLE)
     # pe aici am aplicat styling-ul ala mizerabil
     ui.tree_view.setStyleSheet(style.PLACEHOLDER_STYLE)

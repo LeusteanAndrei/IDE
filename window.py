@@ -1,7 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+﻿from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QProcess
 from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import QSplitter
+from PyQt5.QtWidgets import QSplitter, QDialog, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QPushButton, QSizePolicy, QFileDialog
 from FileSystem.folder_open import initialize_sidebar_and_splitter
 from FileSystem.file_methods import save_as_file
 from Styles import style
@@ -13,10 +13,73 @@ import File_Tab, editor
 
 
 class Ui_MainWindow(QtCore.QObject):
+    # Add these styles at the top of your class
+    menu_button_style = """
+    QPushButton {
+        background-color: #344955;
+        color: #78A083;
+        border: 2px solid #78A083;
+        border-radius: 15px;
+        padding: 12px 10px;
+        font-size: 25px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+    QPushButton:hover, QPushButton:checked {
+        background-color: #78A083;
+        color: #344955;
+        border: 2px solid #344955;
+    }
+    QPushButton::menu-indicator {
+        image: none;
+        width: 0px;
+        height: 0px;
+    }
+    """
+
+    menu_style = """
+    QMenu {
+        background-color: #344955;
+        border: 2px solid #78A083;
+        border-radius: 10px;
+        padding: 8px;
+        min-width: 200px;
+    }
+    QMenu::item {
+        background-color: transparent;
+        color: #78A083;
+        padding: 8px 24px;
+        border-radius: 8px;
+        min-width: 180px;
+    }
+    QMenu::item:selected {
+        background-color: #78A083;
+        color: #344955;
+    }
+    """
+
+    number_bar_button_style = '''
+    QPushButton#shortcutButton {
+        background-color: #344955 !important;
+        color: #78A083;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 0px;
+        font-size: 16px;
+        min-width: 120px;
+        min-height: 36px;
+        margin: 2px 0px;
+    }
+    QPushButton#shortcutButton:hover, QPushButton#shortcutButton:checked {
+        background-color: #78A083 !important;
+        color: #344955;
+    }
+    '''
 
     def add_sections(self):
                 # Sections (Zona 1)
         self.sectionLayout = QtWidgets.QHBoxLayout()
+        self.sectionLayout.setSpacing(24)  # distanțiere mai mare între butoane
         self.sections = []
 
         # Section names
@@ -29,6 +92,8 @@ class Ui_MainWindow(QtCore.QObject):
         for name in self.section_names:
             button = QtWidgets.QPushButton(name)
             button.setObjectName(name)
+            button.setStyleSheet(self.menu_button_style)  # Apply style
+            button.setCursor(Qt.PointingHandCursor)       # Set cursor
             self.sections.append(button)
             self.sectionLayout.addWidget(button)
 
@@ -123,6 +188,16 @@ class Ui_MainWindow(QtCore.QObject):
         self.algorithmsMenu.addMenu(self.menuDynamicProgramming)
         self.algorithmsMenu.addMenu(self.menuOther)
 
+        # Apply styles to menus and submenus
+        self.fileMenu.setStyleSheet(self.menu_style)
+        self.algorithmsMenu.setStyleSheet(self.menu_style)
+        self.menuSorting.setStyleSheet(self.menu_style)
+        self.menuSearching.setStyleSheet(self.menu_style)
+        self.menuDataStructures.setStyleSheet(self.menu_style)
+        self.menuGraphAlgorithms.setStyleSheet(self.menu_style)
+        self.menuDynamicProgramming.setStyleSheet(self.menu_style)
+        self.menuOther.setStyleSheet(self.menu_style)
+
     def connect_buttons(self):
         for button in self.sections:
             if button.objectName() == "File":
@@ -133,50 +208,36 @@ class Ui_MainWindow(QtCore.QObject):
     def setup_buttons(self):
         # Shortcut Buttons (Area 2)
         self.buttonLayout = QtWidgets.QHBoxLayout()
+        self.buttonLayout.setSpacing(0)
+        self.buttonLayout.setContentsMargins(0, 0, 0, 0)
         self.buttons = []
 
-        for i in range(1, 6):
-            button = QtWidgets.QPushButton(str(i))  # momentan e doar nr ca placeholder
-            self.buttons.append(button)
-            self.buttonLayout.addWidget(button)
+        def add_group(labels):
+            for label in labels:
+                b = QtWidgets.QPushButton(label)
+                b.setObjectName("FunctionButton")
+                b.setStyleSheet(style.BUTTON_STYLE)
+                b.setCursor(Qt.PointingHandCursor)
+                self.buttonLayout.addWidget(b)
+                self.buttons.append(b)
+                b.setCheckable(True)
 
-        # Adaugare spatiu (nu intrebati ce inseamna paramaetrii aia)
-        self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
+        add_group(["1", "2", "3", "4", "5"])
+        self.buttonLayout.addSpacing(120)
+        add_group(["6", "7"])
+        self.buttonLayout.addSpacing(120)
+        add_group(["8", "9", "10", "11", "12", "13"])
+        self.buttonLayout.addSpacing(120)
+        add_group(["20"])
+        self.buttonLayout.addSpacing(60)
+        add_group(["14", "15", "16", "17"])
+        self.buttonLayout.addSpacing(120)
+        add_group(["18", "19"])
 
-        for i in range(6, 8):
-            button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
-            self.buttons.append(button)
-            self.buttonLayout.addWidget(button)
-
-        self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
-
-        for i in range(8, 14):
-            button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
-            self.buttons.append(button)
-            self.buttonLayout.addWidget(button)
-
-        self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
-
-        #Butonul de AI Assistant - sincer cam confusing ca asta e butonul 20 si e de fapt buttons[14] da am zis sa fie ca in poza anitei
-        button = QtWidgets.QPushButton('20')  # Button text as placeholder
-        self.buttons.append(button)
-        self.buttonLayout.addWidget(button)
-        self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
-
-        for i in range(14, 18):
-            button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
-            self.buttons.append(button)
-            self.buttonLayout.addWidget(button)
-        self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
-        
-        for i in range(18, 20):
-            button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
-            self.buttons.append(button)
-            self.buttonLayout.addWidget(button)
-        
-        # Add the button layout to the grid
+        # pune layout-ul în grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
 
+        # și legi semnalele de care ai nevoie
         self.buttons[17].clicked.connect(self.code_runner.abort_run)
 
     def setupUi(self, MainWindow):
@@ -185,6 +246,8 @@ class Ui_MainWindow(QtCore.QObject):
         MainWindow.setEnabled(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setStyleSheet("background-color: #344955;")
+        MainWindow.setStyleSheet("background-color: #344955;")
 
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -213,17 +276,142 @@ class Ui_MainWindow(QtCore.QObject):
         # self.plainTextEdit = editor.Editor() 
 
         self.editor_layout = QtWidgets.QVBoxLayout()
-        self.editor_layout.setContentsMargins(0, 0, 0, 0)  # Remove margins
-        self.editor_layout.setSpacing(0)  # Remove spacing
+        self.editor_layout.setContentsMargins(0, 40, 0, 0)  # Adaugă 40px sus pentru a coborî editorul
+        self.editor_layout.setSpacing(0)
         self.editor_layout.addWidget(self.file_tab_bar)
         self.editor_layout.addWidget(self.plainTextEdit)
 
 
         self.editor_container = QtWidgets.QWidget() #container ca file bar sa fie doar deasupra editorului, nu si deasupra sidebar-ului cand e deschis
         self.editor_container.setLayout(self.editor_layout)
-        self.editor_container.plainTextEdit = self.plainTextEdit  # Store reference to plainTextEdit
+        self.editor_container.plainTextEdit = self.plainTextEdit
+        self.editor_container.setStyleSheet("border: none; background: #344955;")
 
-        self.splitter, self.tree_view, self.file_model = initialize_sidebar_and_splitter(self.editor_container,self) #functia din folder_open.py care initializeaza sidebar-ul si splitter-ul
+        # Initialize the file system model and tree view
+        self.splitter, self.tree_view, self.file_model = initialize_sidebar_and_splitter(self.editor_container, self)
+        
+        # Create sidebar container with header and icon bar
+        self.sidebar_container = QtWidgets.QWidget()
+        self.sidebar_layout = QtWidgets.QVBoxLayout(self.sidebar_container)
+        self.sidebar_layout.setContentsMargins(0, 0, 0, 0)
+        self.sidebar_layout.setSpacing(0)
+
+        # Create header (compact, modern)
+        self.sidebar_header = QtWidgets.QWidget()
+        self.sidebar_header.setFixedHeight(48)
+        self.sidebar_header.setStyleSheet("""
+            QWidget {
+                background-color: #23272b;
+                border-bottom: 1px solid #222;
+                padding-top: 8px;
+                padding-bottom: 4px;
+            }
+        """)
+        header_layout = QtWidgets.QHBoxLayout(self.sidebar_header)
+        header_layout.setContentsMargins(16, 0, 0, 0)
+        header_layout.setSpacing(0)
+        title_label = QtWidgets.QLabel("EXPLORER")
+        title_label.setStyleSheet("""
+            QLabel {
+                color: #78A083;
+                font-size: 18px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+            }
+        """)
+        header_layout.addWidget(title_label)
+        header_layout.addStretch()
+
+        # Create icon bar (modern, compact)
+        self.sidebar_icon_bar = QtWidgets.QWidget()
+        self.sidebar_icon_bar.setFixedHeight(44)
+        self.sidebar_icon_bar.setStyleSheet("""
+            QWidget {
+                background-color: #23272b;
+                border-bottom: 1px solid #222;
+                padding-top: 2px;
+                padding-bottom: 2px;
+            }
+            QPushButton {
+                background: transparent;
+                border: none;
+                min-width: 36px;
+                min-height: 36px;
+                max-width: 36px;
+                max-height: 36px;
+                margin: 0 8px;
+                border-radius: 6px;
+                color: #b0b0b0;
+                font-size: 20px;
+            }
+            QPushButton:hover {
+                background: #31363b;
+                color: #78A083;
+            }
+        """)
+        icon_layout = QtWidgets.QHBoxLayout(self.sidebar_icon_bar)
+        icon_layout.setContentsMargins(8, 0, 0, 0)
+        icon_layout.setSpacing(0)
+        refresh_btn = QtWidgets.QPushButton("⟳")
+        refresh_btn.setToolTip("Refresh")
+        new_file_btn = QtWidgets.QPushButton("＋")
+        new_file_btn.setToolTip("New File")
+        new_folder_btn = QtWidgets.QPushButton("🗀")
+        new_folder_btn.setToolTip("New Folder")
+        icon_layout.addWidget(refresh_btn)
+        icon_layout.addWidget(new_file_btn)
+        icon_layout.addWidget(new_folder_btn)
+        icon_layout.addStretch()
+
+        # Conectez butoanele la funcții
+        refresh_btn.clicked.connect(self.refresh_file_explorer)
+        new_file_btn.clicked.connect(self.create_new_file_in_root)
+        new_folder_btn.clicked.connect(self.create_new_folder_in_root)
+
+        # Add header and icon bar to sidebar layout
+        self.sidebar_layout.addWidget(self.sidebar_header)
+        self.sidebar_layout.addWidget(self.sidebar_icon_bar)
+
+        # Creez un container pentru QTreeView și spacer
+        self.tree_area = QtWidgets.QWidget()
+        self.tree_area_layout = QtWidgets.QVBoxLayout(self.tree_area)
+        self.tree_area_layout.setContentsMargins(0, 0, 0, 0)
+        self.tree_area_layout.setSpacing(0)
+        self.tree_area.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+
+        self.tree_view.setParent(None)
+        self.tree_view.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        self.sidebar_spacer = QtWidgets.QWidget()
+        self.sidebar_spacer.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+
+        self.tree_area_layout.addWidget(self.tree_view)
+        self.tree_area_layout.addWidget(self.sidebar_spacer)
+        self.sidebar_layout.addWidget(self.tree_area)
+        self.sidebar_layout.setStretch(0, 0)  # header
+        self.sidebar_layout.setStretch(1, 0)  # icon bar
+        self.sidebar_layout.setStretch(2, 1)  # tree_area (ocupă tot spațiul)
+
+        # La început, ascund spacer-ul
+        self.sidebar_spacer.hide()
+
+        # Funcții pentru a arăta/ascunde QTreeView sau spacer
+        def show_tree_view():
+            self.tree_view.show()
+            self.sidebar_spacer.hide()
+        def hide_tree_view():
+            self.tree_view.hide()
+            self.sidebar_spacer.show()
+        self.show_tree_view = show_tree_view
+        self.hide_tree_view = hide_tree_view
+
+        # Remove margin from sidebar_container
+        self.sidebar_container.setStyleSheet("background: #23272b; border: none;")
+
+        # Remove the first widget (tree_view) from splitter and add sidebar_container
+        self.splitter.insertWidget(0, self.sidebar_container)
+        self.splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
         self.splitter.setSizes([250, 950])
         self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
 
@@ -237,15 +425,66 @@ class Ui_MainWindow(QtCore.QObject):
         self.tab_widget.addTab(self.code_runner.input, "Input")
         self.tab_widget.addTab(self.code_runner.output, "Output")
         self.tab_widget.setTabVisible(2, False)
+        self.tab_widget.setStyleSheet("""
+                            QTabWidget {
+                                border: none;
+                                outline: none;
+                                background-color: #344955;
+                            }
+                            QTabWidget::pane {
+                                border: none;
+                                outline: none;
+                                background-color: #344955;
+                                margin: 0px;
+                                padding: 0px;
+                            }
+                            QTabWidget::tab-bar {
+                                border: none;
+                                outline: none;
+                                background-color: #344955;
+                            }
+                            QTabBar {
+                                border: none;
+                                outline: none;
+                                background-color: #344955;
+                            }
+                            QTabBar::tab {
+                                background-color: #344955;
+                                color: #78A083;
+                                border: none;
+                                outline: none;
+                                padding: 8px 16px;
+                                margin: 0px;
+                            }
+                            QTabBar::tab:selected {
+                                background-color: #78A083;
+                                color: #344955;
+                                border: none;
+                                outline: none;
+                            }
+                            """)
 
-        self.terminal_splitter = QSplitter(Qt.Vertical) #aici ar trebui sa functioneze splitterul la fel ca in cazul file navigator doar ca pe vertical
-        self.terminal_splitter.addWidget(self.splitter) #in orice caz e destul de glitched so idk if im doing it right
-        self.terminal_splitter.addWidget(self.tab_widget) #am separat terminal (zona 5) de splitterul anterior (zonele 3+4)
-        # self.terminal_splitter.setSizes([1, 4])
+        self.terminal_splitter = QSplitter(Qt.Vertical)
+        self.terminal_splitter.addWidget(self.splitter)
+        self.terminal_splitter.addWidget(self.tab_widget)
         self.terminal_splitter.setSizes([1000, 100])
-
+        self.terminal_splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
 
         self.gridLayout.addWidget(self.terminal_splitter, 2, 0, 1, 2)
+
+        # Creez un label pentru root folder
+        self.root_folder_label = QtWidgets.QLabel()
+        self.root_folder_label.setStyleSheet(
+            "color: #78A083; font-size: 26px; font-weight: bold; padding: 12px 0 12px 16px;"
+        )
+        self.root_folder_label.setText("")
+        self.sidebar_layout.insertWidget(2, self.root_folder_label)  # Adaugă deasupra tree_area
+
+        # În setupUi, după crearea self.tree_view și self.root_folder_label:
+        self.tree_view.setStyleSheet(
+            "QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 21px; }"
+            "QTreeView::item:selected { background: #31363b; color: #78A083; }"
+        )
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
@@ -253,65 +492,63 @@ class Ui_MainWindow(QtCore.QObject):
     
     #Functiile Handler pt functiile din FileSystem/file_methods.py
     def handle_new_file(self):
-
-        
-        """Handle the New File action."""
-        import FileSystem.file_methods as fm
-
-        # Call the new_file function to create a new file
-        new_file_name = fm.new_file(self.plainTextEdit.text_edit)
-        # print(new_file_name)
-        if new_file_name:
-            # Check if the file is already opened
-            if new_file_name not in self.file_tab_bar.opened_files:
-                self.file_tab_bar.add_new_tab(name = new_file_name, file_path = None)
-                # Add the file to the opened files list
-                # self.file_tab_bar.opened_files.append(new_file_name)
-
-                # # Add a new tab to the file_tab_bar
-                # self.file_tab_bar.addTab(new_file_name)
-
-                # # Initialize the file state
-                # self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
-                #     "file_path": None,
-                #     "saved": False
-                # }
-
-
-                # # Switch to the new tab
-                # self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
-
-    def handle_open_file(self):
-        """Handle the Open File action."""
-        import FileSystem.file_methods as fm
-
-        # Call the open_file function and get the file path
-        # file_path = fm.open_file(self.plainTextEdit.text_edit)
-        file_path, content = fm.open_file(self)
-
-
+        from PyQt5.QtWidgets import QFileDialog, QMessageBox
+        import os
+        # Deschide dialogul Save As
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getSaveFileName(
+            self.centralwidget,
+            "Create New File",
+            "",
+            "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)",
+            options=options
+        )
         if file_path:
-            # Check if the file is already opened
+            # Extrage numele fișierului fără extensie
+            base_name = os.path.basename(file_path)
+            name_no_ext, ext = os.path.splitext(base_name)
+            parent_dir = os.path.dirname(file_path)
+            folder_path = os.path.join(parent_dir, name_no_ext.capitalize())  # Prima literă mare
+            # Creează folderul dacă nu există
+            try:
+                os.makedirs(folder_path, exist_ok=True)
+            except Exception as e:
+                QMessageBox.critical(self.centralwidget, "Error", f"Could not create folder: {e}")
+                return
+            # Creează fișierul în folderul nou
+            new_file_path = os.path.join(folder_path, base_name)
+            if os.path.exists(new_file_path):
+                QMessageBox.warning(self.centralwidget, "File Exists", "A file with that name already exists in the folder.")
+                return
+            try:
+                with open(new_file_path, 'w') as f:
+                    f.write("")
+            except Exception as e:
+                QMessageBox.critical(self.centralwidget, "Error", f"Could not create file: {e}")
+                return
+            # Deschide fișierul nou în editor
+            self.handle_open_file_path(new_file_path)
+            # Dacă folderul e nou, actualizează Explorer-ul
+            self.file_model.setRootPath(folder_path)
+            self.tree_view.setRootIndex(self.file_model.index(folder_path))
+            self.tree_view.show()
+            self.update_root_folder_label()
+
+    def handle_open_file_path(self, file_path):
+        # Deschide fișierul dat direct (fără dialog)
+        if file_path:
+            with open(file_path, 'r') as file:
+                content = file.read()
             if file_path not in self.file_tab_bar.opened_files:
-                self.file_tab_bar.add_new_tab(name = os.path.basename(file_path), file_path = file_path, content = content, saved=True)
-                # # Add the file to the opened files list
-                # self.file_tab_bar.opened_files.append(file_path)
-
-                # # Add a new tab to the file_tab_bar
-                # self.file_tab_bar.addTab(os.path.basename(file_path))
-
-                # # Initialize the file state
-                # self.file_tab_bar.file_states[len(self.file_tab_bar.opened_files) - 1] = {
-                #     "file_path": file_path,
-                #     "saved": True
-                # }
-
-                # # Switch to the newly opened tab
-                # self.file_tab_bar.setCurrentIndex(len(self.file_tab_bar.opened_files) - 1)
+                self.file_tab_bar.add_new_tab(name=os.path.basename(file_path), file_path=file_path, content=content, saved=True)
             else:
-                # If the file is already opened, switch to its tab
                 index = self.file_tab_bar.opened_files.index(file_path)
                 self.file_tab_bar.tab_switch(index)
+            # Evidențiază fișierul în Explorer
+            file_index = self.file_model.index(file_path)
+            self.tree_view.setCurrentIndex(file_index)
+            self.tree_view.scrollTo(file_index)
+            self.update_root_folder_label()
 
     def handle_save_file(self):
         """Handle the Save File action."""
@@ -411,29 +648,158 @@ class Ui_MainWindow(QtCore.QObject):
         self.plainTextEdit = new_editor
         self.plainTextEdit.show_editor()
 
+    def refresh_file_explorer(self):
+        # Reîncarcă folderul curent în QTreeView
+        root_path = self.file_model.rootPath()
+        self.file_model.setRootPath("")  # Reset temporar
+        self.file_model.setRootPath(root_path)
+        self.tree_view.setRootIndex(self.file_model.index(root_path))
+        self.update_root_folder_label()
 
+    def create_new_file_in_root(self):
+        from PyQt5.QtWidgets import QMessageBox
+        import os
+        root_path = self.file_model.rootPath()
+        if not root_path:
+            QMessageBox.warning(self.centralwidget, "No Folder", "No folder is currently open.")
+            return
+        dlg = CustomInputDialog("New File", "Enter file name:", self.centralwidget)
+        if dlg.exec_() == QDialog.Accepted:
+            file_name = dlg.getText()
+            if file_name:
+                file_path = os.path.join(root_path, file_name)
+                if os.path.exists(file_path):
+                    QMessageBox.warning(self.centralwidget, "File Exists", "A file with that name already exists.")
+                    return
+                try:
+                    with open(file_path, 'w') as f:
+                        f.write("")
+                    self.refresh_file_explorer()
+                except Exception as e:
+                    QMessageBox.critical(self.centralwidget, "Error", f"Could not create file: {e}")
 
+    def create_new_folder_in_root(self):
+        from PyQt5.QtWidgets import QMessageBox
+        import os
+        root_path = self.file_model.rootPath()
+        if not root_path:
+            QMessageBox.warning(self.centralwidget, "No Folder", "No folder is currently open.")
+            return
+        dlg = CustomInputDialog("New Folder", "Enter folder name:", self.centralwidget)
+        if dlg.exec_() == QDialog.Accepted:
+            folder_name = dlg.getText()
+            if folder_name:
+                folder_path = os.path.join(root_path, folder_name)
+                if os.path.exists(folder_path):
+                    QMessageBox.warning(self.centralwidget, "Folder Exists", "A folder with that name already exists.")
+                    return
+                try:
+                    os.makedirs(folder_path)
+                    self.refresh_file_explorer()
+                except Exception as e:
+                    QMessageBox.critical(self.centralwidget, "Error", f"Could not create folder: {e}")
 
-    #Asta ar fi trebuit sa fie o functie care sa te impiedice sa stergi chestiile din terminal gen path-ul sau comenzile rulate anterior
-    #pt ca momentan "terminalul" asta e doar un glorified text editor si practic poti sa iti cam bati joc de el
-    # def keyPressEvent(self, event):
-    #     cursor = self.terminal.textCursor()
-    #     cursor.movePosition(QTextCursor.StartOfBlock, QTextCursor.KeepAnchor)
-    #     current_line = cursor.selectedText()
+    def handle_open_file(self):
+        import FileSystem.file_methods as fm
+        file_path, content = fm.open_file(self)
+        if file_path:
+            self.handle_open_file_path(file_path)
 
-    #     # Prevent editing the prompt or previous commands
-    #     if not current_line.startswith(f"{self.current_directory}> "):
-    #         event.ignore()
-    #         return
+    def update_root_folder_label(self):
+        import os
+        root_path = self.file_model.rootPath()
+        if root_path:
+            folder_name = os.path.basename(os.path.normpath(root_path))
+            self.root_folder_label.setText(folder_name)
+        else:
+            self.root_folder_label.setText("")
 
-    #     # Allow typing only after the prompt
-    #     if event.key() in (Qt.Key_Backspace, Qt.Key_Delete):
-    #         if cursor.positionInBlock() <= len(f"{self.current_directory}> "):
-    #             event.ignore()
-    #             return
-
-    #     super(QtWidgets.QPlainTextEdit, self.terminal).keyPressEvent(event)
-
+class CustomInputDialog(QDialog):
+    def __init__(self, title, label_text, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(title)
+        self.setModal(True)
+        self.setFixedSize(520, 270)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #23272b;
+                border-radius: 16px;
+                min-height: 220px;
+            }
+            QLabel#DialogTitle {
+                color: #78A083;
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 18px;
+                qproperty-alignment: AlignCenter;
+            }
+            QLabel {
+                color: #78A083;
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                background: transparent;
+                border: none;
+                border-radius: 12px;
+            }
+            QLineEdit#DialogInput {
+                background: #181b1f;
+                color: #e0e0e0;
+                border: 2px solid #78A083;
+                border-radius: 12px;
+                font-size: 20px;
+                padding: 10px 18px;
+                margin-bottom: 28px;
+            }
+            QPushButton {
+                background-color: #344955;
+                color: #78A083;
+                border: none;
+                border-radius: 10px;
+                font-size: 20px;
+                padding: 12px 36px;
+                margin: 0 16px;
+            }
+            QPushButton:hover {
+                background-color: #78A083;
+                color: #344955;
+            }
+        """)
+        layout = QVBoxLayout(self)
+        layout.setSpacing(10)
+        layout.setContentsMargins(32, 18, 32, 18)
+        title = QLabel(title)
+        title.setObjectName("DialogTitle")
+        layout.addWidget(title)
+        label = QLabel(label_text)
+        layout.addWidget(label)
+        input_container = QtWidgets.QWidget()
+        input_container.setFixedWidth(480)
+        input_hbox = QHBoxLayout(input_container)
+        input_hbox.setContentsMargins(0, 16, 0, 16)
+        input_hbox.setSpacing(0)
+        self.input = QLineEdit()
+        self.input.setObjectName("DialogInput")
+        self.input.setPlaceholderText("Type name here...")
+        self.input.setFixedHeight(75)
+        self.input.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        self.input.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.input.setFixedWidth(460)
+        input_hbox.addWidget(self.input, 1)
+        layout.addWidget(input_container)
+        btn_layout = QHBoxLayout()
+        btn_layout.setSpacing(20)
+        self.ok_btn = QPushButton("OK")
+        self.cancel_btn = QPushButton("Cancel")
+        btn_layout.addStretch()
+        btn_layout.addWidget(self.ok_btn)
+        btn_layout.addWidget(self.cancel_btn)
+        btn_layout.addStretch()
+        layout.addLayout(btn_layout)
+        self.ok_btn.clicked.connect(self.accept)
+        self.cancel_btn.clicked.connect(self.reject)
+    def getText(self):
+        return self.input.text()
 
 class fileHandler():
     def __init__ (self, ui):
@@ -450,3 +816,10 @@ class fileHandler():
         new_file_name = fm.new_file(self.ui.plainTextEdit.text_edit)
         if new_file_name:
             self.ui.file_tab_bar.add_new_tab(new_file_name, new_file_name)
+
+        # Ascund header-ul QTreeView (Name)
+        self.ui.tree_view.header().hide()
+        self.ui.tree_view.header().setVisible(False)
+        self.ui.tree_view.setHeaderHidden(True)
+        # Măresc fontul pentru item-urile din QTreeView
+        self.ui.tree_view.setStyleSheet("QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 17px; } QTreeView::item:selected { background: #31363b; color: #78A083; }")

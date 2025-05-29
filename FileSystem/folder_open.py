@@ -1,6 +1,15 @@
 from PyQt5.QtWidgets import QFileSystemModel, QTreeView, QSplitter, QFileDialog, QMessageBox
-from PyQt5.QtCore import QDir
+from PyQt5.QtCore import QDir, Qt
+from PyQt5.QtGui import QIcon
 import os
+
+class CustomFileSystemModel(QFileSystemModel):
+    def data(self, index, role=Qt.DisplayRole):
+        if role == Qt.DecorationRole:
+            file_path = self.filePath(index)
+            if file_path.lower().endswith('.cpp'):
+                return QIcon('icons/c++icon.png')
+        return super().data(index, role)
 
 #In general am lasat si descrierile pe care mi le-a mai dat copilot la inceputul functiilor in order to better get the idea
 #sincer e putin cam messy codul pt ca am incercat sa pun cat mai mult din el in functii ca dupa sa fie mai usor de adaptat
@@ -19,7 +28,7 @@ def initialize_sidebar_and_splitter(editor, main_window):
     """
     
     # Initialize the file system model
-    file_model = QFileSystemModel()
+    file_model = CustomFileSystemModel()
     file_model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot | QDir.Files) #filtring in order to only show directories -
                                                                           #it would be dumb to show files even though we specifically want to open a folder lmao                                          
     # Initialize the tree view
@@ -27,6 +36,11 @@ def initialize_sidebar_and_splitter(editor, main_window):
     tree_view.setModel(file_model)
     tree_view.setMinimumWidth(200)  # Set a minimum width for the sidebar
     tree_view.hide()  # Hide it by default - it will be shown when we open a folder
+
+    # Ascund header-ul și măresc fontul pentru item-uri
+    tree_view.header().setVisible(False)
+    tree_view.setHeaderHidden(True)
+    tree_view.setStyleSheet("QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 17px; } QTreeView::item:selected { background: #31363b; color: #78A083; }")
 
     # Show only the name column - without it we would have also seen some irrelevant bs
     for column in range(1, file_model.columnCount()):
@@ -57,6 +71,10 @@ def open_folder(file_model, tree_view):
         file_model.setRootPath(folder_path) #set root <=> we will see the rest of the files relative to the selected folder
         tree_view.setRootIndex(file_model.index(folder_path))
         tree_view.show() # Show the sidebar when a folder is opened
+        # Ascund header-ul și măresc fontul pentru item-uri după fiecare open_folder
+        tree_view.header().setVisible(False)
+        tree_view.setHeaderHidden(True)
+        tree_view.setStyleSheet("QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 22px; } QTreeView::item:selected { background: #31363b; color: #78A083; }")
         return
     # tree_view.hide()  # Hide the sidebar if no folder is selected
 

@@ -98,7 +98,7 @@ class File_Tab_Bar(QTabBar):
         self.setObjectName("file_tab_bar")
         self.setTabsClosable(True)
         self.setMovable(True)
-        self.setFixedHeight(25)
+        self.setFixedHeight(48)
         self.setStyleSheet(style.FILE_TAB_STYLE)
         self.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)  # Fix the size
         self.setLayoutDirection(Qt.LeftToRight) 
