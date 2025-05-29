@@ -124,6 +124,8 @@ def intialize_shortcuts(ui, MainWindow):
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
     shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
+    shortcut_manager.add_shortcut("Find", "Ctrl+F", ui.show_find_dialog)
+    shortcut_manager.add_shortcut("Find/Replace", "Ctrl+H", ui.show_replace_dialog)
     
     # Connect button 1 to open the shortcut settings dialog
     ui.buttons[0].setText("Shortcuts")

@@ -197,7 +197,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.menuGraphAlgorithms.setStyleSheet(self.menu_style)
         self.menuDynamicProgramming.setStyleSheet(self.menu_style)
         self.menuOther.setStyleSheet(self.menu_style)
-
+      
     def connect_buttons(self):
         for button in self.sections:
             if button.objectName() == "File":
@@ -714,6 +714,85 @@ class Ui_MainWindow(QtCore.QObject):
         else:
             self.root_folder_label.setText("")
 
+    def show_find_dialog(self):
+        from dialogs import FindDialog
+        dialog = FindDialog(self.centralwidget)
+        dialog.findNext.connect(self.find_text)
+        dialog.exec_()
+        
+    def show_replace_dialog(self):
+        from dialogs import ReplaceDialog
+        dialog = ReplaceDialog(self.centralwidget)
+        dialog.findNext.connect(self.find_text)
+        dialog.replace.connect(self.replace_text)
+        dialog.replaceAll.connect(self.replace_all_text)
+        dialog.exec_()
+        
+    def find_text(self, text, whole_words, case_sensitive):
+        editor = self.plainTextEdit.text_edit
+        cursor = editor.textCursor()
+        
+        # Start searching from the current position
+        doc = editor.document()
+        find_flags = QtGui.QTextDocument.FindFlags()
+        
+        if case_sensitive:
+            find_flags |= QtGui.QTextDocument.FindCaseSensitively
+        if whole_words:
+            find_flags |= QtGui.QTextDocument.FindWholeWords
+            
+        # If we're at the end of a selection, start from cursor position
+        if cursor.hasSelection() and cursor.selectionEnd() == cursor.position():
+            cursor.clearSelection()
+            editor.setTextCursor(cursor)
+            
+        # Find the next occurrence
+        found_cursor = doc.find(text, cursor, find_flags)
+        
+        if not found_cursor.isNull():
+            editor.setTextCursor(found_cursor)
+        else:
+            # If not found from cursor, try from start
+            cursor.movePosition(QtGui.QTextCursor.Start)
+            found_cursor = doc.find(text, cursor, find_flags)
+            if not found_cursor.isNull():
+                editor.setTextCursor(found_cursor)
+                
+    def replace_text(self, replace_with):
+        editor = self.plainTextEdit.text_edit
+        cursor = editor.textCursor()
+        if cursor.hasSelection():
+            cursor.insertText(replace_with)
+            editor.setTextCursor(cursor)
+            
+    def replace_all_text(self, find_text, replace_with, whole_words, case_sensitive):
+        editor = self.plainTextEdit.text_edit
+        cursor = editor.textCursor()
+        
+        # Start from the beginning
+        cursor.movePosition(QtGui.QTextCursor.Start)
+        editor.setTextCursor(cursor)
+        
+        # Set find flags
+        find_flags = QtGui.QTextDocument.FindFlags()
+        if case_sensitive:
+            find_flags |= QtGui.QTextDocument.FindCaseSensitively
+        if whole_words:
+            find_flags |= QtGui.QTextDocument.FindWholeWords
+            
+        # Start a single undo operation
+        cursor.beginEditBlock()
+        
+        while True:
+            found_cursor = editor.document().find(find_text, cursor, find_flags)
+            if found_cursor.isNull():
+                break
+            
+            found_cursor.insertText(replace_with)
+            cursor = found_cursor
+            
+        cursor.endEditBlock()
+        
 class CustomInputDialog(QDialog):
     def __init__(self, title, label_text, parent=None):
         super().__init__(parent)
