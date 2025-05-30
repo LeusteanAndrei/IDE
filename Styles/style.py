@@ -93,32 +93,25 @@ QTabBar {
 }
 
 QTabBar::tab {
-    background: #344955;
-    color: #78A083;
-    padding: 6px 14px;
-    margin: 0 10px 0 0;
-    border-radius: 10px 10px 0 0;
-    font-family: 'Roboto Mono', 'Roboto', monospace;
-    font-size: 16px;
-    border: 2px solid #78A083;
-    height: 32px;
-    width: 200px;
+    background: transparent;
+    border: none;
+    min-width: 0px;
+    min-height: 0px;
+    padding: 0px;
+    margin: 0px;
 }
-
 QTabBar::tab:selected {
-    background: #48536b;
-    color: #78A083;
-    border-bottom: 2px solid #78A083;
+    background: transparent;
+    border: none;
 }
-
 QTabBar::tab:!selected {
-    background: #344955;
-    color: #78A083;
+    background: transparent;
+    border: none;
 }
-
 QTabBar::tab:hover {
-    background: #78A083;
-    color: #344955;
+    background: transparent;
+    color: inherit;
+    border: none;
 }
 
 QTabBar::close-button {
