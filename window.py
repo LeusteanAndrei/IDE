@@ -959,13 +959,13 @@ class CustomInputDialog(QDialog):
         layout.addLayout(btn_layout)
         self.ok_btn.clicked.connect(self.accept)
         self.cancel_btn.clicked.connect(self.reject)
+   
     def getText(self):
         return self.input.text()
 
 class fileHandler():
     def __init__ (self, ui):
         self.ui = ui
-    
 
     def handle_new_file(self):
             # get_file_path()

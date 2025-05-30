@@ -9,8 +9,9 @@ from Styles import style
 from Functions.toggle_terminal import toggle_terminal
 import dialogs
 
-def insert_algorithm(editor, algorithm_code):   
+def insert_algorithm(ui, algorithm_code):   
     """Insert algorithm code at the current cursor position in the editor"""
+    editor = ui.plainTextEdit.text_edit 
     cursor = editor.textCursor()
     cursor.insertText(algorithm_code)
     editor.setTextCursor(cursor)
@@ -19,9 +20,10 @@ def get_current_editor(tab_widget): #asta e pt ca am incercat sa fac posibilitat
     """Get the current editor from the active tab"""
     return tab_widget.currentWidget()
 
-def comment_line_or_selection(editor):
+def comment_line_or_selection(ui):
     """ Daca nu e nimic selectat, comenteaza linia curenta, altfel comenteaza toate liniile selectate 
         In cazul in care linia/selectia este deja comentata, o de-comenteaza """
+    editor = ui.plainTextEdit.text_edit
     cursor = editor.textCursor()
     if not cursor.hasSelection():
         cursor.select(QtGui.QTextCursor.LineUnderCursor)
@@ -50,49 +52,49 @@ def comment_line_or_selection(editor):
     cursor.insertText("\n".join(new_lines))
     editor.setTextCursor(cursor)
 
-def connect_to_action(editor):
+def connect_to_action(ui):
         # Connect algorithm actions to their respective functions
     # Sorting algorithms
     ui.actionBubbleSort.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Sorting"]["Bubble Sort"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Sorting"]["Bubble Sort"]))
     ui.actionInsertionSort.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Sorting"]["Insertion Sort"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Sorting"]["Insertion Sort"]))
     ui.actionQuickSort.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Sorting"]["Quick Sort"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Sorting"]["Quick Sort"]))
     ui.actionMergeSort.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Sorting"]["Merge Sort"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Sorting"]["Merge Sort"]))
     
     # Searching algorithms
     ui.actionBinarySearch.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Searching"]["Binary Search"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Searching"]["Binary Search"]))
     ui.actionLinearSearch.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Searching"]["Linear Search"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Searching"]["Linear Search"]))
     
     # Data structures
     ui.actionLinkedList.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Data Structures"]["Linked List"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Data Structures"]["Linked List"]))
     ui.actionStack.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Data Structures"]["Stack"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Data Structures"]["Stack"]))
     ui.actionQueue.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Data Structures"]["Queue"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Data Structures"]["Queue"]))
     
     # Graph algorithms
     ui.actionBFS.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Graph Algorithms"]["BFS"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Graph Algorithms"]["BFS"]))
     ui.actionDFS.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Graph Algorithms"]["DFS"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Graph Algorithms"]["DFS"]))
     
     # Dynamic programming
     ui.actionFibonacci.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Dynamic Programming"]["Fibonacci"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Dynamic Programming"]["Fibonacci"]))
     ui.actionKnapsack.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Dynamic Programming"]["Knapsack"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Dynamic Programming"]["Knapsack"]))
     
     # Other algorithms
     ui.actionPrimeCheck.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Other"]["Prime Check"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Other"]["Prime Check"]))
     ui.actionGCD.triggered.connect(
-        lambda: insert_algorithm(editor, ALGORITHMS["Other"]["GCD"]))
+        lambda: insert_algorithm(ui, ALGORITHMS["Other"]["GCD"]))
     
 
     # Connect Files actions to their respective functions
@@ -114,7 +116,7 @@ def connect_to_action(editor):
         lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show(), ui.update_root_folder_label())
     )
 
-def intialize_shortcuts(ui, MainWindow):
+def intialize_shortcuts(ui):
         # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     
     # Add shortcuts with descriptive names and default key sequences
@@ -124,7 +126,7 @@ def intialize_shortcuts(ui, MainWindow):
     shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
-    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
+    shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(ui))
     shortcut_manager.add_shortcut("Find", "Ctrl+F", lambda: ui.show_find_dialog())
     shortcut_manager.add_shortcut("Replace", "Ctrl+H", lambda: ui.show_replace_dialog())
     
@@ -170,9 +172,9 @@ if __name__ == "__main__":
     editor = ui.plainTextEdit.text_edit
     apply_style( ui, MainWindow)
     shortcut_manager = ShortcutManager(MainWindow)
-    intialize_shortcuts(ui, MainWindow)    
+    intialize_shortcuts(ui)    
 
-    connect_to_action(editor)
+    connect_to_action(ui)
 
     editor.show()
     sys.exit(app.exec_())

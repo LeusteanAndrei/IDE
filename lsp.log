@@ -1,9 +1,9 @@
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp0oykht_f.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp8c1vtbmf.cpp
 LSP process started successfully.
 Request sent with method initialize
-Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp0oykht_f.cpp
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp8c1vtbmf.cpp
 LSP process shut down successfully.
-Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpankdpc18.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpe7epq743.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -150,7 +150,7 @@ Received response: {
     "method": "textDocument/publishDiagnostics",
     "params": {
         "diagnostics": [],
-        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpankdpc18.cpp",
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpe7epq743.cpp",
         "version": 0
     }
 }

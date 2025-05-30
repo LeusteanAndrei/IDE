@@ -7,6 +7,7 @@ import os
 from editor import Editor
 from editor import TextEditor  
 import uuid
+from main import connect_to_action
 
 class File_Tab_Bar(QTabBar):
     tabClicked = pyqtSignal(int)
