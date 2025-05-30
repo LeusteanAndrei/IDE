@@ -245,6 +245,9 @@ class File_Tab_Bar(QTabBar):
             self.saved_content[tab_key] = editor.toPlainText()
             editor.saved = True
             self.update_tab_saved_indicator(index)
+        if not self.isVisible():
+            self.show()
+
 
     def close_tab(self, index):
         if index in self.editors:
@@ -293,7 +296,9 @@ class File_Tab_Bar(QTabBar):
              first_valid.textChangedWithIndex.disconnect(self.mark_tab_unsaved)
              first_valid.textChangedWithIndex.connect(self.mark_tab_unsaved)
         else:
+                self.hide()
              self.ui.plainTextEdit.hide_editor()
+        self.refresh()
 
     def tab_moved(self, from_index, to_index): 
         # Update opened files (only if indices are in bounds)
@@ -327,6 +332,8 @@ class File_Tab_Bar(QTabBar):
         self.setCurrentIndex(index)  # Ensure the tab bar reflects the current index
         self.editors[index].tab_index = index
 
+    def refresh(self):
+        self.update()
     def mousePressEvent(self, event):
         super().mousePressEvent(event)
         index = self.tabAt(event.pos())

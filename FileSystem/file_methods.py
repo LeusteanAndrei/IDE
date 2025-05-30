@@ -74,9 +74,10 @@ def open_file(ui):
         
         # ui.plainTextEdit.switch_text_edit(new_text_edit)
         print(f"File opened: {file_path}")
-        # if not editor.isVisible():
-        #     editor.parentWidget().show()  # Show the parent/container
-        #     editor.show()
+        editor = ui.plainTextEdit.text_edit
+        if not editor.isVisible():
+            editor.parentWidget().show()  # Show the parent/container
+            editor.show()
         return file_path, content
     
     return None, None  # If no file was opened, return None
