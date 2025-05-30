@@ -89,6 +89,7 @@ QTabWidget::pane {
 
 QTabBar {
     margin-top: 8px;
+    qproperty-drawBase: 0;
 }
 
 QTabBar::tab {

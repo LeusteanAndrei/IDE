@@ -144,6 +144,9 @@ class File_Tab_Bar(QTabBar):
         self.ui.plainTextEdit.switch_text_edit(self.editors[index])  # Switch to the new editor
         self.setCurrentIndex(index)  # Switch to the new tab
 
+        if not self.isVisible():
+            self.show()
+
 
     def close_tab(self, index):
         current_index = self.currentIndex()
@@ -168,10 +171,12 @@ class File_Tab_Bar(QTabBar):
         if index == current_index:
             current_index = self.currentIndex()
             if current_index == -1:  # No more tabs open
+                self.hide()
                 self.ui.plainTextEdit.hide_editor()
             else:
                 self.ui.plainTextEdit.switch_text_edit(self.editors[current_index])  # Switch to the current editor  
    
+        self.refresh()
 
     def tab_moved(self, from_index, to_index): 
 
@@ -193,6 +198,8 @@ class File_Tab_Bar(QTabBar):
         self.ui.plainTextEdit.switch_text_edit(self.editors[index])  # Switch to the editor of the selected tab
         self.setCurrentIndex(index)  # Ensure the tab bar reflects the current index
 
+    def refresh(self):
+        self.update()
 
 
 class Terminal(QPlainTextEdit):

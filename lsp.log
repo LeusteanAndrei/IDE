@@ -1,9 +1,9 @@
-Temporary file created: C:\Users\User\AppData\Local\Temp\tmpc53wtfif.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpev_jmivd.cpp
 LSP process started successfully.
 Request sent with method initialize
-Updated temporary file C:\Users\User\AppData\Local\Temp\tmpc53wtfif.cpp
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpev_jmivd.cpp
 LSP process shut down successfully.
-Temporary file created: C:\Users\User\AppData\Local\Temp\tmpyavei6ih.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpmbnfrodl.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -150,20 +150,15 @@ Received response: {
     "method": "textDocument/publishDiagnostics",
     "params": {
         "diagnostics": [],
-        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpyavei6ih.cpp",
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpmbnfrodl.cpp",
         "version": 0
     }
 }
 Diagnostics received from LSP.
 Errors received: []
-Updated temporary file C:\Users\User\AppData\Local\Temp\tmpyavei6ih.cpp
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpmbnfrodl.cpp
 LSP process shut down successfully.
-Temporary file created: C:\Users\User\AppData\Local\Temp\tmpflkvk4_4.cpp
-LSP process started successfully.
-Request sent with method initialize
-Updated temporary file C:\Users\User\AppData\Local\Temp\tmpflkvk4_4.cpp
-LSP process shut down successfully.
-Temporary file created: C:\Users\User\AppData\Local\Temp\tmpxzexrgt7.cpp
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpp8taxtci.cpp
 LSP process started successfully.
 Request sent with method initialize
 Handling response from LSP
@@ -343,9 +338,3232 @@ Received response: {
                 "source": "clang"
             }
         ],
-        "uri": "file://C:/Users/User/AppData/Local/Temp/tmpxzexrgt7.cpp",
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpp8taxtci.cpp",
         "version": 0
     }
 }
 Diagnostics received from LSP.
 Errors received: [Error(line=0, column=0, column_end = 9, message=Unknown type name 'awsdfasdf'), Error(line=0, column=9, column_end = 9, message=Expected unqualified-id)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpp8taxtci.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpdwsxudik.cpp
+LSP process started successfully.
+Request sent with method initialize
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpdwsxudik.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpt29kgzi3.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'from'",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 6
+                    },
+                    "start": {
+                        "character": 2,
+                        "line": 6
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 21,
+                        "line": 16
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 16
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 26
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 26
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 30
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 30
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 19,
+                        "line": 34
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 34
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 38
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 38
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 43
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 43
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 47
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 47
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 16,
+                        "line": 59
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 59
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 62
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 62
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 16,
+                        "line": 67
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 67
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 70
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 70
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 75
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 75
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 80
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 80
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 85
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 85
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 112
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 112
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 27,
+                        "line": 117
+                    },
+                    "start": {
+                        "character": 18,
+                        "line": 117
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "fatal_too_many_errors",
+                "message": "Too many errors emitted, stopping now",
+                "range": {
+                    "end": {
+                        "character": 0,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpt29kgzi3.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=0, column_end = 4, message=Unknown type name 'from'), Error(line=0, column=10, column_end = 11, message=Expected ';' after top level declarator (fix available)), Error(line=6, column=2, column_end = 7, message=Invalid preprocessing directive), Error(line=16, column=10, column_end = 21, message=Invalid preprocessing directive), Error(line=26, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=30, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=34, column=10, column_end = 19, message=Invalid preprocessing directive), Error(line=38, column=10, column_end = 18, message=Invalid preprocessing directive), Error(line=43, column=10, column_end = 18, message=Invalid preprocessing directive), Error(line=47, column=10, column_end = 18, message=Invalid preprocessing directive), Error(line=59, column=10, column_end = 16, message=Invalid preprocessing directive), Error(line=62, column=10, column_end = 15, message=Invalid preprocessing directive), Error(line=67, column=10, column_end = 16, message=Invalid preprocessing directive), Error(line=70, column=10, column_end = 15, message=Invalid preprocessing directive), Error(line=75, column=10, column_end = 15, message=Invalid preprocessing directive), Error(line=80, column=10, column_end = 15, message=Invalid preprocessing directive), Error(line=85, column=10, column_end = 15, message=Invalid preprocessing directive), Error(line=112, column=10, column_end = 18, message=Invalid preprocessing directive), Error(line=117, column=18, column_end = 27, message=Invalid preprocessing directive), Error(line=0, column=0, column_end = 0, message=Too many errors emitted, stopping now)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpt29kgzi3.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp5p06hh79.cpp
+LSP process started successfully.
+Request sent with method initialize
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp5p06hh79.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpo8n09jf0.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "character_not_allowed_identifier",
+                "message": "Character <U+00BB> not allowed in an identifier (fix available)",
+                "range": {
+                    "end": {
+                        "character": 2,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 1,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "character_not_allowed_identifier",
+                "message": "Character <U+00BF> not allowed in an identifier (fix available)",
+                "range": {
+                    "end": {
+                        "character": 3,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 2,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name '\u00ef\u00bb\u00bffrom'",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 14,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 15
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 15
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 27,
+                        "line": 16
+                    },
+                    "start": {
+                        "character": 26,
+                        "line": 16
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'QPushButton'",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 27
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 27
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 16,
+                        "line": 27
+                    },
+                    "start": {
+                        "character": 15,
+                        "line": 27
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "undeclared_var_use",
+                "message": "Use of undeclared identifier 'QPushButton'",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 32
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 32
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 22,
+                        "line": 32
+                    },
+                    "start": {
+                        "character": 21,
+                        "line": 32
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 6,
+                        "line": 37
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 37
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 37
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 37
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 39
+                    },
+                    "start": {
+                        "character": 19,
+                        "line": 39
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "undeclared_var_use",
+                "message": "Use of undeclared identifier 'QMenu'",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 47
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 47
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "undeclared_var_use",
+                "message": "Use of undeclared identifier 'QMenu'",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 54
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 54
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 16,
+                        "line": 54
+                    },
+                    "start": {
+                        "character": 15,
+                        "line": 54
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 6,
+                        "line": 58
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 58
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 58
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 58
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Empty character constant",
+                "range": {
+                    "end": {
+                        "character": 32,
+                        "line": 60
+                    },
+                    "start": {
+                        "character": 30,
+                        "line": 60
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating ' character",
+                "range": {
+                    "end": {
+                        "character": 33,
+                        "line": 60
+                    },
+                    "start": {
+                        "character": 32,
+                        "line": 60
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'QPushButton'",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 72
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 72
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 16,
+                        "line": 72
+                    },
+                    "start": {
+                        "character": 15,
+                        "line": 72
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Empty character constant",
+                "range": {
+                    "end": {
+                        "character": 6,
+                        "line": 76
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 76
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "expected_unqualified_id",
+                "message": "Expected unqualified-id",
+                "range": {
+                    "end": {
+                        "character": 6,
+                        "line": 76
+                    },
+                    "start": {
+                        "character": 4,
+                        "line": 76
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating ' character",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 76
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 76
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 26,
+                        "line": 79
+                    },
+                    "start": {
+                        "character": 18,
+                        "line": 79
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "character_not_allowed_identifier",
+                "message": "Character <U+203A> not allowed in an identifier (fix available)",
+                "range": {
+                    "end": {
+                        "character": 53,
+                        "line": 81
+                    },
+                    "start": {
+                        "character": 52,
+                        "line": 81
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "fatal_too_many_errors",
+                "message": "Too many errors emitted, stopping now",
+                "range": {
+                    "end": {
+                        "character": 0,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpo8n09jf0.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=1, column_end = 2, message=Character <U+00BB> not allowed in an identifier (fix available)), Error(line=0, column=2, column_end = 3, message=Character <U+00BF> not allowed in an identifier (fix available)), Error(line=0, column=0, column_end = 7, message=Unknown type name '﻿from'), Error(line=0, column=14, column_end = 20, message=Expected ';' after top level declarator (fix available)), Error(line=15, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=27, column=4, column_end = 15, message=Unknown type name 'QPushButton'), Error(line=27, column=15, column_end = 16, message=Expected unqualified-id), Error(line=32, column=4, column_end = 15, message=Use of undeclared identifier 'QPushButton'), Error(line=32, column=21, column_end = 22, message=Expected unqualified-id), Error(line=37, column=4, column_end = 6, message=Expected unqualified-id), Error(line=47, column=4, column_end = 9, message=Use of undeclared identifier 'QMenu'), Error(line=54, column=4, column_end = 9, message=Use of undeclared identifier 'QMenu'), Error(line=54, column=15, column_end = 16, message=Expected unqualified-id), Error(line=58, column=4, column_end = 6, message=Expected unqualified-id), Error(line=72, column=4, column_end = 15, message=Unknown type name 'QPushButton'), Error(line=72, column=15, column_end = 16, message=Expected unqualified-id), Error(line=76, column=4, column_end = 6, message=Expected unqualified-id), Error(line=79, column=18, column_end = 26, message=Invalid preprocessing directive), Error(line=81, column=52, column_end = 53, message=Character <U+203A> not allowed in an identifier (fix available)), Error(line=0, column=0, column_end = 0, message=Too many errors emitted, stopping now)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpo8n09jf0.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpg5hi6xcm.cpp
+LSP process started successfully.
+Request sent with method initialize
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpg5hi6xcm.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmp5pht7psu.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'from'",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 12,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 102,
+                        "line": 21
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 21
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 80,
+                        "line": 22
+                    },
+                    "start": {
+                        "character": 79,
+                        "line": 22
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 52
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 52
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 53
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 53
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 63
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 63
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 10,
+                        "line": 69
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 69
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 77
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 77
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 83
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 83
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 89
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 89
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 96
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 96
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 97
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 97
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 98
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 98
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 116
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 116
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 118
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 118
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 129
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 129
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 135
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 135
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 136
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 136
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 138
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 138
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 12,
+                        "line": 150
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 150
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmp5pht7psu.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=0, column_end = 4, message=Unknown type name 'from'), Error(line=0, column=12, column_end = 18, message=Expected ';' after top level declarator (fix available)), Error(line=52, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=53, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=63, column=6, column_end = 15, message=Invalid preprocessing directive), Error(line=69, column=6, column_end = 10, message=Invalid preprocessing directive), Error(line=77, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=83, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=89, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=96, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=97, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=98, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=116, column=10, column_end = 20, message=Invalid preprocessing directive), Error(line=118, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=129, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=135, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=136, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=138, column=6, column_end = 8, message=Invalid preprocessing directive), Error(line=150, column=6, column_end = 12, message=Invalid preprocessing directive)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmp5pht7psu.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpil8znoj4.cpp
+LSP process started successfully.
+Request sent with method initialize
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpil8znoj4.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpuyeg3x_b.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpuyeg3x_b.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: []
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpuyeg3x_b.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpcg13b6j3.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'from'",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 12,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 102,
+                        "line": 21
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 21
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 80,
+                        "line": 22
+                    },
+                    "start": {
+                        "character": 79,
+                        "line": 22
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 52
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 52
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 53
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 53
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 63
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 63
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 10,
+                        "line": 69
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 69
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 77
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 77
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 83
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 83
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 89
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 89
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 96
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 96
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 97
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 97
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 98
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 98
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 116
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 116
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 118
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 118
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 129
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 129
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 135
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 135
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 136
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 136
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 138
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 138
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 12,
+                        "line": 150
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 150
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpcg13b6j3.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=0, column_end = 4, message=Unknown type name 'from'), Error(line=0, column=12, column_end = 18, message=Expected ';' after top level declarator (fix available)), Error(line=52, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=53, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=63, column=6, column_end = 15, message=Invalid preprocessing directive), Error(line=69, column=6, column_end = 10, message=Invalid preprocessing directive), Error(line=77, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=83, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=89, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=96, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=97, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=98, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=116, column=10, column_end = 20, message=Invalid preprocessing directive), Error(line=118, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=129, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=135, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=136, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=138, column=6, column_end = 8, message=Invalid preprocessing directive), Error(line=150, column=6, column_end = 12, message=Invalid preprocessing directive)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpcg13b6j3.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpoq132qg9.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'from'",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 12,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 102,
+                        "line": 21
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 21
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 80,
+                        "line": 22
+                    },
+                    "start": {
+                        "character": 79,
+                        "line": 22
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 52
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 52
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 53
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 53
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 63
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 63
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 10,
+                        "line": 69
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 69
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 77
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 77
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 83
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 83
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 89
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 89
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 96
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 96
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 97
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 97
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 98
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 98
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 116
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 116
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 118
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 118
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 129
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 129
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 135
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 135
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 136
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 136
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 138
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 138
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 12,
+                        "line": 150
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 150
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpoq132qg9.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=0, column_end = 4, message=Unknown type name 'from'), Error(line=0, column=12, column_end = 18, message=Expected ';' after top level declarator (fix available)), Error(line=52, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=53, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=63, column=6, column_end = 15, message=Invalid preprocessing directive), Error(line=69, column=6, column_end = 10, message=Invalid preprocessing directive), Error(line=77, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=83, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=89, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=96, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=97, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=98, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=116, column=10, column_end = 20, message=Invalid preprocessing directive), Error(line=118, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=129, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=135, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=136, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=138, column=6, column_end = 8, message=Invalid preprocessing directive), Error(line=150, column=6, column_end = 12, message=Invalid preprocessing directive)]
+Updated temporary file C:\Users\andre\AppData\Local\Temp\tmpoq132qg9.cpp
+LSP process shut down successfully.
+Temporary file created: C:\Users\andre\AppData\Local\Temp\tmpbe9uize_.cpp
+LSP process started successfully.
+Request sent with method initialize
+Handling response from LSP
+Received response: {
+    "id": 0,
+    "jsonrpc": "2.0",
+    "result": {
+        "capabilities": {
+            "astProvider": true,
+            "callHierarchyProvider": true,
+            "clangdInlayHintsProvider": true,
+            "codeActionProvider": true,
+            "compilationDatabase": {
+                "automaticReload": true
+            },
+            "completionProvider": {
+                "resolveProvider": false,
+                "triggerCharacters": [
+                    ".",
+                    "<",
+                    ">",
+                    ":",
+                    "\"",
+                    "/",
+                    "*"
+                ]
+            },
+            "declarationProvider": true,
+            "definitionProvider": true,
+            "documentFormattingProvider": true,
+            "documentHighlightProvider": true,
+            "documentLinkProvider": {
+                "resolveProvider": false
+            },
+            "documentOnTypeFormattingProvider": {
+                "firstTriggerCharacter": "\n",
+                "moreTriggerCharacter": []
+            },
+            "documentRangeFormattingProvider": true,
+            "documentSymbolProvider": true,
+            "executeCommandProvider": {
+                "commands": [
+                    "clangd.applyFix",
+                    "clangd.applyRename",
+                    "clangd.applyTweak"
+                ]
+            },
+            "foldingRangeProvider": true,
+            "hoverProvider": true,
+            "implementationProvider": true,
+            "inactiveRegionsProvider": true,
+            "inlayHintProvider": true,
+            "memoryUsageProvider": true,
+            "referencesProvider": true,
+            "renameProvider": true,
+            "selectionRangeProvider": true,
+            "semanticTokensProvider": {
+                "full": {
+                    "delta": true
+                },
+                "legend": {
+                    "tokenModifiers": [
+                        "declaration",
+                        "definition",
+                        "deprecated",
+                        "deduced",
+                        "readonly",
+                        "static",
+                        "abstract",
+                        "virtual",
+                        "dependentName",
+                        "defaultLibrary",
+                        "usedAsMutableReference",
+                        "usedAsMutablePointer",
+                        "constructorOrDestructor",
+                        "userDefined",
+                        "functionScope",
+                        "classScope",
+                        "fileScope",
+                        "globalScope"
+                    ],
+                    "tokenTypes": [
+                        "variable",
+                        "variable",
+                        "parameter",
+                        "function",
+                        "method",
+                        "function",
+                        "property",
+                        "variable",
+                        "class",
+                        "interface",
+                        "enum",
+                        "enumMember",
+                        "type",
+                        "type",
+                        "unknown",
+                        "namespace",
+                        "typeParameter",
+                        "concept",
+                        "type",
+                        "macro",
+                        "modifier",
+                        "operator",
+                        "bracket",
+                        "label",
+                        "comment"
+                    ]
+                },
+                "range": false
+            },
+            "signatureHelpProvider": {
+                "triggerCharacters": [
+                    "(",
+                    ")",
+                    "{",
+                    "}",
+                    "<",
+                    ">",
+                    ","
+                ]
+            },
+            "standardTypeHierarchyProvider": true,
+            "textDocumentSync": {
+                "change": 2,
+                "openClose": true,
+                "save": true
+            },
+            "typeDefinitionProvider": true,
+            "typeHierarchyProvider": true,
+            "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+            "name": "clangd",
+            "version": "clangd version 20.1.0 windows x86_64-pc-windows-msvc"
+        }
+    }
+}
+LSP initialized successfully.
+Request sent with method textDocument/didOpen
+Handling response from LSP
+Received response: {
+    "jsonrpc": "2.0",
+    "method": "textDocument/publishDiagnostics",
+    "params": {
+        "diagnostics": [
+            {
+                "code": "unknown_typename",
+                "message": "Unknown type name 'from'",
+                "range": {
+                    "end": {
+                        "character": 4,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 0,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "invalid_token_after_toplevel_declarator",
+                "message": "Expected ';' after top level declarator (fix available)",
+                "range": {
+                    "end": {
+                        "character": 18,
+                        "line": 0
+                    },
+                    "start": {
+                        "character": 12,
+                        "line": 0
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 102,
+                        "line": 21
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 21
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "-Winvalid-pp-token",
+                "message": "Missing terminating '\"' character",
+                "range": {
+                    "end": {
+                        "character": 80,
+                        "line": 22
+                    },
+                    "start": {
+                        "character": 79,
+                        "line": 22
+                    }
+                },
+                "severity": 2,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 17,
+                        "line": 52
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 52
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 53
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 53
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 15,
+                        "line": 63
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 63
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 10,
+                        "line": 69
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 69
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 77
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 77
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 83
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 83
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 11,
+                        "line": 89
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 89
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 96
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 96
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 97
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 97
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 7,
+                        "line": 98
+                    },
+                    "start": {
+                        "character": 5,
+                        "line": 98
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 20,
+                        "line": 116
+                    },
+                    "start": {
+                        "character": 10,
+                        "line": 116
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 118
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 118
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 13,
+                        "line": 129
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 129
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 135
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 135
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 9,
+                        "line": 136
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 136
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 8,
+                        "line": 138
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 138
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            },
+            {
+                "code": "pp_invalid_directive",
+                "message": "Invalid preprocessing directive",
+                "range": {
+                    "end": {
+                        "character": 12,
+                        "line": 150
+                    },
+                    "start": {
+                        "character": 6,
+                        "line": 150
+                    }
+                },
+                "severity": 1,
+                "source": "clang"
+            }
+        ],
+        "uri": "file://C:/Users/andre/AppData/Local/Temp/tmpbe9uize_.cpp",
+        "version": 0
+    }
+}
+Diagnostics received from LSP.
+Errors received: [Error(line=0, column=0, column_end = 4, message=Unknown type name 'from'), Error(line=0, column=12, column_end = 18, message=Expected ';' after top level declarator (fix available)), Error(line=52, column=10, column_end = 17, message=Invalid preprocessing directive), Error(line=53, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=63, column=6, column_end = 15, message=Invalid preprocessing directive), Error(line=69, column=6, column_end = 10, message=Invalid preprocessing directive), Error(line=77, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=83, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=89, column=6, column_end = 11, message=Invalid preprocessing directive), Error(line=96, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=97, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=98, column=5, column_end = 7, message=Invalid preprocessing directive), Error(line=116, column=10, column_end = 20, message=Invalid preprocessing directive), Error(line=118, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=129, column=6, column_end = 13, message=Invalid preprocessing directive), Error(line=135, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=136, column=6, column_end = 9, message=Invalid preprocessing directive), Error(line=138, column=6, column_end = 8, message=Invalid preprocessing directive), Error(line=150, column=6, column_end = 12, message=Invalid preprocessing directive)]
