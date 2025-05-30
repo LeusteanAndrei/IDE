@@ -7,6 +7,7 @@ from shortcuts import ShortcutManager
 from FileSystem.folder_open import initialize_sidebar_and_splitter, open_folder
 from Styles import style
 from Functions.toggle_terminal import toggle_terminal
+import dialogs
 
 def insert_algorithm(editor, algorithm_code):   
     """Insert algorithm code at the current cursor position in the editor"""
@@ -124,6 +125,8 @@ def intialize_shortcuts(ui, MainWindow):
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
     shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(editor))
+    shortcut_manager.add_shortcut("Find", "Ctrl+F", lambda: ui.show_find_dialog())
+    shortcut_manager.add_shortcut("Replace", "Ctrl+H", lambda: ui.show_replace_dialog())
     
     # Connect button 1 to open the shortcut settings dialog
     ui.buttons[0].setText("Shortcuts")
