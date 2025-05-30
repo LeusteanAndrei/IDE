@@ -61,7 +61,7 @@ QLabel {
 }
 QTreeView {
     background-color: #23272b;
-    color: #e0e0e;
+    color: #e0e0e0;
     font-family: 'Roboto Mono', 'Roboto', monospace;
     font-size: 14px;
     border: 1px solid #50727B;
@@ -71,7 +71,7 @@ QTreeView {
 TERMINAL_STYLE = """
 QPlainTextEdit {
     background-color: #181b1f;
-    color: #e0e0e;
+    color: #e0e0e0;
     font-family: 'Roboto Mono', 'Roboto', monospace;
     font-size: 14px;
     border: 1px solid #344955;

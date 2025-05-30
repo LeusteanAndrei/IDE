@@ -319,7 +319,7 @@ class Ui_MainWindow(QtCore.QObject):
                 letter-spacing: 1.5px;
                 padding-top: 2px;
                 padding-bottom: 2px;
-                text-shadow: 1px 1px 2px #000;
+                /* text-shadow: 1px 1px 2px #000; -> nu exista proprietatea text-shadow */
             }
         """)
         header_layout.addWidget(title_label)
@@ -335,7 +335,7 @@ class Ui_MainWindow(QtCore.QObject):
                 color: #78A083;
                 font-size: 22px;
                 border-radius: 10px;
-                box-shadow: 0 2px 8px #0004;
+                /* box-shadow: 0 2px 8px #0004;  -> nu exista culoarea #0004*/
             }
             QPushButton:hover {
                 background: #78A083;
@@ -353,7 +353,7 @@ class Ui_MainWindow(QtCore.QObject):
                 color: #e57373;
                 font-size: 22px;
                 border-radius: 10px;
-                box-shadow: 0 2px 8px #0004;
+                /* box-shadow: 0 2px 8px #0004; -> nu exista culoarea #0004*/
             }
             QPushButton:hover {
                 background: #e57373;
@@ -393,7 +393,7 @@ class Ui_MainWindow(QtCore.QObject):
             }
             QPushButton {
                 background: #23272b;
-                border: 1.2px solid #444a;
+                /* border: 1.2px solid #444a; -> nu exista culoarea #444a */
                 min-width: 38px;
                 min-height: 38px;
                 max-width: 38px;
