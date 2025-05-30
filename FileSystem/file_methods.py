@@ -14,23 +14,31 @@ def save_as_file(editor, file_path):
                     None, "Save File", file_path,  "All Files (*);;Text Files (*.txt);;C++ Files (*.cpp)", 
                     options=options)
     if new_file_path:
-        # with open(new_file_path, 'w') as file:
-        #     file.write(editor.toPlainText())
-        # print(f"File saved as: {file_path}")
-        return new_file_path, True #return the new file path and set saved to True
+        try:
+            with open(new_file_path, 'w') as file:
+                file.write(editor.toPlainText())
+            print(f"File saved as: {new_file_path}")
+            return new_file_path, True  # Return the new file path and set saved to True
+        except Exception as e:
+            QMessageBox.critical(None, "Save Error", f"Could not save file: {str(e)}")
+            return None, False
     return None, False
-    # return file_path, False #if the user cancels the save dialog, return the original file path and set saved to False
 
 def save_file(editor, file_path, saved, highlighter):
     """Save current content of the editor into the existing file"""
-    if file_path and saved:
-        with open(file_path, 'w') as file:
-            file.write(editor.toPlainText())
-        print(f"File saved: {file_path}")
+    if file_path:  # If we have a file path, save to that file
+        try:
+            with open(file_path, 'w') as file:
+                file.write(editor.toPlainText())
+            print(f"File saved: {file_path}")
+            highlighter.rehighlight()  # Reapply syntax highlighting after saving
+            return file_path, True  # Return the same path and mark as saved
+        except Exception as e:
+            QMessageBox.critical(None, "Save Error", f"Could not save file: {str(e)}")
+            return file_path, False
     else:
-        file_path, saved = save_as_file(editor, file_path) # If no file path is set for now -> we must us save as method
-    highlighter.rehighlight() # Reapply syntax highlighting after saving
-    return file_path, saved
+        # If no file path is set, use save as
+        return save_as_file(editor, file_path)
 
 def new_file(editor): #default face terminatia .txt pana cand salvam noi altfel
     """Create a new file in the editor"""

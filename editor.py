@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget, QToolTip
-from PyQt5.QtCore import QProcess, Qt, QTimer
+from PyQt5.QtCore import QProcess, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QShortcut
@@ -14,12 +14,22 @@ from Styles import style
 Log = logger.Logger("lsp.log")
 
 class TextEditor(QPlainTextEdit):
-    def __init__(self, file_path = None):
+    textChangedWithIndex = pyqtSignal(int)
+    def __init__(self, file_path = None, tab_index=None):
         super().__init__()
         self.file_path = file_path
-        self.saved = False
+        self.saved = True  # Start as saved
         self.up_to_date = True
+        self.tab_index = tab_index
+        self.ignore_text_changed = False
+        self.textChanged.connect(self.handle_text_changed)  # Connect to textChanged signal
 
+    def handle_text_changed(self):
+        if self.ignore_text_changed:
+            return
+        self.saved = False  # Mark as unsaved when text changes
+        if self.tab_index is not None:
+            self.textChangedWithIndex.emit(self.tab_index)
 
     def readContent(self):
         if self.file_path and os.path.exists(self.file_path):
@@ -30,9 +40,9 @@ class TextEditor(QPlainTextEdit):
 
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
+        # We don't need to emit textChangedWithIndex here anymore since we're using textChanged signal
         if e.key() != Qt.Key.Key_Down and e.key() != Qt.Key.Key_Up and e.key() != Qt.Key.Key_Right and e.key() != Qt.Key.Key_Left:
             self.up_to_date = False
-            # self.saved = False
 
 
 class LspProcess():
@@ -410,10 +420,10 @@ class Editor(QWidget):
             return
         
         if self.text_edit is not None:
-            # Remove the old text_edit from the layout
             self.layout.removeWidget(self.text_edit)
             self.text_edit.hide()
-            
+
+        textedit.ignore_text_changed = True
         self.text_edit = textedit
         self.layout.addWidget(self.text_edit)
         self.text_edit.show()
@@ -427,10 +437,11 @@ class Editor(QWidget):
         self.setup_lsp()
 
         self.text_edit.setStyleSheet(style.EDITOR_STYLE)
-        # editor.setStyleSheet()
         font = self.text_edit.font()
         font.setPointSize(style.EDITOR_FONT_SIZE)
         self.text_edit.setFont(font)
+
+        self.text_edit.ignore_text_changed = False
 
 
 class Completion_Popup(QListWidget):

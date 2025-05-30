@@ -2,11 +2,9 @@
 
 using namespace std;
 
-
-
 int main()
 {
-
+   
     int integer1 = 0, integer2 = 0;
    integer1 = integer2 + 1;
     int x;
@@ -14,6 +12,7 @@ int main()
     x = integer1;
     integer2 = integer1;
     cout << 2;
-    cout<<x;
+    cout<<x<<"Salutare";
     return 0;
+
 }

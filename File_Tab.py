@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QTabBar, QPlainTextEdit, QStackedWidget
 from PyQt5.QtGui import QTextCursor
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, QProcess, QDir, QSysInfo, QEvent
+from PyQt5.QtCore import Qt, QProcess, QDir, QSysInfo, QEvent, pyqtSignal
 from Styles import style
 import os
 from editor import Editor
 from editor import TextEditor  
+import uuid
 # class File_Tab_Bar(QTabBar):
 
 #     def __init__(self, parent=None, ui = None):
@@ -89,6 +90,7 @@ from editor import TextEditor
 
 
 class File_Tab_Bar(QTabBar):
+    tabClicked = pyqtSignal(int)
 
     def __init__(self, parent=None, ui = None):
         
@@ -96,12 +98,12 @@ class File_Tab_Bar(QTabBar):
         
         self.ui = ui
         self.setObjectName("file_tab_bar")
-        self.setTabsClosable(True)
+        self.setTabsClosable(False)  # Dezactivez butonul de close nativ
         self.setMovable(True)
         self.setFixedHeight(48)
-        self.setStyleSheet(style.FILE_TAB_STYLE)
         self.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)  # Fix the size
-        self.setLayoutDirection(Qt.LeftToRight) 
+        self.setLayoutDirection(Qt.LeftToRight)
+        self.setStyleSheet("QTabBar { background: transparent; } QTabBar::tab { background: transparent; }")
 
         self.default_file_name = "Untitled"
         # self.addTab(self.default_file_name)
@@ -114,6 +116,8 @@ class File_Tab_Bar(QTabBar):
         self.opened_files = []  # Aici ar trebui sa fie adaugate dinamic fisierele deschise
         # self.file_states={} #pt a retine care au fost salvate si path-ul lor
         self.editors = {}
+        self.tab_labels = {}
+        self.saved_content = {}  # <--- cheie: editor
 
         #  # Cand deschidem editorul, adaugam un tab default numit Untitled
         #  # ca sa fie rulat codul din el intai ne va obliga sa il salvam
@@ -127,72 +131,207 @@ class File_Tab_Bar(QTabBar):
 
         self.add_new_tab(self.default_file_name, None)  # Initialize with a default tab
 
+    def reconnect_close_buttons(self):
+        for i in range(self.count()):
+            tab_widget = self.tabButton(i, QTabBar.LeftSide)
+            if tab_widget:
+                for j in range(tab_widget.layout().count()):
+                    item = tab_widget.layout().itemAt(j)
+                    widget = item.widget()
+                    if isinstance(widget, QtWidgets.QPushButton):
+                        try:
+                            widget.clicked.disconnect()
+                        except Exception:
+                            pass
+                        widget.clicked.connect(lambda _, idx=i: self.close_tab(idx))
+
     def add_new_tab(self, name , file_path, saved=False, content = None):
         index = self.count()
-        self.addTab(name)
+        # Creez widget custom pentru tab
+        tab_widget = QtWidgets.QWidget()
+        tab_layout = QtWidgets.QHBoxLayout(tab_widget)
+        tab_layout.setContentsMargins(16, 0, 16, 0)  # padding vertical redus pentru a ridica tabul
+        tab_layout.setSpacing(14)
+        label = QtWidgets.QLabel(name)
+        label.setStyleSheet("color: #aee9d1; font-size: 22px; font-weight: 600; padding: 4px 0;")  # font mai mare, fără text-shadow
+        close_btn = QtWidgets.QPushButton("✕")
+        close_btn.setFixedSize(32, 32)
+        close_btn.setCursor(Qt.PointingHandCursor)
+        close_btn.setStyleSheet("""
+            QPushButton {
+                background: #263445;
+                border: 2px solid #aee9d1;
+                color: #aee9d1;
+                font-size: 20px;
+                border-radius: 16px;
+                padding: 0;
+            }
+            QPushButton:hover {
+                background: #e57373;
+                color: #fff;
+                border: 2px solid #fff;
+            }
+        """)
+        close_btn.clicked.connect(lambda _, i=index: self.close_tab(i))
+        tab_layout.addWidget(label)
+        tab_layout.addWidget(close_btn)
+        tab_layout.addStretch(0)
+        tab_widget.setStyleSheet("background: #31395a; border-radius: 16px; border: 3px solid #aee9d1;")
+        self.addTab("")
+        self.setTabButton(index, QTabBar.LeftSide, tab_widget)
         self.opened_files.append(file_path)
-        # self.file_states[index] = {
-        #     "file_path": file_path,  # Path of the file
-        #     "saved": saved           # File is not saved
-        # }
-
-        self.editors[index] = TextEditor()
+        self.editors[index] = TextEditor(tab_index=index)
         self.editors[index].file_path = file_path
-        self.editors[index].saved = saved
+        self.editors[index].tab_index = index
+        # Cheie unica: file_path sau uuid pentru taburi noi
+        if file_path:
+            tab_key = file_path
+        else:
+            tab_key = f"{name}_{uuid.uuid4()}"
+        self.editors[index].tab_key = tab_key
+        self.editors[index].textChangedWithIndex.connect(self.mark_tab_unsaved)
         if content is not None:
+            self.editors[index].ignore_text_changed = True
             self.editors[index].setPlainText(content)
+            self.editors[index].saved = True
+            self.editors[index].ignore_text_changed = False
+        else:
+            self.editors[index].saved = saved
+        self.saved_content[tab_key] = content if content is not None else ""
+        if file_path and content is not None:
+            self.mark_tab_saved(index)
         self.ui.plainTextEdit.switch_text_edit(self.editors[index])  # Switch to the new editor
         self.setCurrentIndex(index)  # Switch to the new tab
+        # Salvez referința la label pentru indicator
+        self.tab_labels[index] = label
+        self.update_tab_saved_indicator(index)
+        self.reconnect_close_buttons()
 
+    def update_tab_saved_indicator(self, index):
+        # print(f"[DEBUG] update_tab_saved_indicator for tab {index}")
+        if not hasattr(self, 'tab_labels') or index not in self.tab_labels:
+            return
+        try:
+            label = self.tab_labels[index]
+            if not label:  # Skip if label is None
+                return
+            name = label.text().lstrip("• ")  # Remove any existing dot
+            if not self.editors[index].saved:
+                if not name.startswith("• "):
+                    label.setText("• " + name)
+            else:
+                label.setText(name)
+        except RuntimeError:
+            # If the label was deleted, remove it from our dictionary
+            if index in self.tab_labels:
+                del self.tab_labels[index]
+
+    def mark_tab_unsaved(self, index):
+        if index in self.editors:
+            editor = self.editors[index]
+            tab_key = editor.tab_key
+            current_content = editor.toPlainText()
+            print(f"[DEBUG] mark_tab_unsaved: tab_key={tab_key}, current={current_content[:10]}, saved={self.saved_content.get(tab_key, '')[:10]}")
+            if current_content != self.saved_content.get(tab_key, ""):
+                editor.saved = False
+            else:
+                editor.saved = True
+            self.update_tab_saved_indicator(index)
+
+    def mark_tab_saved(self, index):
+        if index in self.editors:
+            editor = self.editors[index]
+            tab_key = editor.tab_key
+            self.saved_content[tab_key] = editor.toPlainText()
+            editor.saved = True
+            self.update_tab_saved_indicator(index)
 
     def close_tab(self, index):
-        current_index = self.currentIndex()
-        # del self.file_states[index]
-        del self.opened_files[index]
-        del self.editors[index]
-        # self.editors.pop(index)
+        if index in self.editors:
+            editor = self.editors[index]
+            tab_key = editor.tab_key
+            if tab_key in self.saved_content:
+                del self.saved_content[tab_key]
+            del self.editors[index]
+        if index in self.tab_labels:
+            del self.tab_labels[index]
+        if index < len(self.opened_files):
+            del self.opened_files[index]
         self.removeTab(index)
+        # Reindex auxiliary mappings (editors, tab_labels, opened_files) so that keys greater than index are shifted down by one.
+        new_editors = {}
+        new_tab_labels = {}
+        for old_idx in sorted(self.editors.keys()):
+            if old_idx < index:
+                new_editors[old_idx] = self.editors[old_idx]
+            elif old_idx > index:
+                 new_editors[old_idx - 1] = self.editors[old_idx]
+        self.editors = new_editors
+        for idx, editor in self.editors.items():
+            editor.tab_index = idx
+        for old_idx in sorted(self.tab_labels.keys()):
+            if old_idx < index:
+                 new_tab_labels[old_idx] = self.tab_labels[old_idx]
+            elif old_idx > index:
+                 new_tab_labels[old_idx - 1] = self.tab_labels[old_idx]
+        self.tab_labels = new_tab_labels
+        # Reindex opened_files (a list) by shifting elements (if any) after index down by one.
+        if index < len(self.opened_files):
+             self.opened_files.pop(index)
+        print(f"[DEBUG] after close_tab, saved_content keys: {list(self.saved_content.keys())}")
+        self.reconnect_close_buttons()
 
-
-        # updated_file_states = {}
-        # for i, key in enumerate(sorted(self.file_states.keys())):
-        #     updated_file_states[i] = self.file_states[key]
-        # self.file_states = updated_file_states
-
-        updated_editors = {}
-        
-        for i, editor in enumerate(sorted(self.editors.keys())):
-            updated_editors[i] = self.editors[editor]
-        self.editors = updated_editors
-
-        if index == current_index:
-            current_index = self.currentIndex()
-            if current_index == -1:  # No more tabs open
-                self.ui.plainTextEdit.hide_editor()
-            else:
-                self.ui.plainTextEdit.switch_text_edit(self.editors[current_index])  # Switch to the current editor  
-   
+        current_index = self.currentIndex()
+        if current_index in self.editors:
+             self.ui.plainTextEdit.switch_text_edit(self.editors[current_index])
+             # Force re-connect of textChangedWithIndex (for the current editor) so that (even if only one tab remains) the unsaved indicator is updated.
+             self.editors[current_index].textChangedWithIndex.disconnect(self.mark_tab_unsaved)
+             self.editors[current_index].textChangedWithIndex.connect(self.mark_tab_unsaved)
+        elif len(self.editors) > 0:
+             first_valid = next(iter(self.editors.values()))
+             self.ui.plainTextEdit.switch_text_edit(first_valid)
+             first_valid.textChangedWithIndex.disconnect(self.mark_tab_unsaved)
+             first_valid.textChangedWithIndex.connect(self.mark_tab_unsaved)
+        else:
+             self.ui.plainTextEdit.hide_editor()
 
     def tab_moved(self, from_index, to_index): 
+        # Update opened files (only if indices are in bounds)
+        if (from_index < len(self.opened_files) and to_index < len(self.opened_files)):
+             aux = self.opened_files[from_index]
+             self.opened_files[from_index] = self.opened_files[to_index]
+             self.opened_files[to_index] = aux
 
-        # aux = self.file_states[from_index]
-        # self.file_states[from_index] = self.file_states[to_index]
-        # self.file_states[to_index] = aux
+        # Update editors (only if indices are in bounds)
+        if (from_index in self.editors and to_index in self.editors):
+             aux_editor = self.editors[from_index]
+             self.editors[from_index] = self.editors[to_index]
+             self.editors[to_index] = aux_editor
 
-        aux = self.opened_files[from_index]
-        self.opened_files[from_index] = self.opened_files[to_index]
-        self.opened_files[to_index] = aux
+        # Update tab labels (only if indices are in bounds)
+        if (hasattr(self, 'tab_labels') and from_index in self.tab_labels and to_index in self.tab_labels):
+             aux_label = self.tab_labels[from_index]
+             self.tab_labels[from_index] = self.tab_labels[to_index]
+             self.tab_labels[to_index] = aux_label
 
-        aux_editor = self.editors[from_index]
-        self.editors[from_index] = self.editors[to_index]
-        self.editors[to_index] = aux_editor
+        # Update tab_index for all editors
+        for idx, editor in self.editors.items():
+            editor.tab_index = idx
+
+        self.reconnect_close_buttons()
 
     def tab_switch(self, index):
         if index not in self.editors.keys():
             return
         self.ui.plainTextEdit.switch_text_edit(self.editors[index])  # Switch to the editor of the selected tab
         self.setCurrentIndex(index)  # Ensure the tab bar reflects the current index
+        self.editors[index].tab_index = index
 
+    def mousePressEvent(self, event):
+        super().mousePressEvent(event)
+        index = self.tabAt(event.pos())
+        if index != -1:
+            self.tabClicked.emit(index)
 
 
 class Terminal(QPlainTextEdit):

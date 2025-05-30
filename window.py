@@ -301,8 +301,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.sidebar_header.setFixedHeight(48)
         self.sidebar_header.setStyleSheet("""
             QWidget {
-                background-color: #23272b;
-                border-bottom: 1px solid #222;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #23272b, stop:1 #263445);
+                border-bottom: 2px solid #1e222a;
                 padding-top: 8px;
                 padding-bottom: 4px;
             }
@@ -313,42 +313,100 @@ class Ui_MainWindow(QtCore.QObject):
         title_label = QtWidgets.QLabel("EXPLORER")
         title_label.setStyleSheet("""
             QLabel {
-                color: #78A083;
-                font-size: 18px;
+                color: #aee9d1;
+                font-size: 20px;
                 font-weight: bold;
-                letter-spacing: 1px;
+                letter-spacing: 1.5px;
                 padding-top: 2px;
                 padding-bottom: 2px;
+                text-shadow: 1px 1px 2px #000;
             }
         """)
         header_layout.addWidget(title_label)
         header_layout.addStretch()
+        # --- Butoane funcționale ---
+        self.move_btn = QtWidgets.QPushButton("⇄")
+        self.move_btn.setToolTip("Mută Explorer-ul stânga/dreapta")
+        self.move_btn.setFixedSize(36, 36)
+        self.move_btn.setStyleSheet("""
+            QPushButton {
+                background: #23272b;
+                border: 1.5px solid #78A083;
+                color: #78A083;
+                font-size: 22px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px #0004;
+            }
+            QPushButton:hover {
+                background: #78A083;
+                color: #23272b;
+                border: 1.5px solid #aee9d1;
+            }
+        """)
+        self.close_btn = QtWidgets.QPushButton("❌")
+        self.close_btn.setToolTip("Închide Explorer-ul")
+        self.close_btn.setFixedSize(36, 36)
+        self.close_btn.setStyleSheet("""
+            QPushButton {
+                background: #23272b;
+                border: 1.5px solid #e57373;
+                color: #e57373;
+                font-size: 22px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px #0004;
+            }
+            QPushButton:hover {
+                background: #e57373;
+                color: #fff;
+                border: 1.5px solid #fff;
+            }
+        """)
+        header_layout.addWidget(self.move_btn)
+        header_layout.addWidget(self.close_btn)
+        # --- Funcționalitate butoane ---
+        def toggle_sidebar():
+            if self.sidebar_container.isVisible():
+                self.sidebar_container.hide()
+            else:
+                self.sidebar_container.show()
+        self.close_btn.clicked.connect(lambda: self.sidebar_container.hide())
+        # Shortcut Ctrl+B pentru a arăta/ascunde Explorer-ul
+        QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+B"), MainWindow, toggle_sidebar)
+        # Mutare Explorer stânga/dreapta
+        def move_sidebar():
+            idx = self.splitter.indexOf(self.sidebar_container)
+            count = self.splitter.count()
+            if idx == 0 and count > 1:
+                self.splitter.insertWidget(1, self.sidebar_container)
+            else:
+                self.splitter.insertWidget(0, self.sidebar_container)
+        self.move_btn.clicked.connect(move_sidebar)
 
         # Create icon bar (modern, compact)
         self.sidebar_icon_bar = QtWidgets.QWidget()
         self.sidebar_icon_bar.setFixedHeight(44)
         self.sidebar_icon_bar.setStyleSheet("""
             QWidget {
-                background-color: #23272b;
-                border-bottom: 1px solid #222;
-                padding-top: 2px;
-                padding-bottom: 2px;
+                background: #23272b;
+                border-bottom: 2px solid #1e222a;
+                padding: 6px 0 6px 0;
             }
             QPushButton {
-                background: transparent;
-                border: none;
-                min-width: 36px;
-                min-height: 36px;
-                max-width: 36px;
-                max-height: 36px;
+                background: #23272b;
+                border: 1.2px solid #444a;
+                min-width: 38px;
+                min-height: 38px;
+                max-width: 38px;
+                max-height: 38px;
                 margin: 0 8px;
-                border-radius: 6px;
+                border-radius: 8px;
                 color: #b0b0b0;
                 font-size: 20px;
             }
             QPushButton:hover {
-                background: #31363b;
-                color: #78A083;
+                background: #78A083;
+                color: #23272b;
+                border: 1.2px solid #aee9d1;
             }
         """)
         icon_layout = QtWidgets.QHBoxLayout(self.sidebar_icon_bar)
@@ -407,7 +465,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.hide_tree_view = hide_tree_view
 
         # Remove margin from sidebar_container
-        self.sidebar_container.setStyleSheet("background: #23272b; border: none;")
+        self.sidebar_container.setStyleSheet("background: #23272b; border: 2px solid #1e222a; border-radius: 12px;")
 
         # Remove the first widget (tree_view) from splitter and add sidebar_container
         self.splitter.insertWidget(0, self.sidebar_container)
@@ -481,10 +539,26 @@ class Ui_MainWindow(QtCore.QObject):
         self.sidebar_layout.insertWidget(2, self.root_folder_label)  # Adaugă deasupra tree_area
 
         # În setupUi, după crearea self.tree_view și self.root_folder_label:
-        self.tree_view.setStyleSheet(
-            "QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 21px; }"
-            "QTreeView::item:selected { background: #31363b; color: #78A083; }"
-        )
+        self.tree_view.setStyleSheet("""
+            QTreeView {
+                background: #23272b;
+                color: #e0e0e0;
+                border: 2px solid #1e222a;
+                font-size: 16px;
+                padding: 8px 0 8px 10px;
+                font-family: 'Roboto Mono', 'Roboto', monospace;
+                border-radius: 8px;
+            }
+            QTreeView::item:selected {
+                background: #2d323b;
+                color: #aee9d1;
+            }
+            QTreeView::item:hover {
+                background: #31363f;
+            }
+        """)
+
+        self.file_tab_bar.tabClicked.connect(self.on_tab_clicked)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
@@ -571,6 +645,7 @@ class Ui_MainWindow(QtCore.QObject):
         # self.file_tab_bar.file_states[current_index]["saved"] = saved
         self.plainTextEdit.text_edit.file_path = file_path
         self.plainTextEdit.text_edit.saved = saved
+        self.file_tab_bar.mark_tab_saved(current_index)
 
     def handle_save_file_as(self):
         """Handle the Save File As action."""
@@ -592,9 +667,11 @@ class Ui_MainWindow(QtCore.QObject):
         # self.file_tab_bar.file_states[current_index]["saved"] = saved
         self.plainTextEdit.text_edit.file_path = file_path
         self.plainTextEdit.text_edit.saved = saved
+        self.file_tab_bar.mark_tab_saved(current_index)
 
         # Update the tab name
         self.file_tab_bar.setTabText(current_index, os.path.basename(file_path))
+        self.file_tab_bar.mark_tab_saved(current_index)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -793,6 +870,11 @@ class Ui_MainWindow(QtCore.QObject):
             
         cursor.endEditBlock()
         
+    def on_tab_clicked(self, index):
+        print(f"[DEBUG] Tab {index} clicked!")
+        # Sterg orice workaround care forta saved=True sau update_tab_saved_indicator aici
+        # Las doar logica de comparatie de continut sa decida dot-ul
+
 class CustomInputDialog(QDialog):
     def __init__(self, title, label_text, parent=None):
         super().__init__(parent)
