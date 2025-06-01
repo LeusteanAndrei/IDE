@@ -90,6 +90,14 @@ def connect_to_action(ui):
     ui.actionKnapsack.triggered.connect(
         lambda: insert_algorithm(ui, ALGORITHMS["Dynamic Programming"]["Knapsack"]))
     
+    #Shortest path algorithms
+    ui.actionDijkstra.triggered.connect(
+        lambda: insert_algorithm(ui, ALGORITHMS["Shortest Path"]["Dijkstra"]))
+    ui.actionBellmanFord.triggered.connect(
+        lambda: insert_algorithm(ui, ALGORITHMS["Shortest Path"]["Bellman-Ford"]))
+    ui.actionFloydWarshall.triggered.connect(
+        lambda: insert_algorithm(ui, ALGORITHMS["Shortest Path"]["Floyd-Warshall"]))
+
     # Other algorithms
     ui.actionPrimeCheck.triggered.connect(
         lambda: insert_algorithm(ui, ALGORITHMS["Other"]["Prime Check"]))

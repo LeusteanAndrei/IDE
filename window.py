@@ -171,6 +171,18 @@ class Ui_MainWindow(QtCore.QObject):
         self.menuDynamicProgramming.addAction(self.actionFibonacci)
         self.menuDynamicProgramming.addAction(self.actionKnapsack)
 
+        #Alg de tip Shortest Path
+        self.menuShortestPath = QtWidgets.QMenu("Shortest Path", self.algorithmsMenu)
+        self.actionDijkstra = QtWidgets.QAction(MainWindow)
+        self.actionDijkstra.setObjectName("actionDijkstra")
+        self.actionFloydWarshall = QtWidgets.QAction(MainWindow)
+        self.actionFloydWarshall.setObjectName("actionFloydWarshall")
+        self.actionBellmanFord = QtWidgets.QAction(MainWindow)
+        self.actionBellmanFord.setObjectName("actionBellmanFord")
+        self.menuShortestPath.addAction(self.actionDijkstra)
+        self.menuShortestPath.addAction(self.actionFloydWarshall)
+        self.menuShortestPath.addAction(self.actionBellmanFord)
+
         #Alg Diversi
         self.menuOther = QtWidgets.QMenu("Other", self.algorithmsMenu)
         self.actionPrimeCheck = QtWidgets.QAction(MainWindow)
@@ -186,6 +198,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.algorithmsMenu.addMenu(self.menuDataStructures)
         self.algorithmsMenu.addMenu(self.menuGraphAlgorithms)
         self.algorithmsMenu.addMenu(self.menuDynamicProgramming)
+        self.algorithmsMenu.addMenu(self.menuShortestPath)
         self.algorithmsMenu.addMenu(self.menuOther)
 
         # Apply styles to menus and submenus
@@ -196,6 +209,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.menuDataStructures.setStyleSheet(self.menu_style)
         self.menuGraphAlgorithms.setStyleSheet(self.menu_style)
         self.menuDynamicProgramming.setStyleSheet(self.menu_style)
+        self.menuShortestPath.setStyleSheet(self.menu_style)
         self.menuOther.setStyleSheet(self.menu_style)
       
     def connect_buttons(self):
@@ -704,6 +718,10 @@ class Ui_MainWindow(QtCore.QObject):
         self.actionFibonacci.setText(_translate("MainWindow", "Fibonacci"))
         self.actionKnapsack.setText(_translate("MainWindow", "Knapsack"))
         
+        self.actionDijkstra.setText(_translate("MainWindow", "Dijkstra"))
+        self.actionFloydWarshall.setText(_translate("MainWindow", "Floyd-Warshall"))
+        self.actionBellmanFord.setText(_translate("MainWindow", "Bellman-Ford"))
+
         self.actionPrimeCheck.setText(_translate("MainWindow", "Prime Check"))
         self.actionGCD.setText(_translate("MainWindow", "GCD"))
 
