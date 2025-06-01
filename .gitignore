@@ -5,8 +5,11 @@ lsp.log
 testingCode.cpp
 main.cpp
 testingCode.exe
+tempCodeRunnerFile.py
+output.txt
 *.exe
 *.pdf
 *.pptx
 *.mp4
+*.cpp
 
