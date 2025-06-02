@@ -10,7 +10,7 @@ from PyQt5.QtCore import QTimer
 from Code_Runner import Code_Runner, Input, Output
 
 import File_Tab, editor
-
+import ai_model
 
 class Ui_MainWindow(QtCore.QObject):
     # Add these styles at the top of your class
@@ -476,13 +476,18 @@ class Ui_MainWindow(QtCore.QObject):
         self.terminal = File_Tab.Terminal( ui = self)  # Use the custom terminal class
         self.terminal.installEventFilter(self)  # Install event filter for terminal input handling
 
+        self.chat_widget = ai_model.ChatWidget(self)  # Initialize the AI chat widget
 
         self.tab_widget = QtWidgets.QTabWidget()
         self.tab_widget.setObjectName("tab_widget")
         self.tab_widget.addTab(self.terminal, "Terminal")
+        self.tab_widget.addTab(self.chat_widget, "Ai chatbot")
         self.tab_widget.addTab(self.code_runner.input, "Input")
         self.tab_widget.addTab(self.code_runner.output, "Output")
-        self.tab_widget.setTabVisible(2, False)
+        
+        self.code_runner.output_tab_number = self.tab_widget.indexOf(self.code_runner.output)
+
+        self.tab_widget.setTabVisible(self.code_runner.output_tab_number, False)
         self.tab_widget.setStyleSheet("""
                             QTabWidget {
                                 border: none;

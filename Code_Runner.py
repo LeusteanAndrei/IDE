@@ -5,7 +5,7 @@ import os
 import subprocess
 
 class Code_Runner:
-    def __init__(self, ui):
+    def __init__(self, ui, output_tab_number=2):
         self.ui = ui
         self.run_process = None
         self.output_code = None
@@ -14,6 +14,8 @@ class Code_Runner:
 
         self.output = Output()
         self.input = Input()
+
+        self.output_tab_number = output_tab_number
 
         self.run_button = self.ui.sections[self.ui.section_names.index("Run")]
         self.run_button.clicked.connect(self.run_code)
@@ -59,8 +61,8 @@ class Code_Runner:
             
         command = ["LLVM/bin/clang++.exe", file_path, "-o", os.path.join(file_directory, executable_file_name)]
 
-        self.ui.tab_widget.setTabVisible(2, True)
-        self.ui.tab_widget.setCurrentIndex(2)
+        self.ui.tab_widget.setTabVisible(self.output_tab_number, True)
+        self.ui.tab_widget.setCurrentIndex(self.output_tab_number)
 
 
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
