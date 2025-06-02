@@ -157,22 +157,3 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 
-# # Configure Google AI
-# genai.configure(api_key="AIzaSyAdL6STMqWzMzpqkokceZbJfjaL-sKbjhE")
-# model = genai.GenerativeModel('gemini-1.5-flash')
-
-# def read_file(file_path):
-#     with open(file_path, 'r', encoding='utf-8') as file:
-#         return file.read()
-
-# def analyze_file(file_path, question="Explain this code"):
-#     file_content = read_file(file_path)
-    
-#     prompt = f"{question}\n\nFile: {file_path}\n\n```\n{file_content}\n```"
-#     response = model.generate_content(prompt)
-    
-#     return response.text
-
-# # Simple question example
-# response = model.generate_content("What is the capital of France?")
-# print(response.text)
