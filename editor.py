@@ -9,12 +9,14 @@ import tempfile, os, sys, json
 from lsp import requests, logger
 from Highlighter.highlighter import cPlusPlusHighlighter
 from Styles import style
-
+import subprocess
 
 Log = logger.Logger("lsp.log")
 
 class TextEditor(QPlainTextEdit):
+    
     textChangedWithIndex = pyqtSignal(int)
+    
     def __init__(self, file_path = None, tab_index=None):
         super().__init__()
         self.file_path = file_path
@@ -23,6 +25,12 @@ class TextEditor(QPlainTextEdit):
         self.tab_index = tab_index
         self.ignore_text_changed = False
         self.textChanged.connect(self.handle_text_changed)  # Connect to textChanged signal
+
+
+        self.font_size = style.EDITOR_FONT_SIZE
+        self.background_color = "#23272b"
+        self.font_family = self.font().family()  # Get the default font family
+        self.apply_style()
 
     def handle_text_changed(self):
         if self.ignore_text_changed:
@@ -44,6 +52,26 @@ class TextEditor(QPlainTextEdit):
         if e.key() != Qt.Key.Key_Down and e.key() != Qt.Key.Key_Up and e.key() != Qt.Key.Key_Right and e.key() != Qt.Key.Key_Left:
             self.up_to_date = False
 
+    def apply_style(self):
+        if self.font_size is not None:
+            font = self.font()
+            font.setPointSize(self.font_size)
+            self.setFont(font)
+
+        if self.background_color is not None:
+            self.setStyleSheet(style.EDITOR_STYLE+ f"background-color: {self.background_color};")
+
+        if self.font_family is not None:
+            font = self.font()
+            font.setFamily(self.font_family)
+            self.setFont(font)
+
+    def show(self):
+        super().show()
+
+        self.apply_style()
+        self.update()  # Refresh the editor to apply changes
+        
 
 class LspProcess():
 
@@ -247,6 +275,7 @@ class LspProcess():
             Log.logger.error("LSP process is not running, cannot restart.")
 
 class Editor(QWidget):
+
     def __init__(self, text_edit = None):
         super().__init__()
         self.setObjectName("plainTextEdit")
@@ -264,7 +293,6 @@ class Editor(QWidget):
         self.setup_completions()
         self.setup_hover()
         self.set_highlighter()
-
 
     def setup_hover(self):
         self.text_edit.setMouseTracking(True)
@@ -436,12 +464,125 @@ class Editor(QWidget):
         self.Lsp.shutdown()
         self.setup_lsp()
 
-        self.text_edit.setStyleSheet(style.EDITOR_STYLE)
-        font = self.text_edit.font()
-        font.setPointSize(style.EDITOR_FONT_SIZE)
-        self.text_edit.setFont(font)
+        # self.text_edit.setStyleSheet(style.EDITOR_STYLE)
+        # font = self.text_edit.font()
+        # font.setPointSize(style.EDITOR_FONT_SIZE)
+        # self.text_edit.setFont(font)
 
         self.text_edit.ignore_text_changed = False
+    
+        self.text_edit.apply_style()
+
+    def format_code(self):
+        code = self.text_edit.toPlainText()
+        try:
+            # Run clang-format as a subprocess
+            proc = subprocess.run(
+                ["clang-format"],
+                input=code.encode("utf-8"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True
+            )
+            formatted_code = proc.stdout.decode("utf-8")
+            editor.setPlainText(formatted_code)
+        except Exception as e:
+            print("Formatting failed:", e)       
+           
+
+    def insert_multiple_line_comment(self):
+        cursor = self.text_edit.textCursor()
+        doc = self.text_edit.document()
+
+        # If no selection, select the current line
+        if not cursor.hasSelection():
+            cursor.select(QTextCursor.LineUnderCursor)
+
+        start = cursor.selectionStart()
+        end = cursor.selectionEnd()
+
+        # Expand selection to full lines
+        start_block = doc.findBlock(start)
+        end_block = doc.findBlock(end)
+        if end_block.position() == end:
+            end_block = end_block.previous()
+
+        # Collect all lines in the selection
+        blocks = []
+        block = start_block
+        while True:
+            blocks.append(block)
+            if block == end_block:
+                break
+            block = block.next()
+
+        lines = [block.text() for block in blocks]
+        comment_block = "\n".join(lines)
+
+        # Prepare the block comment with extra newlines before and after
+        # This will insert 2 empty lines before and after the block comment
+        new_text = "\n\n/*\n\n*/\n\n" + comment_block
+
+        # Replace the selected lines with the block comment and push the text down
+        cursor.beginEditBlock()
+        cursor.setPosition(start_block.position())
+        cursor.setPosition(end_block.position() + end_block.length() - 1, QTextCursor.KeepAnchor)
+        cursor.removeSelectedText()
+        cursor.insertText(new_text)
+        cursor.endEditBlock()
+        self.text_edit.setTextCursor(cursor)
+        
+    def comment_line_or_selection(self):
+        """Toggle comment on the current line or all selected lines."""
+        cursor = self.text_edit.textCursor()
+        doc = self.text_edit.document()
+
+        # If no selection, select the current line
+        if not cursor.hasSelection():
+            cursor.select(QTextCursor.LineUnderCursor)
+
+        start = cursor.selectionStart()
+        end = cursor.selectionEnd()
+
+        # Expand selection to full lines
+        start_block = doc.findBlock(start)
+        end_block = doc.findBlock(end)
+        # If selection ends at the start of a block, don't include that block
+        if end_block.position() == end:
+            end_block = end_block.previous()
+
+        # Collect all lines in the selection
+        blocks = []
+        block = start_block
+        while True:
+            blocks.append(block)
+            if block == end_block:
+                break
+            block = block.next()
+
+        lines = [block.text() for block in blocks]
+        comment_block= "\n".join(lines)
+
+        # Decide to comment or uncomment
+        if all(line.strip().startswith("//") for line in lines if line.strip()):
+            # Uncomment
+            new_lines = [line.replace("//", "", 1) if line.strip().startswith("//") else line for line in lines]
+        elif comment_block.strip().startswith("/*") and comment_block.strip().endswith("*/"):
+            new_lines = [line.replace("/*", "", 1).replace("*/", "", 1) for line in lines]
+        else:
+            # Comment
+            new_lines = ["//" + line if line.strip() else line for line in lines]
+
+        # Replace the selected lines with new_lines
+        cursor.beginEditBlock()
+        # Select from start of first block to end of last block
+        cursor.setPosition(start_block.position())
+        cursor.setPosition(end_block.position() + end_block.length() - 1, QTextCursor.KeepAnchor)
+        cursor.removeSelectedText()
+        cursor.insertText('\n'.join(new_lines))
+        cursor.endEditBlock()
+        self.text_edit.setTextCursor(cursor)
+      
 
 
 class Completion_Popup(QListWidget):
@@ -515,6 +656,31 @@ class Error:
         return f"Error(line={self.line}, column={self.column_start}, column_end = {self.column_end}, message={self.message})"
 
 
+class Utility_Functions:
+
+    def undo(editor):
+        editor.text_edit.undo()
+    
+    def redo(editor):
+        editor.text_edit.redo()
+
+    def cut(editor):
+        editor.text_edit.cut()  
+
+    def copy(editor):
+        editor.text_edit.copy()
+
+    def paste(editor):
+        editor.text_edit.paste()
+
+    def zoom_in(editor):
+        editor.text_edit.zoomIn(1)
+
+    def zoom_out(editor):
+        editor.text_edit.zoomOut(1)
+
+    def select_all(editor):
+        editor.text_edit.selectAll()
 
     
 if __name__ == "__main__":

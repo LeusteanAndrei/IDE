@@ -11,6 +11,8 @@ from Code_Runner import Code_Runner, Input, Output
 
 import File_Tab, editor
 import ai_model
+from settings_dialog import SettingsDialog
+
 
 class Ui_MainWindow(QtCore.QObject):
     # Add these styles at the top of your class
@@ -219,6 +221,11 @@ class Ui_MainWindow(QtCore.QObject):
             elif button.objectName() == "Code":
                 button.setMenu(self.algorithmsMenu)
 
+    
+            
+       
+
+    
     def setup_buttons(self):
         # Shortcut Buttons (Area 2)
         self.buttonLayout = QtWidgets.QHBoxLayout()
@@ -251,11 +258,68 @@ class Ui_MainWindow(QtCore.QObject):
         # pune layout-ul în grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
 
-        # și legi semnalele de care ai nevoie
-        self.buttons[17].clicked.connect(self.code_runner.abort_run)
+
+
+    def connect_buttons_list(self, MainWindow):
+
+        self.buttons[1].setText("Settings")
+        self.buttons[1].clicked.connect(lambda: self.show_settings_dialog(MainWindow=MainWindow))
+        
+        #Aici se deschide o chestie cu settings
+        self.buttons[2].setText("New File")
+        self.buttons[2].clicked.connect(self.handle_new_file)  # New File button
+        self.buttons[3].setText("Open")
+        self.buttons[3].clicked.connect(self.handle_open_file)  # Open File button
+        self.buttons[4].setText("Save")
+        self.buttons[4].clicked.connect(self.handle_save_file)  # Save File button
+
+        #Setam Undo si Redo pe butoanele 6 si 7
+        self.buttons[5].setText("Undo")
+        self.buttons[6].setText("Redo")
+        self.buttons[5].clicked.connect(lambda: editor.Utility_Functions.undo(self.plainTextEdit))
+        self.buttons[6].clicked.connect(lambda: editor.Utility_Functions.redo(self.plainTextEdit))
+
+        #Setam butoanele 8,9,10 ca fiind Copy, Cut si Paste
+        # Set buttons for Cut, Copy, Paste
+        self.buttons[7].setText("Cut")
+        self.buttons[8].setText("Copy")
+        self.buttons[9].setText("Paste")
+        self.buttons[7].clicked.connect(lambda: editor.Utility_Functions.cut(self.plainTextEdit))
+        self.buttons[8].clicked.connect(lambda: editor.Utility_Functions.copy(self.plainTextEdit))
+        self.buttons[9].clicked.connect(lambda: editor.Utility_Functions.paste(self.plainTextEdit))
+
+        # Set buttons for Zoom In/Out
+        # Astea nu merg for some reason, nu stiu de ce, dar le-am lasat ca sa fie acolo
+        self.buttons[10].setText("Zoom In")
+        self.buttons[11].setText("Zoom Out")
+        self.buttons[10].clicked.connect(lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+        self.buttons[11].clicked.connect(lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
+        
+        # Set Select All button
+        self.buttons[12].setText("Select All")
+        self.buttons[12].clicked.connect(lambda: editor.Utility_Functions.select_all(self.plainTextEdit))
+
+        self.buttons[14].setText("Run Code")  # Run Code button -> ruleaza codul din editor
+        self.buttons[14].clicked.connect(lambda: self.code_runner.run_code()) 
+        # E kinda choppy ngl, va rog sa ma scuzati, I did my best
+        self.buttons[15].setText("Comment")  # Comment button -> face linia comentariu sau invers, comentariu il decomenteaza
+        self.buttons[15].clicked.connect(lambda: self.plainTextEdit.comment_line_or_selection) 
+        
+        #butonul asta mi-a dat crash la python so
+        self.buttons[16].setText("/*")
+        self.buttons[16].clicked.connect(lambda: self.plainTextEdit.insert_multiple_line_comment)
+        
+        #s-a incercat ceva - mie nu imi merge, ca nu am clang, va rog pe voi sa testati sa spuneti cum e
+        self.buttons[17].setText("Format")
+        self.buttons[17].clicked.connect(lambda: self.plainTextEdit.format_code)  # Format button -> formateaza codul din editor
+
+        # # și legi semnalele de care ai nevoie
+        # self.buttons[17].clicked.connect(self.code_runner.abort_run)
+
 
     def setupUi(self, MainWindow):
  
+        
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -265,10 +329,14 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-
-
         self.add_sections()  # Call the method to add sections
+
+
         self.code_runner = Code_Runner(self)  
+        self.plainTextEdit = editor.Editor()
+
+        self.file_tab_bar = File_Tab.File_Tab_Bar(ui = self)  # Use the custom tab bar class
+
         self.add_algorithms_menu(MainWindow)  # Call the method to add algorithms menu
         self.connect_buttons()  # Call the method to connect buttons
 
@@ -277,14 +345,12 @@ class Ui_MainWindow(QtCore.QObject):
         # Add the section layout to the grid
         #aicea va zic sincer ca m am folosit de copilot si nu sunt chiar sigur cum functioneaza grid-ul
         self.gridLayout.addLayout(self.sectionLayout, 0, 0, 1, 2)
-
-
         #Shortcut Buttons (Area 2)
         self.setup_buttons()
 
 
-        self.plainTextEdit = editor.Editor()
-        self.file_tab_bar = File_Tab.File_Tab_Bar(ui = self)  # Use the custom tab bar class
+        self.connect_buttons_list(MainWindow)  # Connect buttons to their respective functions
+
 
          #Editor (Zona 4) - legat si de file navigator - Zona 3
         # self.plainTextEdit = editor.Editor() 
@@ -897,6 +963,11 @@ class Ui_MainWindow(QtCore.QObject):
         print(f"[DEBUG] Tab {index} clicked!")
         # Sterg orice workaround care forta saved=True sau update_tab_saved_indicator aici
         # Las doar logica de comparatie de continut sa decida dot-ul
+
+    def show_settings_dialog(self, MainWindow):
+        self.settings_dialogue = SettingsDialog(MainWindow, self.plainTextEdit)
+
+        self.settings_dialogue.exec_()
 
 class CustomInputDialog(QDialog):
     def __init__(self, title, label_text, parent=None):

@@ -30,10 +30,10 @@ class AiThread(QThread):
             # Emit error back to the main thread
             self.error_signal.emit(str(e))
 
-
 class AiModel:
     def __init__(self, api_key,   model = "gemini-1.5-flash"):
         from huggingface_hub import InferenceClient
+        self.api_key = api_key
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model)
 
@@ -49,11 +49,11 @@ class AiModel:
         received = self.model.generate_content(message)
         return received.text
 
-
-
 class ChatWidget(QWidget):
     def __init__(self, ui):
         super().__init__()
+        global local_api_key
+
 
         self.ai_model = AiModel(api_key=local_api_key)
         self.setWindowTitle("AI Chat Widget")
@@ -94,9 +94,23 @@ class ChatWidget(QWidget):
 
         self.aiThread = None
 
+        
+        if local_api_key == "":
+            self.chat_area.append("To use the Ai model, please set your API key in the code.")
+            self.input_box.setPlaceholderText("Please enter the API key: ")
 
     def send_message(self):
 
+        global local_api_key
+        if local_api_key == "":
+            api_key = self.input_box.text().strip()
+            if not api_key:
+                self.chat_area.append("Please enter a valid API key.")
+                return
+            self.ai_model = AiModel(api_key=api_key)
+            local_api_key = api_key
+            self.chat_area.append("API key set successfully. You can now start chatting.")
+            return
 
         user_text = self.input_box.text().strip()
         if not user_text:
@@ -145,7 +159,6 @@ class ChatWidget(QWidget):
         self.input_box.clear()
 
         self.aiThread = None
-
 
 if __name__ == "__main__":
     import sys

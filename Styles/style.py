@@ -1,21 +1,26 @@
 #Aici sunt instructiunile de css pentru styling - specific intr-o variabila stilurile dorite pt anumite widget-uri
 #si dupa in main pasez variabila corespunzatoare cu setStyleSheet()
 
+# EDITOR_STYLE = """
+# QPlainTextEdit {
+#     color: white;
+#     border: 1px solid #5c5f77;
+#     border-radius: 5px;
+#     padding: 5px;
+# }
+
+# QPlainTextEdit:hover {
+#     border: 1px solid #ffffff;
+# }
+# """
 EDITOR_STYLE = """
-QPlainTextEdit {
-    background-color: #23272b;
-    color: #e0e0e0;
-    font-family: 'Roboto Mono', 'Roboto', monospace;
-    font-size: 22px;
+    color: white;
     border: 1px solid #5c5f77;
     border-radius: 5px;
     padding: 5px;
-}
 
-QPlainTextEdit:hover {
-    border: 1px solid #ffffff;
-}
 """
+
 
 MAIN_WINDOW_STYLE = """
 QMainWindow {
@@ -67,6 +72,22 @@ QTreeView {
     border: 1px solid #50727B;
 }
 """
+
+
+BUTTON_STYLE = """
+QPushButton {
+    background-color: #5c5f77;
+    color: #ffffff;
+    border: 1px solid #35374b;
+    border-radius: 5px;
+    padding: 5px;
+}
+QPushButton:hover {
+    background-color: #6d6f8a;
+    border: 1px solid #ffffff;
+}
+"""
+
 
 TERMINAL_STYLE = """
 QPlainTextEdit {
@@ -132,6 +153,46 @@ QTabBar::close-button {
 QTabBar::close-button:hover {
     background: #e57373;
     color: #fff;
+}
+"""
+
+
+FONT_DROPDOWN_STYLE = """
+    QFontComboBox {
+        background-color: #282c34;
+        color: #f8f8f2;
+        border: 1px solid #44475a;
+    }
+    QFontComboBox QAbstractItemView {
+        background-color: #232629;
+        color: #f8f8f2;
+        selection-background-color: #44475a;
+        selection-color: #ffffff;
+    }
+"""
+SETTINGS_STYLE ="""
+    QDialog {
+        background-color:  #2e2f3e;
+        color: #f8f8f2;
+    }
+    QLabel {
+        color: #f8f8f2;
+    }
+    QSpinBox, QFontComboBox, QHBoxLayout, QFontComboBox {
+        background-color:  #2e2f3e;
+        color: #f8f8f2;
+        border: 1px solid #44475a;
+    }
+    QPushButton {
+    background-color: #5c5f77;
+    color: #ffffff;
+    border: 1px solid #35374b;
+    border-radius: 5px;
+    padding: 5px;
+}
+    QPushButton:hover {
+    background-color: #6d6f8a;
+    border: 1px solid #ffffff;
 }
 """
 
