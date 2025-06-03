@@ -129,3 +129,42 @@ QTabBar::close-button:hover {
     color: #ffffff;
 }
 """
+
+FONT_DROPDOWN_STYLE = """
+    QFontComboBox {
+        background-color: #282c34;
+        color: #f8f8f2;
+        border: 1px solid #44475a;
+    }
+    QFontComboBox QAbstractItemView {
+        background-color: #232629;
+        color: #f8f8f2;
+        selection-background-color: #44475a;
+        selection-color: #ffffff;
+    }
+"""
+SETTINGS_STYLE ="""
+    QDialog {
+        background-color:  #2e2f3e;
+        color: #f8f8f2;
+    }
+    QLabel {
+        color: #f8f8f2;
+    }
+    QSpinBox, QFontComboBox, QHBoxLayout, QFontComboBox {
+        background-color:  #2e2f3e;
+        color: #f8f8f2;
+        border: 1px solid #44475a;
+    }
+    QPushButton {
+    background-color: #5c5f77;
+    color: #ffffff;
+    border: 1px solid #35374b;
+    border-radius: 5px;
+    padding: 5px;
+}
+    QPushButton:hover {
+    background-color: #6d6f8a;
+    border: 1px solid #ffffff;
+}
+"""

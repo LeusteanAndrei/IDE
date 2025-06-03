@@ -2,10 +2,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QProcess
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QSplitter
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QSpinBox, QPushButton, QColorDialog, QHBoxLayout
 from FileSystem.folder_open import initialize_sidebar_and_splitter
 from FileSystem.file_methods import save_as_file
 from Styles import style
+from settings_dialog import SettingsDialog
 import os, subprocess
+import editor
+
+
+        
 
 class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga terminalul:))
     def setupUi(self, MainWindow):
@@ -24,6 +30,8 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
 
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
+
+    
 
 
         # Sections (Zona 1)
@@ -161,6 +169,17 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             button = QtWidgets.QPushButton(str(i))  # momentan e doar nr ca placeholder
             self.buttons.append(button)
             self.buttonLayout.addWidget(button)
+            
+        self.buttons[1].setText("Settings")
+        self.buttons[1].clicked.connect(lambda: self.show_settings_dialog(MainWindow))
+        
+        #Aici se deschide o chestie cu settings
+        self.buttons[2].setText("New File")
+        self.buttons[2].clicked.connect(self.handle_new_file)  # New File button
+        self.buttons[3].setText("Open")
+        self.buttons[3].clicked.connect(self.handle_open_file)  # Open File button
+        self.buttons[4].setText("Save")
+        self.buttons[4].clicked.connect(self.handle_save_file)  # Save File button
 
         # Adaugare spatiu (nu intrebati ce inseamna paramaetrii aia)
         self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
@@ -169,6 +188,18 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
             self.buttons.append(button)
             self.buttonLayout.addWidget(button)
+            
+        #Just so you know, am mutat asta din Zona 4, aici, ca sa nu se intializeze de 2 ori, e the same thing
+        import editor
+        self.plainTextEdit = editor.Editor() 
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        #Setam Undo si Redo pe butoanele 6 si 7
+        self.buttons[5].setText("Undo")
+        self.buttons[6].setText("Redo")
+        self.buttons[5].clicked.connect(self.plainTextEdit.text_edit.undo)
+        self.buttons[6].clicked.connect(self.plainTextEdit.text_edit.redo)
+
+    
 
         self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
 
@@ -176,6 +207,26 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
             self.buttons.append(button)
             self.buttonLayout.addWidget(button)
+            
+        #Setam butoanele 8,9,10 ca fiind Copy, Cut si Paste
+        # Set buttons for Cut, Copy, Paste
+        self.buttons[7].setText("Cut")
+        self.buttons[8].setText("Copy")
+        self.buttons[9].setText("Paste")
+        self.buttons[7].clicked.connect(self.plainTextEdit.text_edit.cut)
+        self.buttons[8].clicked.connect(self.plainTextEdit.text_edit.copy)
+        self.buttons[9].clicked.connect(self.plainTextEdit.text_edit.paste)
+        
+        # Set buttons for Zoom In/Out
+        #Astea nu merg for some reason, nu stiu de ce, dar le-am lasat ca sa fie acolo
+        self.buttons[10].setText("Zoom In")
+        self.buttons[11].setText("Zoom Out")
+        self.buttons[10].clicked.connect(lambda: self.plainTextEdit.text_edit.zoomIn(1))
+        self.buttons[11].clicked.connect(lambda: self.plainTextEdit.text_edit.zoomOut(1))
+        
+        # Set Select All button
+        self.buttons[12].setText("Select All")
+        self.buttons[12].clicked.connect(self.plainTextEdit.text_edit.selectAll)
 
         self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
 
@@ -190,6 +241,20 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
             self.buttons.append(button)
             self.buttonLayout.addWidget(button)
         self.buttonLayout.addItem(QtWidgets.QSpacerItem(50, 50, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum))
+        
+        self.buttons[14].setText("Run Code")  # Run Code button -> ruleaza codul din editor
+        self.buttons[14].clicked.connect(lambda: self.run_code()) 
+        # E kinda choppy ngl, va rog sa ma scuzati, I did my best
+        self.buttons[15].setText("Comment")  # Comment button -> face linia comentariu sau invers, comentariu il decomenteaza
+        self.buttons[15].clicked.connect(self.plainTextEdit.comment_line_or_selection) 
+        
+        #butonul asta mi-a dat crash la python so
+        self.buttons[16].setText("/*")
+        # self.buttons[16].clicked.connect(self.plainTextEdit.insert_multiple_line_comment)
+        
+        #s-a incercat ceva - mie nu imi merge, ca nu am clang, va rog pe voi sa testati sa spuneti cum e
+        self.buttons[17].setText("Format")
+        self.buttons[17].clicked.connect(self.plainTextEdit.format_code)  # Format button -> formateaza codul din editor
         
         for i in range(18, 20):
             button = QtWidgets.QPushButton(str(i))  # Button text as placeholder
@@ -232,9 +297,7 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.file_tab_bar.tabCloseRequested.connect(self.close_tab) #inchidem tab
 
          #Editor (Zona 4) - legat si de file navigator - Zona 3
-        import editor
-        self.plainTextEdit = editor.Editor() 
-        self.plainTextEdit.setObjectName("plainTextEdit")
+        
 
         self.editor_layout = QtWidgets.QVBoxLayout()
         self.editor_layout.setContentsMargins(0, 0, 0, 0)  # Remove margins
@@ -360,6 +423,10 @@ class Ui_MainWindow(QtCore.QObject): #am convertit la chestia asta ca sa mearga 
         self.output.appendPlainText("Execution Output:\n")
         self.output.appendPlainText(result.stdout)
     
+    def show_settings_dialog(self, MainWindow):
+        dlg = SettingsDialog(MainWindow, self.plainTextEdit)
+        dlg.exec_()
+            
     def close_tab(self, index):
         """Handle tab close requests.""" #scoatem din lista si din dictionar datele
         self.file_tab_bar.removeTab(index)

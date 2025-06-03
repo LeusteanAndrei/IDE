@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, 
 from PyQt5.QtCore import QProcess, Qt, QTimer
 from PyQt5.QtGui import QTextCursor
 
-
+import subprocess
 import tempfile, os, sys, json
 from lsp import requests, logger
 
@@ -207,6 +207,21 @@ class Editor(QWidget):
         self.errors = errors
         Log.logger.info(f"Errors received: {self.errors}")
 
+    def format_code(self):
+        code = self.text_edit.toPlainText()
+        try:
+            # Run clang-format as a subprocess
+            proc = subprocess.run(
+                ["clang-format"],
+                input=code.encode("utf-8"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True
+            )
+            formatted_code = proc.stdout.decode("utf-8")
+            editor.setPlainText(formatted_code)
+        except Exception as e:
+            print("Formatting failed:", e)       
             
     def open_document(self):
         text = self.text_edit.toPlainText()
@@ -222,7 +237,100 @@ class Editor(QWidget):
         self.completion_words.clear()
         self.completion_words = completions
         Log.logger.info(f"Completions received: {self.completion_words}")
+    
+    def insert_multiple_line_comment(self):
+        cursor = self.text_edit.textCursor()
+        doc = self.text_edit.document()
 
+        # If no selection, select the current line
+        if not cursor.hasSelection():
+            cursor.select(QTextCursor.LineUnderCursor)
+
+        start = cursor.selectionStart()
+        end = cursor.selectionEnd()
+
+        # Expand selection to full lines
+        start_block = doc.findBlock(start)
+        end_block = doc.findBlock(end)
+        if end_block.position() == end:
+            end_block = end_block.previous()
+
+        # Collect all lines in the selection
+        blocks = []
+        block = start_block
+        while True:
+            blocks.append(block)
+            if block == end_block:
+                break
+            block = block.next()
+
+        lines = [block.text() for block in blocks]
+        comment_block = "\n".join(lines)
+
+        # Prepare the block comment with extra newlines before and after
+        # This will insert 2 empty lines before and after the block comment
+        new_text = "\n\n/*\n\n*/\n\n" + comment_block
+
+        # Replace the selected lines with the block comment and push the text down
+        cursor.beginEditBlock()
+        cursor.setPosition(start_block.position())
+        cursor.setPosition(end_block.position() + end_block.length() - 1, QTextCursor.KeepAnchor)
+        cursor.removeSelectedText()
+        cursor.insertText(new_text)
+        cursor.endEditBlock()
+        self.text_edit.setTextCursor(cursor)
+        
+    def comment_line_or_selection(self):
+        """Toggle comment on the current line or all selected lines."""
+        cursor = self.text_edit.textCursor()
+        doc = self.text_edit.document()
+
+        # If no selection, select the current line
+        if not cursor.hasSelection():
+            cursor.select(QTextCursor.LineUnderCursor)
+
+        start = cursor.selectionStart()
+        end = cursor.selectionEnd()
+
+        # Expand selection to full lines
+        start_block = doc.findBlock(start)
+        end_block = doc.findBlock(end)
+        # If selection ends at the start of a block, don't include that block
+        if end_block.position() == end:
+            end_block = end_block.previous()
+
+        # Collect all lines in the selection
+        blocks = []
+        block = start_block
+        while True:
+            blocks.append(block)
+            if block == end_block:
+                break
+            block = block.next()
+
+        lines = [block.text() for block in blocks]
+        comment_block= "\n".join(lines)
+
+        # Decide to comment or uncomment
+        if all(line.strip().startswith("//") for line in lines if line.strip()):
+            # Uncomment
+            new_lines = [line.replace("//", "", 1) if line.strip().startswith("//") else line for line in lines]
+        elif comment_block.strip().startswith("/*") and comment_block.strip().endswith("*/"):
+            new_lines = [line.replace("/*", "", 1).replace("*/", "", 1) for line in lines]
+        else:
+            # Comment
+            new_lines = ["//" + line if line.strip() else line for line in lines]
+
+        # Replace the selected lines with new_lines
+        cursor.beginEditBlock()
+        # Select from start of first block to end of last block
+        cursor.setPosition(start_block.position())
+        cursor.setPosition(end_block.position() + end_block.length() - 1, QTextCursor.KeepAnchor)
+        cursor.removeSelectedText()
+        cursor.insertText('\n'.join(new_lines))
+        cursor.endEditBlock()
+        self.text_edit.setTextCursor(cursor)
+            
     def show_completions(self):
 
         cursor = self.text_edit.cursorRect()
