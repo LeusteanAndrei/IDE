@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QLineEdit, 
-                         QPushButton, QHBoxLayout, QLabel, QFontDialog)
+                         QPushButton, QHBoxLayout, QLabel, QFontDialog, QMenu, QInputDialog, QComboBox, QWidgetAction)
 from PyQt5.QtCore import QProcess, QThread, pyqtSignal
-from PyQt5.QtGui import QFont, QTextCharFormat, QColor, QTextCursor
+from PyQt5.QtGui import QFont, QTextCharFormat, QColor ,QTextCursor
 import google.generativeai as genai
 import re
+from Styles import style
+import PyQt5.QtWidgets as QtWidgets
+
 
 
 local_api_key = ""
@@ -28,6 +31,9 @@ class AiThread(QThread):
             )
             # Emit the response back to the main thread
             self.response_signal.emit(response)
+
+
+            
         except Exception as e:
             # Emit error back to the main thread
             self.error_signal.emit(str(e))
@@ -76,6 +82,27 @@ class ClickableTextEdit(QTextEdit):
         else:
             super().mousePressEvent(event)
 
+class ChatArea(QTextEdit):
+    def __init__(self, chatwidget):
+        super().__init__()
+        self.chatwidget = chatwidget
+        self.setReadOnly(True)
+        self.setStyleSheet("""
+            QTextEdit {
+                color: white;
+                background-color: #2b2b2b;
+                border: 1px solid #3b3b3b;
+                border-radius: 5px;
+                padding: 5px;
+                font-family: 'Consolas', monospace;
+                font-size: 12px;
+            }
+        """)
+        self.name = None
+            
+
+
+
 class ChatWidget(QWidget):
     def __init__(self, ui):
         super().__init__()
@@ -87,20 +114,9 @@ class ChatWidget(QWidget):
 
         self.ui = ui
 
-        # Chat display with improved styling
-        self.chat_area = ClickableTextEdit(self)  # Use our custom QTextEdit
-        self.chat_area.setReadOnly(True)
-        self.chat_area.setStyleSheet("""
-            QTextEdit {
-                color: white;
-                background-color: #2b2b2b;
-                border: 1px solid #3b3b3b;
-                border-radius: 5px;
-                padding: 5px;
-                font-family: 'Consolas', monospace;
-                font-size: 12px;
-            }
-        """)
+        self.chat_areas = [ChatArea(self)]
+        self.chat_area = self.chat_areas[0]
+        self.current_chat_index = 0 
 
         # Buttons layout for permanent buttons
         button_layout = QHBoxLayout()
@@ -119,10 +135,16 @@ class ChatWidget(QWidget):
                 background-color: #3d7a37;
             }
         """)
+
+        self.menu_button = QPushButton("...")
+        self.menu_button.setStyleSheet(style.SMALL_MENU_BUTTON_STYLE)
+        self.menu_button.setFixedSize(30, 30)
+        self.menu_button.clicked.connect(self.show_menu)
+      
         self.new_chat_button.clicked.connect(self.new_chat)
-        
         button_layout.addWidget(self.new_chat_button)
         button_layout.addStretch()
+        button_layout.addWidget(self.menu_button)
 
         # Input box + Send button with improved styling
         self.input_box = QLineEdit()
@@ -170,6 +192,7 @@ class ChatWidget(QWidget):
         """)
 
         # Overall layout
+        self.input_layout = input_layout
         layout = QVBoxLayout()
         layout.addWidget(title_label)
         layout.addLayout(button_layout)
@@ -188,10 +211,54 @@ class ChatWidget(QWidget):
             self.input_box.setPlaceholderText("Please enter the API key: ")
             
     def new_chat(self):
-        self.chat_area.clear()
-        self.messages = [{"role": "system", "content": "You are a helpful AI assistant."}]
-        self.code_blocks = []
+        self.chat_areas.append(ChatArea(self))
+        self.chat_areas[-1].hide()
+        self.change_chat_area(len(self.chat_areas) - 1)
+
+
+    def change_chat_area(self, index):
+        self.chat_area.hide()
+        self.layout().removeWidget(self.chat_area)
+        self.layout().removeItem(self.input_layout)
+        self.current_chat_index = index
+        self.chat_area = self.chat_areas[self.current_chat_index]
+        self.chat_area.show()
+        self.layout().addWidget(self.chat_area)
+        self.layout().addLayout(self.input_layout)
+
+
+
+    def show_menu(self):
+
+        menu = QMenu(self.menu_button)
+        menu.setStyleSheet(style.MENU_STYLE)
         
+        menu.addAction("New Chat", self.new_chat)
+        menu.addAction("Set API Key", self.set_api_key)    
+
+        menu.addSeparator()
+        choose_chat_menu = QtWidgets.QMenu("Choose Chat", menu)
+        for i in range(len(self.chat_areas)):
+            chat_name = f"Chat {i + 1}: {self.chat_areas[i].name if self.chat_areas[i].name else 'Unnamed'}"
+
+            if i == self.current_chat_index:
+                action = choose_chat_menu.addAction(chat_name, lambda: None)
+                action.setEnabled(False) 
+            else:
+                choose_chat_menu.addAction(chat_name, lambda index= i :self.change_chat_area(index))
+
+        menu.addMenu(choose_chat_menu)
+        
+        button_pos = self.menu_button.mapToGlobal(self.menu_button.rect().bottomLeft())
+        menu.exec_(button_pos)
+
+    def set_api_key(self):
+        global local_api_key
+        api_key, ok = QInputDialog.getText(self, "Set API Key", "Enter your API key:")
+        if ok and api_key:
+            local_api_key = api_key
+            self.ai_model = AiModel(api_key=local_api_key)
+            self.chat_area.append("API key set successfully. You can now start chatting.")
     def insert_code(self, code):
         if code and self.ui.plainTextEdit.text_edit:
             cursor = self.ui.plainTextEdit.text_edit.textCursor()
@@ -202,6 +269,9 @@ class ChatWidget(QWidget):
         code_blocks = re.findall(r'```(?:\w+\n)?(.*?)```', text, re.DOTALL)
         self.code_blocks = [block.strip() for block in code_blocks]
         return code_blocks
+
+    def add_text(self, text):
+        self.chat_area.append(text)
 
     def send_message(self):
 
@@ -215,7 +285,6 @@ class ChatWidget(QWidget):
             local_api_key = api_key
             self.chat_area.append("API key set successfully. You can now start chatting.")
             return
-
         user_text = self.input_box.text().strip()
         if not user_text:
             return
@@ -226,18 +295,19 @@ class ChatWidget(QWidget):
         format = QTextCharFormat()
         format.setForeground(QColor("#88cc88"))  # Light green for user messages
         self.chat_area.setCurrentCharFormat(format)
-        self.chat_area.append("You:")
+        self.add_text("You:")
         
         format = QTextCharFormat()
         format.setForeground(QColor("white"))
         self.chat_area.setCurrentCharFormat(format)
-        self.chat_area.append(f"  {user_text}\n")  # Indent the message and add extra newline
+        self.add_text(f"  {user_text}\n")  # Indent the message and add extra newline
+        self.chat_area.name = user_text
 
         # Show thinking indicator with different style
         format = QTextCharFormat()
         format.setForeground(QColor("#888888"))  # Gray for the thinking indicator
         self.chat_area.setCurrentCharFormat(format)
-        self.chat_area.append("AI is thinking...\n")  # Add newline after thinking indicator
+        self.add_text("AI is thinking...\n")  # Add newline after thinking indicator
 
         self.send_button.setEnabled(False)
         self.input_box.setEnabled(False)
@@ -264,7 +334,7 @@ class ChatWidget(QWidget):
         format = QTextCharFormat()
         format.setForeground(QColor("#88aaff"))  # Light blue for AI indicator
         self.chat_area.setCurrentCharFormat(format)
-        self.chat_area.append("AI:")
+        self.add_text("AI:")
         self.chat_area.insertPlainText("\n")  # Add a line break after the AI prefix
 
         # Extract code blocks before processing the response
@@ -273,6 +343,7 @@ class ChatWidget(QWidget):
         # Split the response into parts (code and non-code)
         parts = re.split(r'(```.*?```)', response, flags=re.DOTALL)
         
+
         for i, part in enumerate(parts):
             if part.strip().startswith('```') and part.strip().endswith('```'):
                 code_index = len([p for p in parts[:i] if p.strip().startswith('```')])
@@ -282,13 +353,13 @@ class ChatWidget(QWidget):
                 format.setBackground(QColor("#2b5b87"))
                 format.setForeground(QColor("white"))
                 self.chat_area.setCurrentCharFormat(format)
-                self.chat_area.insertPlainText(f"[Insert Code {code_index + 1}]")
+                self.add_text(f"[Insert Code {code_index + 1}]")
                 
                 # Reset format and add newline
                 format = QTextCharFormat()
                 format.setForeground(QColor("white"))
                 self.chat_area.setCurrentCharFormat(format)
-                self.chat_area.insertPlainText("\n")
+                self.add_text("\n")
                 
                 # Format code blocks
                 format = QTextCharFormat()
@@ -298,16 +369,16 @@ class ChatWidget(QWidget):
                 
                 # Remove the triple backticks and language identifier
                 code = re.sub(r'```\w*\n?|\n?```', '', part)
-                self.chat_area.insertPlainText(code)
-                self.chat_area.insertPlainText("\n\n")
+                self.add_text(code)
+                self.add_text("\n\n")
             else:
                 # Reset format for normal text
                 format = QTextCharFormat()
                 format.setForeground(QColor("white"))
                 self.chat_area.setCurrentCharFormat(format)
-                self.chat_area.insertPlainText("  " + part)  # Indent normal text
+                self.add_text("  " + part)  # Indent normal text
 
-        self.chat_area.insertPlainText("\n\n")  # Add extra space between messages
+        self.add_text("\n\n")  # Add extra space between messages
         self.chat_area.verticalScrollBar().setValue(self.chat_area.verticalScrollBar().maximum())  # Auto-scroll to bottom
         
     def mousePressEvent(self, event):

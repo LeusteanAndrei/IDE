@@ -221,11 +221,6 @@ class Ui_MainWindow(QtCore.QObject):
             elif button.objectName() == "Code":
                 button.setMenu(self.algorithmsMenu)
 
-    
-            
-       
-
-    
     def setup_buttons(self):
         # Shortcut Buttons (Area 2)
         self.buttonLayout = QtWidgets.QHBoxLayout()
@@ -257,8 +252,6 @@ class Ui_MainWindow(QtCore.QObject):
 
         # pune layout-ul în grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
-
-
 
     def connect_buttons_list(self, MainWindow):
 

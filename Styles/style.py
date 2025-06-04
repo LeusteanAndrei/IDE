@@ -72,7 +72,72 @@ QTreeView {
     border: 1px solid #50727B;
 }
 """
+MENU_STYLE = """
+    QMenu {
+        background-color: #344955;
+        border: 2px solid #78A083;
+        border-radius: 10px;
+        padding: 8px;
+        min-width: 200px;
+    }
+    QMenu::item {
+        background-color: transparent;
+        color: #78A083;
+        padding: 8px 24px;
+        border-radius: 8px;
+        min-width: 180px;
+    }
+    QMenu::item:selected {
+        background-color: #78A083;
+        color: #344955;
+    }
+            QMenu::item:disabled {
+            background-color: #78A083;
+            color: #344955;
+            font-weight: bold;
+        }
+    """
 
+MENU_BUTTON_STYLE = """
+    QPushButton {
+        background-color: #344955;
+        color: #78A083;
+        border: 2px solid #78A083;
+        border-radius: 15px;
+        padding: 12px 10px;
+        font-size: 25px;
+        min-width: 70px;
+        min-height: 40px;
+    }
+    QPushButton:hover, QPushButton:checked {
+        background-color: #78A083;
+        color: #344955;
+        border: 2px solid #344955;
+    }
+    QPushButton::menu-indicator {
+        image: none;
+        width: 0px;
+        height: 0px;
+    }
+    """
+
+SMALL_MENU_BUTTON_STYLE = """
+    QPushButton {
+        background-color: #344955;
+        color: #78A083;
+        border: 2px solid #78A083;
+    }
+    QPushButton:hover, QPushButton:checked {
+        background-color: #78A083;
+        color: #344955;
+        border: 2px solid #344955;
+    }
+    QPushButton::menu-indicator {
+        image: none;
+        width: 0px;
+        height: 0px;
+    }
+    """
 
 BUTTON_STYLE = """
 QPushButton {
