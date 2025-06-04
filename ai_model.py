@@ -136,13 +136,30 @@ class ChatWidget(QWidget):
             }
         """)
 
+        self.remove_chat_button = QPushButton("Remove Chat")
+        self.remove_chat_button.setStyleSheet("""
+            QPushButton {
+                background-color: #5c2d27;
+                color: white;
+                border: none;
+                padding: 5px 15px;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #7a3d37;
+            }
+        """)
+
         self.menu_button = QPushButton("...")
         self.menu_button.setStyleSheet(style.SMALL_MENU_BUTTON_STYLE)
         self.menu_button.setFixedSize(30, 30)
         self.menu_button.clicked.connect(self.show_menu)
       
         self.new_chat_button.clicked.connect(self.new_chat)
+        self.remove_chat_button.clicked.connect(self.remove_chat) 
+
         button_layout.addWidget(self.new_chat_button)
+        button_layout.addWidget(self.remove_chat_button)
         button_layout.addStretch()
         button_layout.addWidget(self.menu_button)
 
@@ -214,6 +231,20 @@ class ChatWidget(QWidget):
         self.chat_areas.append(ChatArea(self))
         self.chat_areas[-1].hide()
         self.change_chat_area(len(self.chat_areas) - 1)
+
+    def remove_chat(self):
+        if len(self.chat_areas) > 1:
+            self.chat_area.hide()
+            self.layout().removeWidget(self.chat_area)
+            self.chat_areas.pop(self.current_chat_index)
+            if self.current_chat_index >= len(self.chat_areas):
+                self.current_chat_index = len(self.chat_areas) - 1
+            self.change_chat_area(self.current_chat_index)
+        else:
+            self.chat_area.hide()
+            self.layout().removeWidget(self.chat_area)
+            self.layout().removeItem(self.input_layout)
+            self.chat_areas = []
 
 
     def change_chat_area(self, index):
@@ -301,7 +332,7 @@ class ChatWidget(QWidget):
         format.setForeground(QColor("white"))
         self.chat_area.setCurrentCharFormat(format)
         self.add_text(f"  {user_text}\n")  # Indent the message and add extra newline
-        self.chat_area.name = user_text
+        self.chat_area.name = user_text[:40]
 
         # Show thinking indicator with different style
         format = QTextCharFormat()
