@@ -34,10 +34,10 @@ QPushButton#FunctionButton {
     background-color: #344955;
     border: 1px solid #50727B;
     border-radius: 10px;
-    padding: 8px 0px;
+    padding: 5px 5px;
     font-family: 'Roboto Mono', 'Roboto', monospace;
     font-size: 22px;
-    margin: 0 6px;
+    margin: 5px 5px;
 }
 QPushButton#FunctionButton:hover, QPushButton#FunctionButton:checked {
     color: #344955;
@@ -104,10 +104,10 @@ MENU_BUTTON_STYLE = """
         color: #78A083;
         border: 2px solid #78A083;
         border-radius: 15px;
-        padding: 12px 10px;
-        font-size: 25px;
-        min-width: 70px;
-        min-height: 40px;
+        padding: 8px 8px;
+        font-size: 22px;
+        min-width: 50px;
+        min-height: 20px;
     }
     QPushButton:hover, QPushButton:checked {
         background-color: #78A083;

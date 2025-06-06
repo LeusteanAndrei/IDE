@@ -8,7 +8,8 @@ from Styles import style
 import os, subprocess
 from PyQt5.QtCore import QTimer
 from Code_Runner import Code_Runner, Input, Output
-
+from PyQt5 import QtGui, QtWidgets, QtSvg 
+from dialogs import FindDialog,ReplaceDialog
 import File_Tab, editor
 import ai_model
 from settings_dialog import SettingsDialog
@@ -22,10 +23,11 @@ class Ui_MainWindow(QtCore.QObject):
         color: #78A083;
         border: 2px solid #78A083;
         border-radius: 15px;
-        padding: 12px 10px;
-        font-size: 25px;
-        min-width: 70px;
-        min-height: 40px;
+        padding: 5px 5px;
+        font-size: 22px;
+        font-family: 'Roboto Mono', 'Roboto', monospace;
+        min-width: 15px;
+        min-height: 10px;
     }
     QPushButton:hover, QPushButton:checked {
         background-color: #78A083;
@@ -37,6 +39,12 @@ class Ui_MainWindow(QtCore.QObject):
         width: 0px;
         height: 0px;
     }
+    """
+    
+    section_layout_style = """
+    QHBoxLayout {
+        background-color: #23272b;
+        }
     """
 
     menu_style = """
@@ -81,7 +89,7 @@ class Ui_MainWindow(QtCore.QObject):
     def add_sections(self):
                 # Sections (Zona 1)
         self.sectionLayout = QtWidgets.QHBoxLayout()
-        self.sectionLayout.setSpacing(24)  # distanțiere mai mare între butoane
+        self.sectionLayout.setSpacing(15)  # distanțiere mai mare între butoane
         self.sections = []
 
         # Section names
@@ -238,20 +246,37 @@ class Ui_MainWindow(QtCore.QObject):
                 self.buttons.append(b)
                 b.setCheckable(True)
 
-        add_group(["1", "2", "3", "4", "5"])
-        self.buttonLayout.addSpacing(120)
-        add_group(["6", "7"])
-        self.buttonLayout.addSpacing(120)
-        add_group(["8", "9", "10", "11", "12", "13"])
-        self.buttonLayout.addSpacing(120)
-        add_group(["20"])
+        add_group(["1","2"])
+        #Settings and Shortcut 
+        self.buttonLayout.addSpacing(60)  
+        # Open File, Open Folder, New File, Save File
+        add_group(["3", "4", "5","6"])
         self.buttonLayout.addSpacing(60)
-        add_group(["14", "15", "16", "17"])
-        self.buttonLayout.addSpacing(120)
-        add_group(["18", "19"])
+        # Undo and Redo
+        add_group(["7", "8"])
+        self.buttonLayout.addSpacing(60)
+        # Cut, Copy, Paste, Select All
+        add_group([ "9", "10", "11", "12"])
+        self.buttonLayout.addSpacing(60)
+        # AI Chatbot
+        add_group(["13"])
+        self.buttonLayout.addSpacing(60)
+        # Open Terminal, Run Code, Stop Code
+        add_group(["14", "15","16"])
+        self.buttonLayout.addSpacing(60)
+        add_group(["17", "18", "19"])  # Comment, Multi-line comment, Format
+        self.buttonLayout.addSpacing(60)
+        # Find, Replace 
+        add_group(["20", "21"])
+        self.buttonLayout.addSpacing(60)
+        add_group(["22", "23"])  # Zoom In, Zoom Out
 
         # pune layout-ul în grid
         self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
+        
+    def put_svg_icon(self):
+        self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
+        
 
     def connect_buttons_list(self, MainWindow):
 
@@ -259,52 +284,61 @@ class Ui_MainWindow(QtCore.QObject):
         self.buttons[1].clicked.connect(lambda: self.show_settings_dialog(MainWindow=MainWindow))
         
         #Aici se deschide o chestie cu settings
-        self.buttons[2].setText("New File")
+        # self.buttons[2].setText("New File")
         self.buttons[2].clicked.connect(self.handle_new_file)  # New File button
         self.buttons[3].setText("Open")
         self.buttons[3].clicked.connect(self.handle_open_file)  # Open File button
-        self.buttons[4].setText("Save")
-        self.buttons[4].clicked.connect(self.handle_save_file)  # Save File button
+        self.buttons[4].setText("Open Folder")
+        # self.buttons[4].clicked.connect(self.handle_open_folder)  
+        self.buttons[5].setText("Save As")
+        self.buttons[5].clicked.connect(self.handle_save_file)# Save File button
 
         #Setam Undo si Redo pe butoanele 6 si 7
-        self.buttons[5].setText("Undo")
-        self.buttons[6].setText("Redo")
-        self.buttons[5].clicked.connect(lambda: editor.Utility_Functions.undo(self.plainTextEdit))
-        self.buttons[6].clicked.connect(lambda: editor.Utility_Functions.redo(self.plainTextEdit))
+        self.buttons[6].setText("Undo")
+        self.buttons[7].setText("Redo")
+        self.buttons[6].clicked.connect(lambda: editor.Utility_Functions.undo(self.plainTextEdit))
+        self.buttons[7].clicked.connect(lambda: editor.Utility_Functions.redo(self.plainTextEdit))
 
         #Setam butoanele 8,9,10 ca fiind Copy, Cut si Paste
-        # Set buttons for Cut, Copy, Paste
-        self.buttons[7].setText("Cut")
-        self.buttons[8].setText("Copy")
-        self.buttons[9].setText("Paste")
-        self.buttons[7].clicked.connect(lambda: editor.Utility_Functions.cut(self.plainTextEdit))
-        self.buttons[8].clicked.connect(lambda: editor.Utility_Functions.copy(self.plainTextEdit))
-        self.buttons[9].clicked.connect(lambda: editor.Utility_Functions.paste(self.plainTextEdit))
+        # Set buttons for Cut, Copy, Paste, Select All
+        self.buttons[8].setText("Cut")
+        self.buttons[9].setText("Copy")
+        self.buttons[10].setText("Paste")
+        self.buttons[11].setText("Select All")
+        self.buttons[8].clicked.connect(lambda: editor.Utility_Functions.cut(self.plainTextEdit))
+        self.buttons[9].clicked.connect(lambda: editor.Utility_Functions.copy(self.plainTextEdit))
+        self.buttons[10].clicked.connect(lambda: editor.Utility_Functions.paste(self.plainTextEdit))
+        self.buttons[11].clicked.connect(lambda: editor.Utility_Functions.select_all(self.plainTextEdit))
 
-        # Set buttons for Zoom In/Out
-        # Astea nu merg for some reason, nu stiu de ce, dar le-am lasat ca sa fie acolo
-        self.buttons[10].setText("Zoom In")
-        self.buttons[11].setText("Zoom Out")
-        self.buttons[10].clicked.connect(lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
-        self.buttons[11].clicked.connect(lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
-        
-        # Set Select All button
-        self.buttons[12].setText("Select All")
-        self.buttons[12].clicked.connect(lambda: editor.Utility_Functions.select_all(self.plainTextEdit))
-
+        # Set buttons for Copilot
+        self.buttons[12].setText("AI Chatbot")  # AI Chatbot button
+        self.buttons[12].clicked.connect(lambda: self.tab_widget.setCurrentIndex(1))
+        #Andrei asta ti-o las tie
+        self.buttons[13].setText("Open Terminal")  # Run Code button -> ruleaza codul din editor
+        self.buttons[13].clicked.connect(lambda: self.code_runner.run_code()) 
         self.buttons[14].setText("Run Code")  # Run Code button -> ruleaza codul din editor
         self.buttons[14].clicked.connect(lambda: self.code_runner.run_code()) 
-        # E kinda choppy ngl, va rog sa ma scuzati, I did my best
-        self.buttons[15].setText("Comment")  # Comment button -> face linia comentariu sau invers, comentariu il decomenteaza
-        self.buttons[15].clicked.connect(lambda: self.plainTextEdit.comment_line_or_selection) 
+        self.buttons[15].setText("Stop Running")  # Comment button -> face linia comentariu sau invers, comentariu il decomenteaza
+        self.buttons[15].clicked.connect(lambda: Code_Runner.abort_run(self.code_runner))  # Stop button -> opreste rularea codului
         
+        
+        self.buttons[16].setText("Comment")
+        self.buttons[16].clicked.connect(lambda: self.plainTextEdit.format_code)  # Format button -> formateaza codul din editor
         #butonul asta mi-a dat crash la python so
-        self.buttons[16].setText("/*")
-        self.buttons[16].clicked.connect(lambda: self.plainTextEdit.insert_multiple_line_comment)
+        self.buttons[17].setText("/*")
+        self.buttons[17].clicked.connect(lambda: self.plainTextEdit.text_edit.insert_multiple_line_comment())
         
         #s-a incercat ceva - mie nu imi merge, ca nu am clang, va rog pe voi sa testati sa spuneti cum e
-        self.buttons[17].setText("Format")
-        self.buttons[17].clicked.connect(lambda: self.plainTextEdit.format_code)  # Format button -> formateaza codul din editor
+        self.buttons[18].setText("Format")
+        self.buttons[18].clicked.connect(lambda: self.plainTextEdit.text_edit.format_code())  # Format button -> formateaza codul din editor
+        self.buttons[20].setText("Replace")
+        self.buttons[20].clicked.connect(lambda: self.show_replace_dialog())  # Replace button -> deschide dialogul de replace
+        self.buttons[19].setText("Find")
+        self.buttons[19].clicked.connect(lambda: self.show_find_dialog())  # Find button -> deschide dialogul de find
+        self.buttons[21].setText("Zoom In")
+        self.buttons[22].setText("Zoom Out")
+        self.buttons[21].clicked.connect(lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+        self.buttons[22].clicked.connect(lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
 
         # # și legi semnalele de care ai nevoie
         # self.buttons[17].clicked.connect(self.code_runner.abort_run)
@@ -332,6 +366,7 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.add_algorithms_menu(MainWindow)  # Call the method to add algorithms menu
         self.connect_buttons()  # Call the method to connect buttons
+        
 
 
 
@@ -340,6 +375,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.gridLayout.addLayout(self.sectionLayout, 0, 0, 1, 2)
         #Shortcut Buttons (Area 2)
         self.setup_buttons()
+        self.put_svg_icon()  # Add SVG icon to the Cut button
 
 
         self.connect_buttons_list(MainWindow)  # Connect buttons to their respective functions
@@ -349,7 +385,7 @@ class Ui_MainWindow(QtCore.QObject):
         # self.plainTextEdit = editor.Editor() 
 
         self.editor_layout = QtWidgets.QVBoxLayout()
-        self.editor_layout.setContentsMargins(0, 40, 0, 0)  # Adaugă 40px sus pentru a coborî editorul
+        self.editor_layout.setContentsMargins(0, 10, 0, 0)  # Adaugă 40px sus pentru a coborî editorul
         self.editor_layout.setSpacing(0)
         self.editor_layout.addWidget(self.file_tab_bar)
         self.editor_layout.addWidget(self.plainTextEdit)
@@ -554,7 +590,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.tab_widget = QtWidgets.QTabWidget()
         self.tab_widget.setObjectName("tab_widget")
         self.tab_widget.addTab(self.terminal, "Terminal")
-        self.tab_widget.addTab(self.chat_widget, "Ai chatbot")
+        self.tab_widget.addTab(self.chat_widget, "AI Chatbot")
         self.tab_widget.addTab(self.code_runner.input, "Input")
         self.tab_widget.addTab(self.code_runner.output, "Output")
         

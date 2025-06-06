@@ -90,6 +90,31 @@ class ShortcutConfigDialog(QDialog):
         
         layout.addLayout(button_layout)
         self.setLayout(layout)
+        self.setStyleSheet("""
+            QDialog {
+                background-color: #344955 ;
+                color: #f8f8f2;
+                font-size: 14px;
+            }
+            QListWidget {
+                background: #282c34;
+                color: #f8f8f2;
+                border: 1px solid #44475a;
+            }
+            QPushButton {
+                background-color: #282c34;
+                color: #f8f8f2;
+                border-radius: 5px;
+                padding: 6px 12px;
+                margin: 4px;
+            }
+            QPushButton:hover {
+                background-color: #6272a4;
+            }
+            QLabel {
+                color: #f8f8f2;
+            }
+        """)
         
     def populate_shortcut_list(self):
         """Populează lista cu scurtăturile curente"""
