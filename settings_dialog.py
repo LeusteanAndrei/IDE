@@ -27,11 +27,12 @@ class SettingsDialog(QDialog):
             self.font_size_spin.setValue(editor.text_edit.font().pointSize())
         font_layout.addWidget(self.font_size_spin)
         layout.addLayout(font_layout)
+        
 
-        # Theme color setting (background)
-        theme_btn = QPushButton("Choose Editor Background Color")
-        theme_btn.clicked.connect(self.choose_bg_color)
-        layout.addWidget(theme_btn)
+        # Font color setting
+        font_color_btn = QPushButton("Choose Font Color")
+        font_color_btn.clicked.connect(self.choose_font_color)
+        layout.addWidget(font_color_btn)
 
         # Font family selection
         font_family_layout = QHBoxLayout()
@@ -43,6 +44,12 @@ class SettingsDialog(QDialog):
             self.font_combo.setCurrentFont(editor.text_edit.font())
         font_family_layout.addWidget(self.font_combo)
         layout.addLayout(font_family_layout)
+        
+        # Theme color setting (background)
+        theme_btn = QPushButton("Choose Editor Background Color")
+        theme_btn.clicked.connect(self.choose_bg_color)
+        layout.addWidget(theme_btn)
+        
         # Save button
         save_btn = QPushButton("Save")
         save_btn.clicked.connect(self.apply_settings)
@@ -59,6 +66,11 @@ class SettingsDialog(QDialog):
             # self.editor.text_edit.setStyleSheet(f"background-color: {color.name()};")
             self.bgcolour = color.name()
 
+    def choose_font_color(self):
+        color = QColorDialog.getColor()
+        if color.isValid() and self.editor:
+            self.font_colour = color.name()
+            
     def apply_settings(self):
         if self.editor:
             # font = self.editor.text_edit.font()
@@ -70,8 +82,9 @@ class SettingsDialog(QDialog):
             #     self.editor.text_edit.setStyleSheet(f"background-color: {self._chosen_bg_color};")
             self.editor.text_edit.font_size = self.font_size_spin.value()
             self.editor.text_edit.font_family = self.font_combo.currentFont().family()
-            self.editor.text_edit.background_color = self.bgcolour 
-            
+            self.editor.text_edit.background_color = self.bgcolour
+            self.editor.text_edit.font_color = self.font_colour  # <-- Add this line
+
             self.editor.text_edit.apply_style()
             self.editor.text_edit.update()  # Refresh the editor to apply changes      
         self.accept()

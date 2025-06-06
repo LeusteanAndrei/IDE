@@ -5,6 +5,7 @@ from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QShortcut
 
 
+
 import tempfile, os, sys, json
 from lsp import requests, logger
 from Highlighter.highlighter import cPlusPlusHighlighter
@@ -45,7 +46,15 @@ class TextEditor(QPlainTextEdit):
                 content = file.read()
                 return content
         return "Nope, nothing here"
-
+    
+    def insert_multiple_line_comment(self):
+        cursor = self.textCursor()
+        comment_block = "\n/*\n\n*/\n"
+        cursor.insertText(comment_block)
+        # Move cursor between the newlines for convenience
+        cursor.movePosition(QTextCursor.PreviousBlock)
+        self.setTextCursor(cursor)
+        
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
         # We don't need to emit textChangedWithIndex here anymore since we're using textChanged signal
@@ -58,9 +67,11 @@ class TextEditor(QPlainTextEdit):
             font.setPointSize(self.font_size)
             self.setFont(font)
 
-        if self.background_color is not None:
-            self.setStyleSheet(style.EDITOR_STYLE+ f"background-color: {self.background_color};")
-
+        # if self.background_color is not None:
+        #     self.setStyleSheet(style.EDITOR_STYLE+ f"background-color: {self.background_color};")
+        bg = getattr(self, "background_color", "#23272b")
+        fg = getattr(self, "font_color", "#ffffff")
+        self.setStyleSheet(style.EDITOR_STYLE + f"background-color: {bg}; color: {fg};")
         if self.font_family is not None:
             font = self.font()
             font.setFamily(self.font_family)
@@ -475,17 +486,18 @@ class Editor(QWidget):
 
     def format_code(self):
         code = self.text_edit.toPlainText()
+        clang_format_path = "./LLVM/bin/clang-format.exe"
         try:
             # Run clang-format as a subprocess
             proc = subprocess.run(
-                ["clang-format"],
+                [clang_format_path],
                 input=code.encode("utf-8"),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 check=True
             )
             formatted_code = proc.stdout.decode("utf-8")
-            editor.setPlainText(formatted_code)
+            self.text_edit.setPlainText(formatted_code)
         except Exception as e:
             print("Formatting failed:", e)       
            

@@ -40,7 +40,6 @@ class AiThread(QThread):
 
 class AiModel:
     def __init__(self, api_key,   model = "gemini-1.5-flash"):
-        from huggingface_hub import InferenceClient
         self.api_key = api_key
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model)
