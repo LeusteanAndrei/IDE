@@ -330,7 +330,7 @@ class Ui_MainWindow(QtCore.QObject):
         
         #s-a incercat ceva - mie nu imi merge, ca nu am clang, va rog pe voi sa testati sa spuneti cum e
         self.buttons[18].setText("Format")
-        self.buttons[18].clicked.connect(lambda: self.plainTextEdit.text_edit.format_code())  # Format button -> formateaza codul din editor
+        self.buttons[18].clicked.connect(lambda: self.plainTextEdit.format_code())  # Format button -> formateaza codul din editor
         self.buttons[20].setText("Replace")
         self.buttons[20].clicked.connect(lambda: self.show_replace_dialog())  # Replace button -> deschide dialogul de replace
         self.buttons[19].setText("Find")
