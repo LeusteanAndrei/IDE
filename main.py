@@ -121,18 +121,17 @@ def connect_to_action(ui):
         ui.handle_save_file_as
     )
     ui.actionOpenFolder.triggered.connect(
-        lambda: (open_folder(ui.file_model, ui.tree_view), ui.tree_view.show(), ui.update_root_folder_label())
+        ui.handle_open_folder
     )
 
 def intialize_shortcuts(ui):
-        # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
-    
+    # Initialize the ShortcutManager - see the shortcuts.py file for more details :)
     # Add shortcuts with descriptive names and default key sequences
     shortcut_manager.add_shortcut("New File", "Ctrl+N", ui.handle_new_file)
     shortcut_manager.add_shortcut("Open File", "Ctrl+O", ui.handle_open_file)
     shortcut_manager.add_shortcut("Save File", "Ctrl+S", ui.handle_save_file)
     shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
-    shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", lambda: open_folder(ui.file_model, ui.tree_view))
+    shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", ui.handle_open_folder)
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
     shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(ui))
     shortcut_manager.add_shortcut("Find", "Ctrl+F", lambda: ui.show_find_dialog())

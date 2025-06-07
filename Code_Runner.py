@@ -136,11 +136,11 @@ class Output(QPlainTextEdit):
         super().__init__()
         self.setReadOnly(True)
         self.setObjectName("output")
-        self.setMinimumHeight(100)
+        # self.setMinimumHeight(100)
 
 class Input(QPlainTextEdit):
     def __init__(self):
         super().__init__()
         self.setReadOnly(False)
         self.setObjectName("input")
-        self.setMinimumHeight(100)
+        # self.setMinimumHeight(100)

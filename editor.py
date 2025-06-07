@@ -595,8 +595,6 @@ class Editor(QWidget):
         cursor.endEditBlock()
         self.text_edit.setTextCursor(cursor)
       
-
-
 class Completion_Popup(QListWidget):
     def __init__(self, parent=None):
 
@@ -656,7 +654,6 @@ class Completion_Popup(QListWidget):
         else:
             self.hide()
 
-
 class Error:
     def __init__(self, line, column_start, column_end, message):
         self.line = line
@@ -666,7 +663,6 @@ class Error:
 
     def __repr__(self):
         return f"Error(line={self.line}, column={self.column_start}, column_end = {self.column_end}, message={self.message})"
-
 
 class Utility_Functions:
 

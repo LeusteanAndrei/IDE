@@ -2,7 +2,7 @@
 from PyQt5.QtCore import Qt, QProcess
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QSplitter, QDialog, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QPushButton, QSizePolicy, QFileDialog
-from FileSystem.folder_open import initialize_sidebar_and_splitter
+from FileSystem.folder_open import initialize_sidebar_and_splitter, open_folder
 from FileSystem.file_methods import save_as_file
 from Styles import style
 import os, subprocess
@@ -277,7 +277,6 @@ class Ui_MainWindow(QtCore.QObject):
     def put_svg_icon(self):
         self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
         
-
     def connect_buttons_list(self, MainWindow):
 
         self.buttons[1].setText("Settings")
@@ -315,7 +314,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.buttons[12].clicked.connect(lambda: self.tab_widget.setCurrentIndex(1))
         #Andrei asta ti-o las tie
         self.buttons[13].setText("Open Terminal")  # Run Code button -> ruleaza codul din editor
-        self.buttons[13].clicked.connect(lambda: self.code_runner.run_code()) 
+        self.buttons[13].clicked.connect(self.toggle_tab_widget) 
         self.buttons[14].setText("Run Code")  # Run Code button -> ruleaza codul din editor
         self.buttons[14].clicked.connect(lambda: self.code_runner.run_code()) 
         self.buttons[15].setText("Stop Running")  # Comment button -> face linia comentariu sau invers, comentariu il decomenteaza
@@ -342,7 +341,6 @@ class Ui_MainWindow(QtCore.QObject):
 
         # # și legi semnalele de care ai nevoie
         # self.buttons[17].clicked.connect(self.code_runner.abort_run)
-
 
     def setupUi(self, MainWindow):
  
@@ -473,14 +471,10 @@ class Ui_MainWindow(QtCore.QObject):
         header_layout.addWidget(self.move_btn)
         header_layout.addWidget(self.close_btn)
         # --- Funcționalitate butoane ---
-        def toggle_sidebar():
-            if self.sidebar_container.isVisible():
-                self.sidebar_container.hide()
-            else:
-                self.sidebar_container.show()
+
         self.close_btn.clicked.connect(lambda: self.sidebar_container.hide())
         # Shortcut Ctrl+B pentru a arăta/ascunde Explorer-ul
-        QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+B"), MainWindow, toggle_sidebar)
+        QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+B"), MainWindow, self.toggle_sidebar)
         # Mutare Explorer stânga/dreapta
         def move_sidebar():
             idx = self.splitter.indexOf(self.sidebar_container)
@@ -677,8 +671,13 @@ class Ui_MainWindow(QtCore.QObject):
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
     #Functiile Handler pt functiile din FileSystem/file_methods.py
+    def toggle_sidebar(self):
+        if self.sidebar_container.isVisible():
+            self.sidebar_container.hide()
+        else:
+            self.sidebar_container.show()
+   
     def handle_new_file(self):
         from PyQt5.QtWidgets import QFileDialog, QMessageBox
         import os
@@ -786,6 +785,12 @@ class Ui_MainWindow(QtCore.QObject):
         # Update the tab name
         self.file_tab_bar.setTabText(current_index, os.path.basename(file_path))
         self.file_tab_bar.mark_tab_saved(current_index)
+
+    def handle_open_folder(self):
+        open_folder(self.file_model, self.tree_view)
+        if not self.sidebar_container.isVisible():
+            self.sidebar_container.show()
+        self.update_root_folder_label()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -997,6 +1002,15 @@ class Ui_MainWindow(QtCore.QObject):
         self.settings_dialogue = SettingsDialog(MainWindow, self.plainTextEdit)
 
         self.settings_dialogue.exec_()
+
+
+    def toggle_tab_widget(self):
+        
+        if self.tab_widget.isVisible():
+            self.tab_widget.hide()
+        else:
+            self.tab_widget.show()
+        self.tab_widget.setCurrentIndex(0)
 
 class CustomInputDialog(QDialog):
     def __init__(self, title, label_text, parent=None):
