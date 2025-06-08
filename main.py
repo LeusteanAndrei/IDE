@@ -184,6 +184,8 @@ if __name__ == "__main__":
     connect_to_action(ui)
 
     editor.show()
+    # ui.plainTextEdit.setup_hover()
+
     sys.exit(app.exec_())
     ui.plainTextEdit.Lsp.shutdown() 
 

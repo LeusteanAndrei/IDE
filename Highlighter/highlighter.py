@@ -35,7 +35,7 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
              "int", "float", "double", "char", "bool",
                 "long", "short", "unsigned", "signed",
                 "string", "wchar_t", "char8_t", "char16_t", "char32_t",
-                "auto", "decltype"
+                "auto", "decltype", "void"
         ]
 
     operators = [
@@ -180,7 +180,7 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
                         # rules = [ ( QtCore.QRegExp(r'%s' % nume_clasa) ), 0, Styles["classname"]  ] + rules
                 
                     
-                
+
                 index  = expression.pos(nr) # subexpresia dorita, de obicei acel nr este 0 adica dorim toata expresia
                 #  sunt cateva cazuri in care vrem anumite subexpresii, pt asta e pus acolo 
                 # ( exemplu: "class MyClass" -> ne intereseaza doar MyClass nu si class, ca ala e deja la keywords)

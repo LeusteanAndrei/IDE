@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPlainTextEdit, QWidget, QVBoxLayout, QListWidget, QToolTip
-from PyQt5.QtCore import QProcess, Qt, QTimer, pyqtSignal
+from PyQt5.QtCore import QProcess, Qt, QTimer, pyqtSignal, QEvent
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QShortcut
@@ -11,6 +11,7 @@ from lsp import requests, logger
 from Highlighter.highlighter import cPlusPlusHighlighter
 from Styles import style
 import subprocess
+
 
 Log = logger.Logger("lsp.log")
 
@@ -281,7 +282,7 @@ class LspProcess():
             # self.lsp_process = None
             # Log.logger.info("LSP process shut down successfully.")
             try:
-                self.lsp_process.readAllStandardOutput.disconnect()
+                # self.lsp_process.readAllStandardOutput.disconnect()
 
                 if self.lsp_process.state() == QProcess.Running:
                     shutdown_request = requests.Requests().getShutdownRequest()
@@ -343,10 +344,16 @@ class Editor(QWidget):
         self.set_highlighter()
 
     def setup_hover(self):
+
+        self.text_edit.setAttribute(Qt.WA_Hover, True)
+        self.text_edit.viewport().setAttribute(Qt.WA_Hover, True)
+
+        
         self.text_edit.setMouseTracking(True)
         self.text_edit.viewport().installEventFilter(self)
 
         self.hover_timer = QTimer(self)
+        self.hover_timer.setSingleShot(True)
         self.hover_timer.timeout.connect(self.show_hover)
 
         self.last_hover = None
@@ -372,10 +379,12 @@ class Editor(QWidget):
         self.setLayout(self.layout)
 
     def show_hover(self):
+       
+
         cursor = self.text_edit.cursorForPosition(self.last_hover)
         cursor.select(QTextCursor.WordUnderCursor)
         word = cursor.selectedText().strip()
-
+        print(word)
         for error in self.highlighter.errors:
             if error.line == cursor.blockNumber() and error.column_start <= cursor.columnNumber() <= error.column_end:
                 QToolTip.showText(self.text_edit.mapToGlobal(self.last_hover), error.message, self.text_edit)
@@ -390,8 +399,7 @@ class Editor(QWidget):
 
     def eventFilter(self, source, event):
         if source == self.text_edit.viewport() :
-            if event.type() == event.HoverMove:
-
+            if event.type() == QEvent.HoverMove:
                 if not self.isActiveWindow():
                     QToolTip.hideText()
                     self.hover_timer.stop()
@@ -403,7 +411,7 @@ class Editor(QWidget):
                     self.hover_timer.stop()
                     self.last_hover = current_position
                     self.hover_timer.start(1000)
-                
+
                 return True
             
             elif event.type() == event.HoverLeave:
@@ -508,6 +516,7 @@ class Editor(QWidget):
         self.text_edit.keyPressEvent = self.keyPressEvent
         self.text_edit.setMouseTracking(True)
         self.text_edit.viewport().installEventFilter(self)
+        self.setup_hover()
 
         self.Lsp.shutdown()
         self.setup_lsp()
