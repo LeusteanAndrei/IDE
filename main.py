@@ -185,3 +185,5 @@ if __name__ == "__main__":
 
     editor.show()
     sys.exit(app.exec_())
+    ui.plainTextEdit.Lsp.shutdown() 
+

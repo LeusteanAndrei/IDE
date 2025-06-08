@@ -1,7 +1,6 @@
 def test_algorithms_dict_structure():
     from algorithms import INSERTION_SORT, QUICK_SORT, MERGE_SORT, BINARY_SEARCH, LINEAR_SEARCH, LINKED_LIST, STACK, QUEUE, DIJKSTRA, FLOYD_WARSHALL, KNAPSACK, PRIME_CHECK, GCD
 
-    # Check that the main algorithm strings are not empty
     assert "template <typename T>" in INSERTION_SORT
     assert "template <typename T>" in QUICK_SORT
     assert "template <typename T>" in MERGE_SORT
@@ -15,6 +14,7 @@ def test_algorithms_dict_structure():
     assert "template <typename T>" in KNAPSACK
     assert "template <typename T>" in PRIME_CHECK
     assert "template <typename T>" in GCD
+
 
 import re
 

@@ -12,6 +12,12 @@ class Requests:
             "params": {}
         }
 
+    def getExitRequest(self):
+        return {
+            "jsonrpc": self.jsonrpc,
+            "method": "exit",
+            "params": {}
+        }
 
     def getInitializeRequest(self, process_id):
         return {

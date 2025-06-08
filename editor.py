@@ -139,6 +139,10 @@ class LspProcess():
             Log.logger.warning("Hover response does not contain 'contents'.")
 
     def handle_response(self):
+        # if not self.lsp_process or not hasattr(self.lsp_process, 'canReadLine'):
+        #     return
+        # if self.lsp_process.state() != QProcess.Running:
+        #     return
         while self.lsp_process.canReadLine():
             line = self.lsp_process.readLine()
             # intoarce un QByteArray si trb convertit in str
@@ -272,10 +276,43 @@ class LspProcess():
 
     def shutdown(self):
         if self.lsp_process is not None:
-            self.lsp_process.kill()
-            self.lsp_process.close()
-            self.lsp_process = None
-            Log.logger.info("LSP process shut down successfully.")
+            # self.lsp_process.kill()
+            # self.lsp_process.close()
+            # self.lsp_process = None
+            # Log.logger.info("LSP process shut down successfully.")
+            try:
+                self.lsp_process.readAllStandardOutput.disconnect()
+
+                if self.lsp_process.state() == QProcess.Running:
+                    shutdown_request = requests.Requests().getShutdownRequest()
+                    self.send_request(shutdown_request)
+
+                    exit_request = requests.Requests().getExitRequest()
+                    self.send_request(exit_request)
+
+                    if not self.lsp_process.waitForFinished(3000):
+                        Log.logger.warning("LSP process didn't shut down gracefully, forcing termination...")
+                        self.lsp_process.kill()
+                        self.lsp_process.waitForFinished(1000)  
+
+                self.lsp_process.close()
+                self.lsp_process.deleteLater()
+                self.lsp_process = None
+                Log.logger.info("LSP process shut down successfully.")
+
+            except Exception as e:
+                Log.logger.error(f"Error disconnecting from LSP process: {e}")
+
+                if self.lsp_process:
+                    try:
+                        self.lsp_process.kill()
+                        self.lsp_process.waitForFinished(1000)
+
+                        self.lsp_process.close()
+                        self.lsp_process.deleteLater()
+                    except:
+                        pass
+                    self.lsp_process = None
 
     def restart(self):
         if self.lsp_process is not None:
