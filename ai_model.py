@@ -44,8 +44,6 @@ class AiModel:
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model)
 
-
-
     def read_file(self, file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
@@ -60,7 +58,8 @@ class ClickableTextEdit(QTextEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.parent = parent
-        
+        self.name = None
+
     def mousePressEvent(self, event):
         cursor = self.cursorForPosition(event.pos())
         format = cursor.charFormat()
@@ -81,27 +80,6 @@ class ClickableTextEdit(QTextEdit):
         else:
             super().mousePressEvent(event)
 
-class ChatArea(QTextEdit):
-    def __init__(self, chatwidget):
-        super().__init__()
-        self.chatwidget = chatwidget
-        self.setReadOnly(True)
-        self.setStyleSheet("""
-            QTextEdit {
-                color: white;
-                background-color: #2b2b2b;
-                border: 1px solid #3b3b3b;
-                border-radius: 5px;
-                padding: 5px;
-                font-family: 'Consolas', monospace;
-                font-size: 12px;
-            }
-        """)
-        self.name = None
-            
-
-
-
 class ChatWidget(QWidget):
     def __init__(self, ui):
         super().__init__()
@@ -113,7 +91,7 @@ class ChatWidget(QWidget):
 
         self.ui = ui
 
-        self.chat_areas = [ChatArea(self)]
+        self.chat_areas = [ClickableTextEdit(self)]
         self.chat_area = self.chat_areas[0]
         self.current_chat_index = 0 
 
@@ -162,7 +140,6 @@ class ChatWidget(QWidget):
         button_layout.addStretch()
         button_layout.addWidget(self.menu_button)
 
-        # Input box + Send button with improved styling
         self.input_box = QLineEdit()
         self.input_box.setPlaceholderText("Type your message here...")
         self.input_box.setStyleSheet("""
@@ -227,7 +204,7 @@ class ChatWidget(QWidget):
             self.input_box.setPlaceholderText("Please enter the API key: ")
             
     def new_chat(self):
-        self.chat_areas.append(ChatArea(self))
+        self.chat_areas.append(ClickableTextEdit(self))
         self.chat_areas[-1].hide()
         self.change_chat_area(len(self.chat_areas) - 1)
 
@@ -289,6 +266,7 @@ class ChatWidget(QWidget):
             local_api_key = api_key
             self.ai_model = AiModel(api_key=local_api_key)
             self.chat_area.append("API key set successfully. You can now start chatting.")
+    
     def insert_code(self, code):
         if code and self.ui.plainTextEdit.text_edit:
             cursor = self.ui.plainTextEdit.text_edit.textCursor()
@@ -442,6 +420,8 @@ class ChatWidget(QWidget):
         self.aiThread = None
 
 if __name__ == "__main__":
+    
+    
     import sys
     from PyQt5.QtWidgets import QApplication
 
