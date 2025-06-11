@@ -216,11 +216,11 @@ class ChatWidget(QWidget):
             if self.current_chat_index >= len(self.chat_areas):
                 self.current_chat_index = len(self.chat_areas) - 1
             self.change_chat_area(self.current_chat_index)
-        else:
-            self.chat_area.hide()
-            self.layout().removeWidget(self.chat_area)
-            self.layout().removeItem(self.input_layout)
-            self.chat_areas = []
+        # else:
+        #     self.chat_area.hide()
+        #     self.layout().removeWidget(self.chat_area)
+        #     self.layout().removeItem(self.input_layout)
+        #     self.chat_areas = []
 
 
     def change_chat_area(self, index):
