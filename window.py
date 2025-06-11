@@ -13,6 +13,7 @@ from dialogs import FindDialog,ReplaceDialog
 import File_Tab, editor
 import ai_model
 from settings_dialog import SettingsDialog
+from custom_title_bar import CustomTitleBar
 
 
 class Ui_MainWindow(QtCore.QObject):
@@ -272,7 +273,7 @@ class Ui_MainWindow(QtCore.QObject):
         add_group(["22", "23"])  # Zoom In, Zoom Out
 
         # pune layout-ul în grid
-        self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
+        self.gridLayout.addLayout(self.buttonLayout, 4, 0, 1, 2)
         
     def put_svg_icon(self):
         self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
@@ -347,6 +348,7 @@ class Ui_MainWindow(QtCore.QObject):
         
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
+        MainWindow.setWindowFlag(QtCore.Qt.FramelessWindowHint)  # Ascunde bara nativă
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.centralwidget.setStyleSheet("background-color: #344955;")
@@ -354,6 +356,14 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
+
+        # Custom Title Bar
+        self.title_bar = CustomTitleBar(MainWindow)
+        self.gridLayout.addWidget(self.title_bar, 0, 0, 1, 2)
+        self.gridLayout.addItem(QtWidgets.QSpacerItem(0, 12), 1, 0, 1, 2)  # spațiu între title bar și meniu
+
         self.add_sections()  # Call the method to add sections
 
 
@@ -370,8 +380,8 @@ class Ui_MainWindow(QtCore.QObject):
 
         # Add the section layout to the grid
         #aicea va zic sincer ca m am folosit de copilot si nu sunt chiar sigur cum functioneaza grid-ul
-        self.gridLayout.addLayout(self.sectionLayout, 0, 0, 1, 2)
-        #Shortcut Buttons (Area 2)
+        self.gridLayout.addLayout(self.sectionLayout, 2, 0, 1, 2)
+        self.gridLayout.addItem(QtWidgets.QSpacerItem(0, 12), 3, 0, 1, 2)  # spațiu între meniu și shortcut buttons
         self.setup_buttons()
         self.put_svg_icon()  # Add SVG icon to the Cut button
 
@@ -574,7 +584,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.splitter.insertWidget(0, self.sidebar_container)
         self.splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
         self.splitter.setSizes([250, 950])
-        self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
+        self.gridLayout.addWidget(self.splitter, 6, 0, 1, 2)
 
         self.terminal = File_Tab.Terminal( ui = self)  # Use the custom terminal class
         self.terminal.installEventFilter(self)  # Install event filter for terminal input handling
@@ -636,7 +646,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.terminal_splitter.setSizes([1000, 100])
         self.terminal_splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
 
-        self.gridLayout.addWidget(self.terminal_splitter, 2, 0, 1, 2)
+        self.gridLayout.addWidget(self.terminal_splitter, 7, 0, 1, 2)
 
         # Creez un label pentru root folder
         self.root_folder_label = QtWidgets.QLabel()
