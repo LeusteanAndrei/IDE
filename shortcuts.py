@@ -11,12 +11,12 @@ class KeyCaptureDialog(QDialog):
     """Dialog pentru capturarea scurtăturilor de tastatură"""
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Apasă combinația de taste")
+        self.setWindowTitle("Press key combination")
         self.setFixedSize(300, 100)
         
         # Configurare aspect
         layout = QVBoxLayout()
-        self.label = QLabel("Apasă combinația de taste dorită")
+        self.label = QLabel("Press the desired key combination")
         layout.addWidget(self.label)
         
         self.key_sequence = None
@@ -38,12 +38,12 @@ class KeyCaptureDialog(QDialog):
         
         # Respinge taste simple (litere, cifre, simboluri) fără modificatori
         if not has_modifier and not is_function_key:
-            self.label.setText("Trebuie să incluzi Ctrl, Shift sau Alt sau o tastă funcțională")
+            self.label.setText("You must include a modifier (Ctrl, Shift, Alt, Meta) or use a function key (F1-F35)")
             return
             
         # Creează secvența de taste
         self.key_sequence = QKeySequence(modifiers | key).toString()
-        self.label.setText(f"Capturat: {self.key_sequence}")
+        self.label.setText(f"Captured: {self.key_sequence}")
         
         # Acceptă dialogul după 1 secundă
         from PyQt5.QtCore import QTimer
@@ -54,7 +54,7 @@ class ShortcutConfigDialog(QDialog):
     def __init__(self, shortcut_manager, parent=None):
         super().__init__(parent)
         self.shortcut_manager = shortcut_manager
-        self.setWindowTitle("Scurtături tastatură")
+        self.setWindowTitle("Keyboard Shortcuts")
         self.setMinimumSize(500, 400)
         
         # Layout principal
@@ -69,22 +69,22 @@ class ShortcutConfigDialog(QDialog):
         button_layout = QHBoxLayout()
         
         # Buton modificare scurtătură
-        self.change_btn = QPushButton("Modifică scurtătura")
+        self.change_btn = QPushButton("Modifiy Shortcut")
         self.change_btn.clicked.connect(self.change_shortcut)
         button_layout.addWidget(self.change_btn)
         
         # Buton resetare la implicit
-        self.reset_btn = QPushButton("Resetează")
+        self.reset_btn = QPushButton("Reset")
         self.reset_btn.clicked.connect(self.reset_shortcut)
         button_layout.addWidget(self.reset_btn)
         
         # Buton resetare toate
-        self.reset_all_btn = QPushButton("Resetează toate")
+        self.reset_all_btn = QPushButton("Reset All")
         self.reset_all_btn.clicked.connect(self.reset_all_shortcuts)
         button_layout.addWidget(self.reset_all_btn)
         
         # Buton închidere
-        self.close_btn = QPushButton("Închide")
+        self.close_btn = QPushButton("Close")
         self.close_btn.clicked.connect(self.close)
         button_layout.addWidget(self.close_btn)
         
@@ -130,7 +130,7 @@ class ShortcutConfigDialog(QDialog):
         """Modifică secvența de taste a scurtăturii selectate"""
         current_item = self.list_widget.currentItem()
         if not current_item:
-            QMessageBox.information(self, "Selectare scurtătură", "Te rog selectează o scurtătură")
+            QMessageBox.information(self, "Select Shortcut", "Please select a shortcut to modify")
             return
         
         shortcut_name = current_item.data(Qt.UserRole)
@@ -145,8 +145,8 @@ class ShortcutConfigDialog(QDialog):
                     if info['current_sequence'] == new_sequence and name != shortcut_name:
                         QMessageBox.warning(
                             self, 
-                            "Scurtătură duplicat", 
-                            f"Această combinație este deja folosită pentru '{name}'")
+                            "Duplicate shortcut", 
+                            f"Combination already used for '{name}'")
                         return
                 
                 # Actualizează scurtătura
@@ -157,7 +157,7 @@ class ShortcutConfigDialog(QDialog):
         """Resetează scurtătura la secvența implicită"""
         current_item = self.list_widget.currentItem()
         if not current_item:
-            QMessageBox.information(self, "Selectare scurtătură", "Te rog selectează o scurtătură")
+            QMessageBox.information(self, "Select Shortcut", "Please select a shortcut to reset")
             return
         
         shortcut_name = current_item.data(Qt.UserRole)
@@ -167,15 +167,15 @@ class ShortcutConfigDialog(QDialog):
     def reset_all_shortcuts(self):
         """Resetează toate scurtăturile la valorile implicite"""
         reply = QMessageBox.question(self, 
-                                     "Confirmare resetare", 
-                                     "Sigur dorești să resetezi toate scurtăturile la valorile implicite?",
+                                     "Confirm full reset", 
+                                     "Are you sure you want to reset all shortcuts?",
                                      QMessageBox.Yes | QMessageBox.No, 
                                      QMessageBox.No)
         
         if reply == QMessageBox.Yes:
             self.shortcut_manager.reset_all_shortcuts()
             self.populate_shortcut_list()
-            QMessageBox.information(self, "Resetare completă", "Toate scurtăturile au fost resetate la valorile implicite")
+            QMessageBox.information(self, "Reset completed", "All shorctus are back to default values")
 
 class ShortcutManager:
     """Manager pentru scurtăturile de tastatură"""
@@ -224,7 +224,7 @@ class ShortcutManager:
         if name in self.shortcut_info:
             # Verifică existența callback-ului
             if 'callback' not in self.shortcut_info[name]:
-                print(f"Atenție: Lipsă callback pentru '{name}'")
+                print(f"Attention: Callback missing for '{name}'")
                 return
                 
             # Șterge scurtătura veche

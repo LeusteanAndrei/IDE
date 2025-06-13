@@ -132,6 +132,7 @@ def intialize_shortcuts(ui):
     shortcut_manager.add_shortcut("Save File", "Ctrl+S", ui.handle_save_file)
     shortcut_manager.add_shortcut("Save File As", "Ctrl+Shift+S", ui.handle_save_file_as)
     shortcut_manager.add_shortcut("Open Folder", "Ctrl+K", ui.handle_open_folder)
+    shortcut_manager.add_shortcut("Toggle Explorer", "Ctrl+B", ui.toggle_sidebar) # Added Toggle Explorer shortcut
     shortcut_manager.add_shortcut("Run Code", "F5", lambda: ui.run_code())
     shortcut_manager.add_shortcut("Comment line", "Ctrl+/", lambda: comment_line_or_selection(ui))
     shortcut_manager.add_shortcut("Find", "Ctrl+F", lambda: ui.show_find_dialog())
@@ -179,6 +180,7 @@ if __name__ == "__main__":
     editor = ui.plainTextEdit.text_edit
     apply_style( ui, MainWindow)
     shortcut_manager = ShortcutManager(MainWindow)
+    ui.shortcut_manager = shortcut_manager # Assign shortcut_manager to the ui instance
     intialize_shortcuts(ui)    
 
     connect_to_action(ui)
@@ -193,5 +195,5 @@ if __name__ == "__main__":
     # ui.plainTextEdit.setup_hover()
 
     sys.exit(app.exec_())
-    ui.plainTextEdit.Lsp.shutdown() 
+    ui.plainTextEdit.Lsp.shutdown()
 

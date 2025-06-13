@@ -13,6 +13,7 @@ from dialogs import FindDialog,ReplaceDialog
 import File_Tab, editor
 import ai_model
 from settings_dialog import SettingsDialog
+from custom_title_bar import CustomTitleBar
 
 
 
@@ -232,9 +233,272 @@ class Ui_MainWindow(QtCore.QObject):
     def connect_buttons(self):
         for button in self.sections:
             if button.objectName() == "File":
-                button.setMenu(self.fileMenu)
+                button.setMenu(self.fileMenu) # Existing File menu
+            elif button.objectName() == "Edit":
+                edit_menu = QtWidgets.QMenu(button)
+                edit_menu.addAction("Undo", lambda: editor.Utility_Functions.undo(self.plainTextEdit))
+                edit_menu.addAction("Redo", lambda: editor.Utility_Functions.redo(self.plainTextEdit))
+                edit_menu.addSeparator()
+                edit_menu.addAction("Cut", lambda: editor.Utility_Functions.cut(self.plainTextEdit))
+                edit_menu.addAction("Copy", lambda: editor.Utility_Functions.copy(self.plainTextEdit))
+                edit_menu.addAction("Paste", lambda: editor.Utility_Functions.paste(self.plainTextEdit))
+                edit_menu.addAction("Select All", lambda: editor.Utility_Functions.select_all(self.plainTextEdit))
+                edit_menu.setStyleSheet(self.menu_style)
+                button.setMenu(edit_menu)
+            elif button.objectName() == "View":
+                view_menu = QtWidgets.QMenu(button)
+                view_menu.addAction("Toggle Terminal", self.toggle_tab_widget)
+                view_menu.addAction("Toggle Explorer", self.toggle_sidebar)
+                # Add zoom actions if editor.Utility_Functions has them
+                if hasattr(editor.Utility_Functions, 'zoom_in') and hasattr(editor.Utility_Functions, 'zoom_out'):
+                    view_menu.addSeparator()
+                    view_menu.addAction("Zoom In", lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+                    view_menu.addAction("Zoom Out", lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
+                view_menu.setStyleSheet(self.menu_style)
+                button.setMenu(view_menu)
             elif button.objectName() == "Code":
-                button.setMenu(self.algorithmsMenu)
+                button.setMenu(self.algorithmsMenu) # Existing Code menu (Algorithms)
+            elif button.objectName() == "Run":
+                run_menu = QtWidgets.QMenu(button)
+                run_menu.addAction("Run Code", lambda: self.code_runner.run_code())
+                run_menu.addAction("Stop Running", lambda: Code_Runner.abort_run(self.code_runner))
+                run_menu.setStyleSheet(self.menu_style)
+                button.setMenu(run_menu)
+            elif button.objectName() == "Tools":
+                tools_menu = QtWidgets.QMenu(button)
+                tools_menu.addAction("Settings", lambda: self.show_settings_dialog(MainWindow=self.centralwidget.window()))
+                tools_menu.addAction("Configure Shortcuts", lambda: self.shortcut_manager.show_config_dialog() if hasattr(self, 'shortcut_manager') else None) 
+                tools_menu.setStyleSheet(self.menu_style)
+                button.setMenu(tools_menu)
+            # Add more menus for "Navigate", "Window", "Help" as needed
+            # For "Logo", you might want a different action, like showing an about dialog.
+            elif button.objectName() == "Logo":
+                # Example: Show an about dialog or link to a website
+                pass # Implement desired action for Logo button
+            elif button.objectName() == "Navigate":
+                # Example: Add find/replace actions
+                navigate_menu = QtWidgets.QMenu(button)
+                navigate_menu.addAction("Find", self.show_find_dialog)
+                navigate_menu.addAction("Replace", self.show_replace_dialog)
+                navigate_menu.setStyleSheet(self.menu_style)
+                button.setMenu(navigate_menu)
+            elif button.objectName() == "Window":
+                window_menu = QtWidgets.QMenu(button)
+                if hasattr(editor.Utility_Functions, 'zoom_in') and hasattr(editor.Utility_Functions, 'zoom_out'):
+                    window_menu.addAction("Zoom In", lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+                    window_menu.addAction("Zoom Out", lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
+                # Add other window management actions if needed
+                window_menu.setStyleSheet(self.menu_style)
+                button.setMenu(window_menu)
+            elif button.objectName() == "Help":
+                help_menu = QtWidgets.QMenu(button)
+                help_menu.addAction("About", self.show_about_dialog)
+                # Add other help actions if needed (e.g., View Documentation)
+                help_menu.setStyleSheet(self.menu_style)
+                button.setMenu(help_menu)
+
+    def add_sections(self):
+                # Sections (Zona 1)
+        self.sectionLayout = QtWidgets.QHBoxLayout()
+        self.sectionLayout.setSpacing(15)  # distanțiere mai mare între butoane
+        self.sections = []
+
+        # Section names
+        self.section_names = [
+            "Logo", "File", "Edit", "View", "Navigate", 
+            "Code", "Tools", "Run", "Window", "Help"
+        ]
+
+        # Bbutton for each section
+        for name in self.section_names:
+            button = QtWidgets.QPushButton(name)
+            button.setObjectName(name)
+            button.setStyleSheet(self.menu_button_style)  # Apply style
+            button.setCursor(Qt.PointingHandCursor)       # Set cursor
+            self.sections.append(button)
+            self.sectionLayout.addWidget(button)
+
+    def add_algorithms_menu(self, MainWindow):
+        self.fileMenu = QtWidgets.QMenu()
+        self.actionNewFile = QtWidgets.QAction(MainWindow)
+        self.actionNewFile.setObjectName("actionNewFile")
+        self.actionOpenFile = QtWidgets.QAction(MainWindow)
+        self.actionOpenFile.setObjectName("actionOpenFile")
+        self.actionSaveFile = QtWidgets.QAction(MainWindow)
+        self.actionSaveFile.setObjectName("actionSaveFile")
+        self.actionSaveFileAs = QtWidgets.QAction(MainWindow)
+        self.actionSaveFileAs.setObjectName("actionSaveFileAs")
+        self.actionOpenFolder = QtWidgets.QAction(MainWindow)
+        self.actionOpenFolder.setObjectName("actionOpenFolder")
+
+        self.fileMenu.addAction(self.actionNewFile)
+        self.fileMenu.addAction(self.actionOpenFile)
+        self.fileMenu.addAction(self.actionSaveFile)
+        self.fileMenu.addAction(self.actionSaveFileAs)
+        self.fileMenu.addAction(self.actionOpenFolder)
+
+        #Alg de Sortare
+        self.algorithmsMenu = QtWidgets.QMenu()
+        self.menuSorting = QtWidgets.QMenu("Sorting", self.algorithmsMenu)
+        self.actionBubbleSort = QtWidgets.QAction(MainWindow)
+        self.actionBubbleSort.setObjectName("actionBubbleSort")
+        self.actionInsertionSort = QtWidgets.QAction(MainWindow)
+        self.actionInsertionSort.setObjectName("actionInsertionSort")
+        self.actionQuickSort = QtWidgets.QAction(MainWindow)
+        self.actionQuickSort.setObjectName("actionQuickSort")
+        self.actionMergeSort = QtWidgets.QAction(MainWindow)
+        self.actionMergeSort.setObjectName("actionMergeSort")
+        self.menuSorting.addAction(self.actionBubbleSort)
+        self.menuSorting.addAction(self.actionInsertionSort)
+        self.menuSorting.addAction(self.actionQuickSort)
+        self.menuSorting.addAction(self.actionMergeSort)
+
+        #Alg de Cautare
+        self.menuSearching = QtWidgets.QMenu("Searching", self.algorithmsMenu)
+        self.actionBinarySearch = QtWidgets.QAction(MainWindow)
+        self.actionBinarySearch.setObjectName("actionBinarySearch")
+        self.actionLinearSearch = QtWidgets.QAction(MainWindow)
+        self.actionLinearSearch.setObjectName("actionLinearSearch")
+        self.menuSearching.addAction(self.actionBinarySearch)
+        self.menuSearching.addAction(self.actionLinearSearch)
+
+        #Structuri de Date
+        self.menuDataStructures = QtWidgets.QMenu("Data Structures", self.algorithmsMenu)
+        self.actionLinkedList = QtWidgets.QAction(MainWindow)
+        self.actionLinkedList.setObjectName("actionLinkedList")
+        self.actionStack = QtWidgets.QAction(MainWindow)
+        self.actionStack.setObjectName("actionStack")
+        self.actionQueue = QtWidgets.QAction(MainWindow)
+        self.actionQueue.setObjectName("actionQueue")
+        self.menuDataStructures.addAction(self.actionLinkedList)
+        self.menuDataStructures.addAction(self.actionStack)
+        self.menuDataStructures.addAction(self.actionQueue)
+
+        #Alg de Grafuri
+        self.menuGraphAlgorithms = QtWidgets.QMenu("Graph Algorithms", self.algorithmsMenu)
+        self.actionBFS = QtWidgets.QAction(MainWindow)
+        self.actionBFS.setObjectName("actionBFS")
+        self.actionDFS = QtWidgets.QAction(MainWindow)
+        self.actionDFS.setObjectName("actionDFS")
+        self.menuGraphAlgorithms.addAction(self.actionBFS)
+        self.menuGraphAlgorithms.addAction(self.actionDFS)
+
+        #Alg de Programare Dinamica
+        self.menuDynamicProgramming = QtWidgets.QMenu("Dynamic Programming", self.algorithmsMenu)
+        self.actionFibonacci = QtWidgets.QAction(MainWindow)
+        self.actionFibonacci.setObjectName("actionFibonacci")
+        self.actionKnapsack = QtWidgets.QAction(MainWindow)
+        self.actionKnapsack.setObjectName("actionKnapsack")
+        self.menuDynamicProgramming.addAction(self.actionFibonacci)
+        self.menuDynamicProgramming.addAction(self.actionKnapsack)
+
+        #Alg de tip Shortest Path
+        self.menuShortestPath = QtWidgets.QMenu("Shortest Path", self.algorithmsMenu)
+        self.actionDijkstra = QtWidgets.QAction(MainWindow)
+        self.actionDijkstra.setObjectName("actionDijkstra")
+        self.actionFloydWarshall = QtWidgets.QAction(MainWindow)
+        self.actionFloydWarshall.setObjectName("actionFloydWarshall")
+        self.actionBellmanFord = QtWidgets.QAction(MainWindow)
+        self.actionBellmanFord.setObjectName("actionBellmanFord")
+        self.menuShortestPath.addAction(self.actionDijkstra)
+        self.menuShortestPath.addAction(self.actionFloydWarshall)
+        self.menuShortestPath.addAction(self.actionBellmanFord)
+
+        #Alg Diversi
+        self.menuOther = QtWidgets.QMenu("Other", self.algorithmsMenu)
+        self.actionPrimeCheck = QtWidgets.QAction(MainWindow)
+        self.actionPrimeCheck.setObjectName("actionPrimeCheck")
+        self.actionGCD = QtWidgets.QAction(MainWindow)
+        self.actionGCD.setObjectName("actionGCD")
+        self.menuOther.addAction(self.actionPrimeCheck)
+        self.menuOther.addAction(self.actionGCD)
+
+        # Add submenus to the Algorithms menu
+        self.algorithmsMenu.addMenu(self.menuSorting)
+        self.algorithmsMenu.addMenu(self.menuSearching)
+        self.algorithmsMenu.addMenu(self.menuDataStructures)
+        self.algorithmsMenu.addMenu(self.menuGraphAlgorithms)
+        self.algorithmsMenu.addMenu(self.menuDynamicProgramming)
+        self.algorithmsMenu.addMenu(self.menuShortestPath)
+        self.algorithmsMenu.addMenu(self.menuOther)
+
+        # Apply styles to menus and submenus
+        self.fileMenu.setStyleSheet(self.menu_style)
+        self.algorithmsMenu.setStyleSheet(self.menu_style)
+        self.menuSorting.setStyleSheet(self.menu_style)
+        self.menuSearching.setStyleSheet(self.menu_style)
+        self.menuDataStructures.setStyleSheet(self.menu_style)
+        self.menuGraphAlgorithms.setStyleSheet(self.menu_style)
+        self.menuDynamicProgramming.setStyleSheet(self.menu_style)
+        self.menuShortestPath.setStyleSheet(self.menu_style)
+        self.menuOther.setStyleSheet(self.menu_style)
+      
+    def connect_buttons(self):
+        for button in self.sections:
+            if button.objectName() == "File":
+                button.setMenu(self.fileMenu) # Existing File menu
+            elif button.objectName() == "Edit":
+                edit_menu = QtWidgets.QMenu(button)
+                edit_menu.addAction("Undo", lambda: editor.Utility_Functions.undo(self.plainTextEdit))
+                edit_menu.addAction("Redo", lambda: editor.Utility_Functions.redo(self.plainTextEdit))
+                edit_menu.addSeparator()
+                edit_menu.addAction("Cut", lambda: editor.Utility_Functions.cut(self.plainTextEdit))
+                edit_menu.addAction("Copy", lambda: editor.Utility_Functions.copy(self.plainTextEdit))
+                edit_menu.addAction("Paste", lambda: editor.Utility_Functions.paste(self.plainTextEdit))
+                edit_menu.addAction("Select All", lambda: editor.Utility_Functions.select_all(self.plainTextEdit))
+                edit_menu.setStyleSheet(self.menu_style)
+                button.setMenu(edit_menu)
+            elif button.objectName() == "View":
+                view_menu = QtWidgets.QMenu(button)
+                view_menu.addAction("Toggle Terminal", self.toggle_tab_widget)
+                view_menu.addAction("Toggle Explorer", self.toggle_sidebar)
+                # Add zoom actions if editor.Utility_Functions has them
+                if hasattr(editor.Utility_Functions, 'zoom_in') and hasattr(editor.Utility_Functions, 'zoom_out'):
+                    view_menu.addSeparator()
+                    view_menu.addAction("Zoom In", lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+                    view_menu.addAction("Zoom Out", lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
+                view_menu.setStyleSheet(self.menu_style)
+                button.setMenu(view_menu)
+            elif button.objectName() == "Code":
+                button.setMenu(self.algorithmsMenu) # Existing Code menu (Algorithms)
+            elif button.objectName() == "Run":
+                run_menu = QtWidgets.QMenu(button)
+                run_menu.addAction("Run Code", lambda: self.code_runner.run_code())
+                run_menu.addAction("Stop Running", lambda: Code_Runner.abort_run(self.code_runner))
+                run_menu.setStyleSheet(self.menu_style)
+                button.setMenu(run_menu)
+            elif button.objectName() == "Tools":
+                tools_menu = QtWidgets.QMenu(button)
+                tools_menu.addAction("Settings", lambda: self.show_settings_dialog(MainWindow=self.centralwidget.window()))
+                tools_menu.addAction("Configure Shortcuts", lambda: self.shortcut_manager.show_config_dialog() if hasattr(self, 'shortcut_manager') else None) 
+                tools_menu.setStyleSheet(self.menu_style)
+                button.setMenu(tools_menu)
+            # Add more menus for "Navigate", "Window", "Help" as needed
+            # For "Logo", you might want a different action, like showing an about dialog.
+            elif button.objectName() == "Logo":
+                # Example: Show an about dialog or link to a website
+                pass # Implement desired action for Logo button
+            elif button.objectName() == "Navigate":
+                # Example: Add find/replace actions
+                navigate_menu = QtWidgets.QMenu(button)
+                navigate_menu.addAction("Find", self.show_find_dialog)
+                navigate_menu.addAction("Replace", self.show_replace_dialog)
+                navigate_menu.setStyleSheet(self.menu_style)
+                button.setMenu(navigate_menu)
+            elif button.objectName() == "Window":
+                window_menu = QtWidgets.QMenu(button)
+                if hasattr(editor.Utility_Functions, 'zoom_in') and hasattr(editor.Utility_Functions, 'zoom_out'):
+                    window_menu.addAction("Zoom In", lambda: editor.Utility_Functions.zoom_in(self.plainTextEdit))
+                    window_menu.addAction("Zoom Out", lambda: editor.Utility_Functions.zoom_out(self.plainTextEdit))
+                # Add other window management actions if needed
+                window_menu.setStyleSheet(self.menu_style)
+                button.setMenu(window_menu)
+            elif button.objectName() == "Help":
+                help_menu = QtWidgets.QMenu(button)
+                help_menu.addAction("About", self.show_about_dialog)
+                # Add other help actions if needed (e.g., View Documentation)
+                help_menu.setStyleSheet(self.menu_style)
+                button.setMenu(help_menu)
 
     def setup_buttons(self):
         # Shortcut Buttons (Area 2)
@@ -283,7 +547,7 @@ class Ui_MainWindow(QtCore.QObject):
         add_group(["22", "23"])  # Zoom In, Zoom Out
 
         # pune layout-ul în grid
-        self.gridLayout.addLayout(self.buttonLayout, 1, 0, 1, 2)
+        self.gridLayout.addLayout(self.buttonLayout, 4, 0, 1, 2)
         
     def put_svg_icon(self):
         self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
@@ -322,7 +586,8 @@ class Ui_MainWindow(QtCore.QObject):
 
         # Set buttons for Copilot
         self.buttons[12].setText("AI Chatbot")  # AI Chatbot button
-        self.buttons[12].clicked.connect(lambda: self.tab_widget.setCurrentIndex(1))
+        # self.buttons[12].clicked.connect(lambda: self.tab_widget.setCurrentIndex(1)) # Old connection
+        self.buttons[12].clicked.connect(self.toggle_ai_chatbot_tab) # New connection
         #Andrei asta ti-o las tie
         self.buttons[13].setText("Open Terminal")  # Run Code button -> ruleaza codul din editor
         self.buttons[13].clicked.connect(self.toggle_tab_widget) 
@@ -353,11 +618,26 @@ class Ui_MainWindow(QtCore.QObject):
         # # și legi semnalele de care ai nevoie
         # self.buttons[17].clicked.connect(self.code_runner.abort_run)
 
+    def toggle_ai_chatbot_tab(self):
+        ai_chatbot_tab_index = -1
+        for i in range(self.tab_widget.count()):
+            if self.tab_widget.tabText(i) == "AI Chatbot":
+                ai_chatbot_tab_index = i
+                break
+        
+        if ai_chatbot_tab_index != -1:
+            if self.tab_widget.isTabVisible(ai_chatbot_tab_index) and self.tab_widget.currentIndex() == ai_chatbot_tab_index:
+                self.tab_widget.setTabVisible(ai_chatbot_tab_index, False)
+            else:
+                self.tab_widget.setTabVisible(ai_chatbot_tab_index, True)
+                self.tab_widget.setCurrentIndex(ai_chatbot_tab_index)
+
     def setupUi(self, MainWindow):
  
         
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
+        MainWindow.setWindowFlag(QtCore.Qt.FramelessWindowHint)  # Ascunde bara nativă
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.centralwidget.setStyleSheet("background-color: #344955;")
@@ -365,6 +645,14 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
+
+        # Custom Title Bar
+        self.title_bar = CustomTitleBar(MainWindow)
+        self.gridLayout.addWidget(self.title_bar, 0, 0, 1, 2)
+        self.gridLayout.addItem(QtWidgets.QSpacerItem(0, 12), 1, 0, 1, 2)  # spațiu între title bar și meniu
+
         self.add_sections()  # Call the method to add sections
 
 
@@ -381,8 +669,8 @@ class Ui_MainWindow(QtCore.QObject):
 
         # Add the section layout to the grid
         #aicea va zic sincer ca m am folosit de copilot si nu sunt chiar sigur cum functioneaza grid-ul
-        self.gridLayout.addLayout(self.sectionLayout, 0, 0, 1, 2)
-        #Shortcut Buttons (Area 2)
+        self.gridLayout.addLayout(self.sectionLayout, 2, 0, 1, 2)
+        self.gridLayout.addItem(QtWidgets.QSpacerItem(0, 12), 3, 0, 1, 2)  # spațiu între meniu și shortcut buttons
         self.setup_buttons()
         self.put_svg_icon()  # Add SVG icon to the Cut button
 
@@ -485,7 +773,7 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.close_btn.clicked.connect(lambda: self.sidebar_container.hide())
         # Shortcut Ctrl+B pentru a arăta/ascunde Explorer-ul
-        QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+B"), MainWindow, self.toggle_sidebar)
+        # QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+B"), MainWindow, self.toggle_sidebar) # Commented out old shortcut
         # Mutare Explorer stânga/dreapta
         def move_sidebar():
             idx = self.splitter.indexOf(self.sidebar_container)
@@ -585,7 +873,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.splitter.insertWidget(0, self.sidebar_container)
         self.splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
         self.splitter.setSizes([250, 950])
-        self.gridLayout.addWidget(self.splitter, 2, 0, 1, 2)  # Add splitter to the grid layout
+        self.gridLayout.addWidget(self.splitter, 6, 0, 1, 2)
 
         self.terminal = File_Tab.Terminal( ui = self)  # Use the custom terminal class
         self.terminal.installEventFilter(self)  # Install event filter for terminal input handling
@@ -647,7 +935,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.terminal_splitter.setSizes([1000, 100])
         self.terminal_splitter.setStyleSheet("QSplitter::handle { background: transparent; } border: none; background: #344955;")
 
-        self.gridLayout.addWidget(self.terminal_splitter, 2, 0, 1, 2)
+        self.gridLayout.addWidget(self.terminal_splitter, 7, 0, 1, 2)
 
         # Creez un label pentru root folder
         self.root_folder_label = QtWidgets.QLabel()
@@ -682,6 +970,12 @@ class Ui_MainWindow(QtCore.QObject):
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    def show_about_dialog(self):
+        QtWidgets.QMessageBox.about(self.centralwidget, "About C++ IDE",
+                                    "This is a C++ IDE created with PyQt5.\n"
+                                    "Version: 1.0\n"
+                                    "Developed by: Tuc++ SRL") # Replace with actual name
+
     #Functiile Handler pt functiile din FileSystem/file_methods.py
     
     
