@@ -183,6 +183,12 @@ if __name__ == "__main__":
 
     connect_to_action(ui)
 
+    from Highlighter.theme import ThemeManager
+    theme_manager = ThemeManager(ui.plainTextEdit.highlighter)
+
+    # theme_manager.set_theme("dark")  # Set the initial theme to dark
+    # theme_manager.apply_theme(ui)
+
     editor.show()
     # ui.plainTextEdit.setup_hover()
 

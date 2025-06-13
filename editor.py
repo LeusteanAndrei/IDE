@@ -498,7 +498,6 @@ class Editor(QWidget):
         self.text_edit.show()
         self.show()
 
-    
     def switch_text_edit(self, textedit):
         if textedit is None:
             return
@@ -547,7 +546,6 @@ class Editor(QWidget):
         except Exception as e:
             print("Formatting failed:", e)       
            
-
     def insert_multiple_line_comment(self):
         cursor = self.text_edit.textCursor()
         doc = self.text_edit.document()

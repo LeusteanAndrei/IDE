@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFontComboBox
 from themes import THEMES
 from Styles.style import SETTINGS_STYLE, FONT_DROPDOWN_STYLE
+from Highlighter.theme import HighlighterThemeFactory
 
 # class SettingsDialog(QDialog):
 #     def __init__(self, parent=None, editor=None):
@@ -17,6 +18,15 @@ class SettingsDialog(QDialog):
         self.editor = editor
 
         layout = QVBoxLayout()
+
+        # Theme selection
+        theme_layout = QHBoxLayout()
+        theme_layout.addWidget(QLabel("Theme:"))
+        self.theme_combo = QComboBox()
+        self.theme_combo.addItems(HighlighterThemeFactory.get_available_themes())
+        self.theme_combo.setStyleSheet(FONT_DROPDOWN_STYLE)
+        theme_layout.addWidget(self.theme_combo)
+        layout.addLayout(theme_layout)
 
         # Font size setting
         font_layout = QHBoxLayout()
@@ -49,7 +59,10 @@ class SettingsDialog(QDialog):
         theme_btn = QPushButton("Choose Editor Background Color")
         theme_btn.clicked.connect(self.choose_bg_color)
         layout.addWidget(theme_btn)
-        
+
+
+
+
         # Save button
         save_btn = QPushButton("Save")
         save_btn.clicked.connect(self.apply_settings)
@@ -59,6 +72,7 @@ class SettingsDialog(QDialog):
         self.setStyleSheet(SETTINGS_STYLE)
 
         self.bgcolour = editor.text_edit.background_color
+        self.font_colour = None  
 
     def choose_bg_color(self):
         color = QColorDialog.getColor()
@@ -83,8 +97,14 @@ class SettingsDialog(QDialog):
             self.editor.text_edit.font_size = self.font_size_spin.value()
             self.editor.text_edit.font_family = self.font_combo.currentFont().family()
             self.editor.text_edit.background_color = self.bgcolour
-            self.editor.text_edit.font_color = self.font_colour  # <-- Add this line
+            self.editor.text_edit.font_color = self.font_colour 
 
+            # Apply the selected theme
+            from Highlighter.theme import ThemeManager
+            theme_manager = ThemeManager(self.editor.highlighter)
+            theme_manager.set_theme(self.theme_combo.currentText())
+
+            self.editor.highlighter.rehighlight()
             self.editor.text_edit.apply_style()
             self.editor.text_edit.update()  # Refresh the editor to apply changes      
         self.accept()
@@ -96,3 +116,4 @@ class SettingsDialog(QDialog):
     #     self.theme_combo.addItems(THEMES.keys())
     #     layout.addWidget(QLabel("Theme:"))
     #     layout.addWidget(self.theme_combo)
+

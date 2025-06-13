@@ -2,6 +2,7 @@ from PyQt5 import QtGui, QtCore
 from .color import Colors
 from PyQt5.QtGui import QTextCharFormat, QColor
 
+
 Styles = {
     'keyword': Colors.Blue,
     'operator': Colors.DarkMagenta,
@@ -14,6 +15,15 @@ Styles = {
     'variable': Colors.DarkBlue,
     # 'header': Colors.HEADER,
 }
+
+# def set_theme(theme_name):
+#     global Styles
+
+#     theme_manager = theme.ThemeManager()
+#     theme_manager.set_theme(theme_name)
+
+
+
 
 class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
     keywords = [
@@ -226,12 +236,17 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
             block = block.next()
         return last_block
 
-    def rehighlight(self):
-        first_visible_block = self.editor.text_edit.firstVisibleBlock()
-        last_block = self.get_last_block()
-        for block in range(first_visible_block.blockNumber(), last_block.blockNumber() + 1):
-            self.rehighlightBlock(self.editor.text_edit.document().findBlockByNumber(block))
-        
+    def rehighlight(self, all = False):
+        if all == False:
+            first_visible_block = self.editor.text_edit.firstVisibleBlock()
+            last_block = self.get_last_block()
+            for block in range(first_visible_block.blockNumber(), last_block.blockNumber() + 1):
+                self.rehighlightBlock(self.editor.text_edit.document().findBlockByNumber(block))
+        else:
+            block_number = self.editor.text_edit.document().blockCount()
+            for block in range(block_number):
+                self.rehighlightBlock(self.editor.text_edit.document().findBlockByNumber(block))
+
 
     def multilineComments(self, text):
         startDelimiter = QtCore.QRegExp(r'/\*')
@@ -253,5 +268,6 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
                 length = len(text) - start + add
             self.setFormat(start, length, Styles['comment'])
             start = startDelimiter.indexIn(text, start + length)
+
 
 

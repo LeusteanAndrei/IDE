@@ -15,6 +15,9 @@ import ai_model
 from settings_dialog import SettingsDialog
 
 
+
+
+
 class Ui_MainWindow(QtCore.QObject):
     # Add these styles at the top of your class
     menu_button_style = """
@@ -100,10 +103,14 @@ class Ui_MainWindow(QtCore.QObject):
 
         # Bbutton for each section
         for name in self.section_names:
-            button = QtWidgets.QPushButton(name)
-            button.setObjectName(name)
-            button.setStyleSheet(self.menu_button_style)  # Apply style
-            button.setCursor(Qt.PointingHandCursor)       # Set cursor
+            button = ButtonBuilder(name).set_name(name)\
+                    .set_style(self.menu_button_style)\
+                    .set_cursor(Qt.PointingHandCursor)\
+                    .build()
+
+            # button = QtWidgets.QPushButton(name)
+            # button.setObjectName(name)
+            # button.setStyleSheet(self.menu_button_style)  # Apply style
             self.sections.append(button)
             self.sectionLayout.addWidget(button)
 
@@ -238,10 +245,14 @@ class Ui_MainWindow(QtCore.QObject):
 
         def add_group(labels):
             for label in labels:
-                b = QtWidgets.QPushButton(label)
-                b.setObjectName("FunctionButton")
-                b.setStyleSheet(style.BUTTON_STYLE)
-                b.setCursor(Qt.PointingHandCursor)
+                # b = QtWidgets.QPushButton(label)
+                # b.setObjectName("FunctionButton")
+                # b.setStyleSheet(style.BUTTON_STYLE)
+                # b.setCursor(Qt.PointingHandCursor)
+                b = ButtonBuilder(label).set_name(label)\
+                    .set_style(self.number_bar_button_style)\
+                    .set_cursor(Qt.PointingHandCursor)\
+                    .build()
                 self.buttonLayout.addWidget(b)
                 self.buttons.append(b)
                 b.setCheckable(True)
@@ -672,6 +683,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     #Functiile Handler pt functiile din FileSystem/file_methods.py
+    
+    
     def toggle_sidebar(self):
         if self.sidebar_container.isVisible():
             self.sidebar_container.hide()
@@ -1003,7 +1016,6 @@ class Ui_MainWindow(QtCore.QObject):
 
         self.settings_dialogue.exec_()
 
-
     def toggle_tab_widget(self):
         
         if self.tab_widget.isVisible():
@@ -1121,3 +1133,39 @@ class fileHandler():
         self.ui.tree_view.setHeaderHidden(True)
         # Măresc fontul pentru item-urile din QTreeView
         self.ui.tree_view.setStyleSheet("QTreeView { background: #23272b; color: #e0e0e0; border: none; font-size: 17px; } QTreeView::item:selected { background: #31363b; color: #78A083; }")
+
+
+
+
+
+
+
+
+class ButtonBuilder():
+    def __init__(self, name = None):
+        super().__init__()
+        self.component = QtWidgets.QPushButton(name)
+    
+    def set_name(self, name):
+        self.component.setObjectName(name)
+        return self
+
+    def set_text(self, text):
+        self.component.setText(text)
+        return self
+    
+    def set_style(self, style):
+        self.component.setStyleSheet(style)
+        return self
+    
+    def set_click_handler(self, handler):
+        self.component.clicked.connect(handler)
+        return self
+    
+    def set_cursor(self, cursor):
+        self.component.setCursor(cursor)
+        return self
+
+
+    def build(self):
+        return self.component
