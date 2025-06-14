@@ -49,7 +49,121 @@ In the development process of the application, we used:
 - PyQt5: Used for the general implementation of the app, from design to functionalities.
 
 ## DESIGN PATTERNS:
-.
+In proiect am folosit mai multe design patterns atat prin intermediul lui PyQt cat si speciale pentru nevoile noastre:
+- Singleton - pentru clase pentru care nu era nevoie de mai multe instante precum clasa Logger, o clasa ajutatoare care scriea intr-un fisier in detaliu mesajele primite de la LSP pentru a ne asigura de functionarea corecta a acestuia:
+  
+    ```
+  
+     class Logger:
+         _instance = None
+         _initialized = False
+        
+        def __new__(cls, log_file=None):
+            if cls._instance is None:
+                cls._instance = super().__new__(cls)
+            return cls._instance
+        
+        def __init__(self, log_file=None):
+            if not Logger._initialized:
+                self.log_file = log_file
+                logging.basicConfig(
+                    filename=self.log_file,
+                    format = '%(message)s',
+                    filemode = 'w',
+                )
+    
+                self.logger = logging.getLogger()
+                self.logger.setLevel(logging.DEBUG)
+                Logger._initialized = True
+     ```
+
+- Builder - pentru a putea crea cu usurinta diferite stiluri CSS pentru obiectele din aplicatie:
+```
+def get_editor_style():
+    return(QtStyleBuilder()
+            .color("white")
+            .border("1px", "solid", "#5c5f77")
+            .border_radius("5px")
+            .padding("5px")
+            .build())
+
+
+def get_main_window_style():
+    return (QtStyleBuilder()
+            .background_color("#344955")
+            .build("QMainWindow"))
+
+
+```
+
+- Abstract Factory - folosita pentru a crea cu usurinta diverse teme de culoare pentru highlighting:
+```
+class HighlighterThemeFactory:
+
+    @classmethod
+    def create_theme(cls, theme_name):
+        theme_class = cls._themes.get(theme_name.lower())
+        if theme_class:
+            return theme_class()
+        else:
+            return DarkTheme()
+    
+    @classmethod
+    def get_available_themes(cls):
+        return list(cls._themes.keys())
+
+class ThemeManager:
+    
+    def __init__(self, highlighter):
+        self.highlighter = highlighter
+        self.current_theme = DefaultTheme()
+    
+    def set_theme(self, theme_name):
+        """Set the current theme"""
+        self.current_theme = HighlighterThemeFactory.create_theme(theme_name)
+        self.apply_theme()
+        self.highlighter.set_rules()
+        self.highlighter.rehighlight(all =True)
+```
+
+- Observer - folosit de PyQt pentru event handling
+- MVC -  folosita pentru a separa design-ul de logica implementarii
+- Adapter - folosit prin clasa LSP care face legatura intre server si editorul nostru pentru a putea trimite si interpreta mesaje intr-un mod usor
+```
+class LspProcess():
+
+    def __init__(self, editor):
+        self.editor = editor
+        self.text_edit = editor.text_edit
+        self.lsp_process = None
+        self.version = 0
+        self.temp_file_path = None
+        self.temp_file_uri = None
+        self.lsp_path = "./LLVM/bin/clangd.exe"
+
+      def handle_message(self, message):
+        if 'method' in message:
+            match message['method']:
+                case 'textDocument/publishDiagnostics':
+                    Log.logger.info("Diagnostics received from LSP.")
+                    self.handle_diagnostics(message)
+        elif 'result' in message:
+            match message['id']:
+                case 0:
+                    # in acest caz e raspunsul la request ul de initializare
+                    # pt id-uri in reqests.py e id-ul fiecaruai pus de mine, tre doar sa fie unic
+                    # momentan 0 - initializare, 1 - completion
+                    Log.logger.info("LSP initialized successfully.")
+                    # tre acum sa ii spunem sa deschidem documentul
+                    self.open_document()
+                case 1:
+                    Log.logger.info("Received a completion response from LSP.")
+                    self.handle_completion(message)
+                    self.editor.completion_popup.show_completions()
+                case 2:
+                    Log.logger.info("Received hover response.")
+                    self.handle_hover(message)
+```
 
 ## AUTOMATED TESTS:
 For testing, we have used 4 classes which check the correct implementation of different aspects, like:
