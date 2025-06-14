@@ -236,43 +236,16 @@ class ThemeManager:
         """Set the current theme"""
         self.current_theme = HighlighterThemeFactory.create_theme(theme_name)
         self.apply_theme()
-        self.highlighter.rehighlight()
+        self.highlighter.set_rules()
+        self.highlighter.rehighlight(all =True)
     
     def apply_theme(self):
         """Apply the current theme colors to the highlighter"""
         colors = self.current_theme.get_colors()
         
-        # Update the Styles dictionary in the highlighter
-        # from .color import Colors
-        # for key, color in colors.items():
-        #     if hasattr(Colors, key.title()):
-        #         setattr(Colors, key.title(), color)
-        
+
         # Update the highlighter's Styles dictionary
         for key, color in colors.items():
                 if key in Styles:
                     Styles[key] = color
     
-    # def get_current_theme_name(self):
-    #     """Get the name of the current theme"""
-    #     return self.current_theme.get_name()
-    
-    # def get_available_themes(self):
-        """Get list of available themes"""
-        return [HighlighterThemeFactory.create_theme(name).get_name() 
-                for name in HighlighterThemeFactory.get_available_themes()]
-
-        return {
-            'keyword': QColor(255, 100, 100),     # Custom red
-            'operator': QColor(200, 200, 200),    # Custom gray
-            'brace': QColor(255, 255, 100),       # Custom yellow
-            'string': QColor(100, 255, 100),      # Custom green
-            'comment': QColor(150, 150, 150),     # Custom light gray
-            'this': QColor(255, 100, 255),        # Custom magenta
-            'numbers': QColor(100, 100, 255),     # Custom blue
-            'classname': QColor(255, 200, 100),   # Custom orange
-            'variable': QColor(200, 255, 255),    # Custom cyan
-            'function': QColor(255, 255, 200),    # Custom light yellow
-            'type': QColor(200, 100, 255),        # Custom purple
-            'preprocessor': QColor(255, 150, 150) # Custom pink
-        }

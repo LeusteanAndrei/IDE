@@ -68,8 +68,8 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         super().__init__(parent)
 
         self.editor = editor
-        self.start_comment = (QtCore.QRegExp("/*"), 0, Styles['string'])
-        self.end_comment = (QtCore.QRegExp("*/"), 0, Styles['string'])
+
+        self.set_rules()
         # Primul parametru este expresia regulata, al doilea indexul ( explic acum ) si al treilea este stilul, culoarea
         # practic daca intr-o expresie ai cv paranteze, el stie ca le trateaza ca un fel de subexpresii
         
@@ -93,6 +93,11 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
             #             elementul 2 = a doua subexpresie ( adica numele clasei) 
             #                     -> aceea pentru (\w+) ( adica un cuvant format din litere, cifre si _ )
  
+
+    def set_rules(self):
+        self.start_comment = (QtCore.QRegExp("/*"), 0, Styles['string'])
+        self.end_comment = (QtCore.QRegExp("*/"), 0, Styles['string'])
+
         rules = []
 
         rules += [
@@ -157,8 +162,6 @@ class cPlusPlusHighlighter(QtGui.QSyntaxHighlighter):
         self.error_format.setUnderlineStyle(QTextCharFormat.WaveUnderline)
 
     def highlightBlock(self, text):
-
- 
 
         classNames= []
         varNames=[]

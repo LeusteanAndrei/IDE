@@ -104,7 +104,6 @@ class SettingsDialog(QDialog):
             theme_manager = ThemeManager(self.editor.highlighter)
             theme_manager.set_theme(self.theme_combo.currentText())
 
-            self.editor.highlighter.rehighlight()
             self.editor.text_edit.apply_style()
             self.editor.text_edit.update()  # Refresh the editor to apply changes      
         self.accept()

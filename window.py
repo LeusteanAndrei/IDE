@@ -1301,7 +1301,8 @@ class Ui_MainWindow(QtCore.QObject):
         cursor.endEditBlock()
         
     def on_tab_clicked(self, index):
-        print(f"[DEBUG] Tab {index} clicked!")
+        pass
+        # print(f"[DEBUG] Tab {index} clicked!")
         # Sterg orice workaround care forta saved=True sau update_tab_saved_indicator aici
         # Las doar logica de comparatie de continut sa decida dot-ul
 
