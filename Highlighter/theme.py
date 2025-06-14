@@ -191,7 +191,6 @@ class HighContrastTheme(HighlighterTheme):
         }
 
 class HighlighterThemeFactory:
-    """Factory for creating highlighter themes"""
     
     _themes = {
         'default': DefaultTheme,
@@ -206,31 +205,25 @@ class HighlighterThemeFactory:
     
     @classmethod
     def create_theme(cls, theme_name):
-        """Create a theme instance by name"""
         theme_class = cls._themes.get(theme_name.lower())
         if theme_class:
             return theme_class()
         else:
-            # Default to dark theme if unknown theme requested
-            return DarkTheme()
+            return DefaultTheme()
     
     @classmethod
     def get_available_themes(cls):
-        """Get list of available theme names"""
         return list(cls._themes.keys())
     
     @classmethod
     def register_theme(cls, name, theme_class):
-        """Register a new theme"""
         cls._themes[name.lower()] = theme_class
 
 class ThemeManager:
-    """Manages theme switching for the highlighter"""
     
     def __init__(self, highlighter):
         self.highlighter = highlighter
         self.current_theme = DefaultTheme()
-        # self.apply_theme()
     
     def set_theme(self, theme_name):
         """Set the current theme"""
