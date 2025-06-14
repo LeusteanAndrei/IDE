@@ -128,42 +128,8 @@ class ThemeManager:
 
 - Observer - folosit de PyQt pentru event handling
 - MVC -  folosita pentru a separa design-ul de logica implementarii
-- Adapter - folosit prin clasa LSP care face legatura intre server si editorul nostru pentru a putea trimite si interpreta mesaje intr-un mod usor
-```
-class LspProcess():
+- Adapter - folosit prin intermediul clasei LspProcess care face legatura intre server si editorul nostru pentru a putea trimite si interpreta mesaje intr-un mod usor
 
-    def __init__(self, editor):
-        self.editor = editor
-        self.text_edit = editor.text_edit
-        self.lsp_process = None
-        self.version = 0
-        self.temp_file_path = None
-        self.temp_file_uri = None
-        self.lsp_path = "./LLVM/bin/clangd.exe"
-
-      def handle_message(self, message):
-        if 'method' in message:
-            match message['method']:
-                case 'textDocument/publishDiagnostics':
-                    Log.logger.info("Diagnostics received from LSP.")
-                    self.handle_diagnostics(message)
-        elif 'result' in message:
-            match message['id']:
-                case 0:
-                    # in acest caz e raspunsul la request ul de initializare
-                    # pt id-uri in reqests.py e id-ul fiecaruai pus de mine, tre doar sa fie unic
-                    # momentan 0 - initializare, 1 - completion
-                    Log.logger.info("LSP initialized successfully.")
-                    # tre acum sa ii spunem sa deschidem documentul
-                    self.open_document()
-                case 1:
-                    Log.logger.info("Received a completion response from LSP.")
-                    self.handle_completion(message)
-                    self.editor.completion_popup.show_completions()
-                case 2:
-                    Log.logger.info("Received hover response.")
-                    self.handle_hover(message)
-```
 
 ## AUTOMATED TESTS:
 For testing, we have used 4 classes which check the correct implementation of different aspects, like:
