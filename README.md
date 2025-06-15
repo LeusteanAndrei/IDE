@@ -16,6 +16,8 @@ TuC++ is a C/C++ IDE tailored for the needs of a beginner programmer - it has an
 
 ## DEMO:
 
+https://www.youtube.com/watch?v=qtvvLw1izGc&ab_channel=AndreiLeustean
+
 ## JIRA: 
 We used Jira to distribute and control the workflow.
 Link:
@@ -49,9 +51,8 @@ In the development process of the application, we used:
 - PyQt5: Used for the general implementation of the app, from design to functionalities.
 
 ## DESIGN PATTERNS:
-In proiect am folosit mai multe design patterns atat prin intermediul lui PyQt cat si speciale pentru nevoile noastre:
-- Singleton - pentru clase pentru care nu era nevoie de mai multe instante precum clasa Logger, o clasa ajutatoare care scriea intr-un fisier in detaliu mesajele primite de la LSP pentru a ne asigura de functionarea corecta a acestuia:
-  
+Throughout the project we've used many design patterns, be it through the implementation of PyQt, or hand made by us to suit our needs:
+- Singleton - for classes which needed only one instance like the Logger -> a utilitary class which we used to write in detail the messages and notifications received from the LSP to test it's correct functionality
     ```
   
      class Logger:
@@ -77,7 +78,7 @@ In proiect am folosit mai multe design patterns atat prin intermediul lui PyQt c
                 Logger._initialized = True
      ```
 
-- Builder - pentru a putea crea cu usurinta diferite stiluri CSS pentru obiectele din aplicatie:
+- Builder - for easily creating diverse CSS styles for our objects
 ```
 def get_editor_style():
     return(QtStyleBuilder()
@@ -96,7 +97,7 @@ def get_main_window_style():
 
 ```
 
-- Abstract Factory - folosita pentru a crea cu usurinta diverse teme de culoare pentru highlighting:
+- Abstract Factoru - used for the creation and management of colour themes for the highlighter
 ```
 class HighlighterThemeFactory:
 
@@ -126,10 +127,9 @@ class ThemeManager:
         self.highlighter.rehighlight(all =True)
 ```
 
-- Observer - folosit de PyQt pentru event handling
-- MVC -  folosita pentru a separa design-ul de logica implementarii
-- Adapter - folosit prin intermediul clasei LspProcess care face legatura intre server si editorul nostru pentru a putea trimite si interpreta mesaje intr-un mod usor
-
+- Observer - used by PyQt for event handling
+- MVC - used to separate the design from the actual implementation
+- Adapter - used through the LspProcess class which created the connection from the Lsp server to our editor, offering functions for easily sending and receiving messages
 
 ## AUTOMATED TESTS:
 For testing, we have used 4 classes which check the correct implementation of different aspects, like:
