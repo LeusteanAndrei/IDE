@@ -596,6 +596,7 @@ struct Edge {
 
 template <typename T>
 bool bellmanFord(vector<Edge<T>> &edges, int V, int src, vector<T> &dist) {
+    // v = number of vertices
     T INF = numeric_limits<T>::max();
     dist.assign(V, INF);
     dist[src] = 0;

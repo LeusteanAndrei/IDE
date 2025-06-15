@@ -550,7 +550,8 @@ class Ui_MainWindow(QtCore.QObject):
         self.gridLayout.addLayout(self.buttonLayout, 4, 0, 1, 2)
         
     def put_svg_icon(self):
-        self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
+        # self.buttons[2].setIcon(QtGui.QIcon("svg/New_file.svg"))
+        pass
         
     def connect_buttons_list(self, MainWindow):
 
@@ -558,7 +559,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.buttons[1].clicked.connect(lambda: self.show_settings_dialog(MainWindow=MainWindow))
         
         #Aici se deschide o chestie cu settings
-        # self.buttons[2].setText("New File")
+        self.buttons[2].setText("New File")
         self.buttons[2].clicked.connect(self.handle_new_file)  # New File button
         self.buttons[3].setText("Open")
         self.buttons[3].clicked.connect(self.handle_open_file)  # Open File button
@@ -672,7 +673,7 @@ class Ui_MainWindow(QtCore.QObject):
         self.gridLayout.addLayout(self.sectionLayout, 2, 0, 1, 2)
         self.gridLayout.addItem(QtWidgets.QSpacerItem(0, 12), 3, 0, 1, 2)  # spațiu între meniu și shortcut buttons
         self.setup_buttons()
-        self.put_svg_icon()  # Add SVG icon to the Cut button
+        # self.put_svg_icon()  # Add SVG icon to the Cut button
 
 
         self.connect_buttons_list(MainWindow)  # Connect buttons to their respective functions
@@ -1026,6 +1027,11 @@ class Ui_MainWindow(QtCore.QObject):
             self.file_model.setRootPath(folder_path)
             self.tree_view.setRootIndex(self.file_model.index(folder_path))
             self.tree_view.show()
+            editor = self.plainTextEdit.text_edit
+            if not editor.isVisible():
+                editor.parentWidget().show()  # Show the parent/container
+                editor.show()
+
             self.update_root_folder_label()
 
     def handle_open_file_path(self, file_path):
