@@ -16,6 +16,8 @@ TuC++ is a C/C++ IDE tailored for the needs of a beginner programmer - it has an
 
 ## DEMO:
 
+https://www.youtube.com/watch?v=qtvvLw1izGc&ab_channel=AndreiLeustean
+
 ## JIRA: 
 We used Jira to distribute and control the workflow.
 Link:
